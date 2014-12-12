@@ -7,17 +7,12 @@ $index_check = "active";
  */
 # Will add Offline feature later
 #define("OFFLINE", false);
-#if (OFFLINE == true){
-#    include 'inc/offline_header.inc.php';
-#    include 'inc/offline_navbar.inc.php';
-#    include 'inc/offline_body.inc.php';
-#    include 'inc/offline_footer.inc.php';
-#}
+if (OFFLINE == true){
+    include 'inc/offline.inc.php';
+}
 
 include 'lib/db_config.php';
-#$DOC_ROOT = filter_input(SERVER, 'DOCUMENT_ROOT',FILTER_SANITIZE_URL);
-$DOC_ROOT = $_SERVER['DOCUMENT_ROOT'];
-$plugin_dir = $DOC_ROOT.BASE_PATH."plugins";
+$plugin_dir = ltrim(BASE_PATH."plugins",'/');
 $link = mysql_connect(DB_HOST,DB_USER,DB_PASS);
 mysql_select_db(DB_NAME,$link);
 $plugin_installed_sql = "SELECT pm.page_name as name, p.name as plugin_name FROM page_maps pm LEFT JOIN plugins p ON pm.plugin_parent = p.id where p.installed = 1 and p.disabled = 0 and p.is_admin=0";

@@ -1,6 +1,4 @@
         <div class="col-sm-9 col-md-9">
-          <h1 class="page-header">Patches</h1>
-          <h2 class="sub-header">Servers Needing patches</h2>
           <div class="error-template">
                 <img src='<?php echo BASE_PATH;?>img/404.png' title="4 oh 4" alt="You messed up. Try again"/>
                 <h1>

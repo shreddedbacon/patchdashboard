@@ -19,6 +19,8 @@ if (!isset($index_check) || $index_check != "active"){
     <link href="<?php echo BASE_PATH;?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo BASE_PATH;?>css/jquery.easy-pie-chart.css" rel="stylesheet">
     <link href="<?php echo BASE_PATH;?>css/dashboard.css" rel="stylesheet">
+    <link href="<?php echo BASE_PATH;?>css/bootstrap-switch.min.css" rel="stylesheet">
+    <link href="<?php echo BASE_PATH;?>css/bootstrapValidator.min.css" rel="stylesheet">
   </head>
   <body onload="initPieChart();">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -35,6 +37,7 @@ if (!isset($index_check) || $index_check != "active"){
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="<?php echo BASE_PATH;?>">Patch List</a></li>
+	    <li><a href="<?php echo BASE_PATH;?>/inc/logout.inc.php">Logout</a></li>
           </ul>
           <div class="navbar-form navbar-right">
             <input type="text" class="form-control" id="search" placeholder="Find Servers With Package..." onkeydown="if (event.keyCode == 13) NewURL(this.value);"></div>

@@ -677,7 +677,11 @@ define('DB_PASS','$db_pass');
 define('DB_NAME','$db_name');
 define('BASE_PATH','$relative_path');
 define('YOUR_COMPANY','$your_company');
-?>"
+define('PW_SALT','W[62~L41|]CU15b');
+/*
+ * SET OFFLINE to TRUE if you want to disable the site.  All functionality will cease until you re-enable the site by setting OFFLINE back to FALSE
+ */
+define('OFFLINE','FALSE');"
 
 # write shell script config
 bash_config="DB_HOST='$db_host'

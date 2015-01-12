@@ -1,6 +1,8 @@
 <?php
 include '../lib/db_config.php';
-$client_key = filter_input(INPUT_SERVER, 'HTTP_X_CLIENT_KEY');
+$data = file_get_contents("packages.txt");
+$client_key = "ENTER_KEY_HERE";
+#$client_key = filter_input(INPUT_SERVER, 'HTTP_X_CLIENT_KEY');
 $client_check_sql = "SELECT `server_name` FROM `servers` WHERE `client_key` = '$client_key' AND `trusted`=1 LIMIT 1;";
 $link = mysql_connect(DB_HOST, DB_USER, DB_PASS);
 mysql_select_db(DB_NAME, $link);
@@ -18,4 +20,4 @@ if (mysql_num_rows($client_check_res) == 1) {
         mysql_query($sql);
     }
 }
-mysql_close();
+mysql_close($link);

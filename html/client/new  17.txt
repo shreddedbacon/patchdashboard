@@ -1,0 +1,35 @@
+BC-16 BC-32 BS2000-OSD Cygwin Cygwin-pre1.3 DJGPP FreeBSD FreeBSD-alpha
+FreeBSD-elf FreeBSD-ia64 FreeBSD-sparc64 MPE/iX-gcc NetBSD-m68 NetBSD-sparc
+NetBSD-x86 OS2-EMX OS390-Unix OpenBSD OpenBSD-alpha OpenBSD-hppa OpenBSD-i386
+OpenBSD-m68k OpenBSD-m88k OpenBSD-mips OpenBSD-powerpc OpenBSD-sparc
+OpenBSD-sparc64 OpenBSD-vax OpenUNIX-8 OpenUNIX-8-gcc ReliantUNIX SINIX
+SINIX-N UWIN VC-CE VC-MSDOS VC-NT VC-W31-16 VC-W31-32 VC-WIN16 VC-WIN32 aix-cc
+aix-gcc aix3-cc aix64-cc alpha-cc alpha-cc-rpath alpha-gcc alpha164-cc
+alphaold-cc aux3-gcc bsdi-elf-gcc bsdi-gcc cc cray-j90 cray-t3e darwin-i386-cc
+darwin-ppc-cc dgux-R3-gcc dgux-R4-gcc dgux-R4-x86-gcc dist gcc hpux-brokencc
+hpux-brokengcc hpux-cc hpux-gcc hpux-ia64-cc hpux-m68k-gcc hpux-parisc-cc
+hpux-parisc-cc-o4 hpux-parisc-gcc hpux-parisc1_1-cc hpux-parisc2-cc
+hpux10-brokencc hpux10-brokengcc hpux10-cc hpux10-gcc hpux64-ia64-cc
+hpux64-parisc-cc hpux64-parisc-gcc hpux64-parisc2-cc hpux64-parisc2-gcc
+hurd-x86 irix-cc irix-gcc irix-mips3-cc irix-mips3-gcc irix64-mips4-cc
+irix64-mips4-gcc linux-alpha+bwx-ccc linux-alpha+bwx-gcc linux-alpha-ccc
+linux-alpha-gcc linux-aout linux-elf linux-elf-arm linux-em64t linux-ia64
+linux-ia64-ecc linux-k6 linux-m68k linux-mips linux-mipsel linux-parisc
+linux-pentium linux-ppc linux-ppc64 linux-ppro linux-s390 linux-s390x
+linux-sparcv7 linux-sparcv8 linux-sparcv9 linux-x86_64 linux64-sparcv9 mingw
+ncr-scde newsos4-gcc nextstep nextstep3.3 purify qnx4 qnx6 rhapsody-ppc-cc
+sco3-gcc sco5-cc sco5-gcc solaris-sparc-sc3 solaris-sparcv7-cc
+solaris-sparcv7-gcc solaris-sparcv8-cc solaris-sparcv8-gcc solaris-sparcv9-cc
+solaris-sparcv9-gcc solaris-sparcv9-gcc27 solaris-x86-cc solaris-x86-gcc
+solaris64-sparcv9-cc solaris64-sparcv9-gcc solaris64-sparcv9-gcc31
+solaris64-x86_64-cc solaris64-x86_64-gcc sunos-gcc tandem-c89 ultrix-cc
+ultrix-gcc unixware-2.0 unixware-2.1 unixware-7 unixware-7-gcc vos-gcc vos-vcc
+vxworks-mipsle vxworks-ppc405 vxworks-ppc750 vxworks-ppc750-debug
+vxworks-ppc860 debug debug-ben debug-ben-debug debug-ben-fips-debug
+debug-ben-openbsd debug-ben-openbsd-debug debug-ben-strict debug-bodo
+debug-levitte-linux-elf debug-levitte-linux-elf-extreme
+debug-levitte-linux-noasm debug-levitte-linux-noasm-extreme debug-linux-elf
+debug-linux-elf-noefence debug-linux-pentium debug-linux-ppro debug-rse
+debug-solaris-sparcv8-cc debug-solaris-sparcv8-gcc debug-solaris-sparcv9-cc
+debug-solaris-sparcv9-gcc debug-steve debug-steve-linux-pseudo64 debug-ulf
+debug-vos-gcc debug-vos-vcc

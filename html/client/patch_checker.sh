@@ -65,4 +65,3 @@ if [[ "$need_patched" == "true" ]]; then
         curl -k -s -H "X-CLIENT-KEY: $client_key" $submit_patch_uri -d "$patch_list"
         rm -rf /tmp/patch_$client_key > /dev/null 2>&1
 fi
-

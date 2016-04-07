@@ -102,7 +102,7 @@ $all_messages_to_send = "${warning_html}${good_html}${error_html}";
     <div class="container-fluid">
 <?php echo $all_messages_to_send;unset($all_messages_to_send);?>
       <div class="row">
-        <div class="col-sm-3 col-md-3">
+        <div class="col-sm-2 col-md-2 sidebar">
             <div class="panel-group" id="accordion">
                 <?php echo $data;?>
             </div>

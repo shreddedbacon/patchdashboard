@@ -37,7 +37,7 @@ else{
     $alerts_checked = "";
 }
 ?>
-        <div class="col-sm-9 col-md-9">
+        <div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h3 class="text-center login-title">Edit/View Your Profile</h1>
             <div class="account-wall">
                 <form id ="editUser" method="POST" action="<?php echo BASE_PATH;?>plugins/main/p_profile.inc.php"><input type="hidden" name="id" value="<?php print $id;?>" />

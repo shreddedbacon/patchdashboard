@@ -6,7 +6,7 @@ if (!isset($index_check) || $index_check != "active"){
     exit();
 }
 ?>
-        <div class="col-sm-9 col-md-9">
+        <div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h3 class="text-center login-title">Add User</h1>
             <div class="account-wall">
                 <form id ="addUser" method="POST" action="<?php echo BASE_PATH;?>plugins/admin/p_add_user.inc.php"

@@ -36,10 +36,31 @@ if (!isset($index_check) || $index_check != "active"){
      $res2 = mysql_query($sql2);
      $row2 = mysql_fetch_array($res2);
      $count = $row2['total'];
+
+     $sql3 = "SELECT COUNT(*) as `total` FROM patches where server_name='$server_name' and package_name NOT IN($supressed_list) and package_name != '' and urgency='medium';";
+     $res3 = mysql_query($sql3);
+     $row3 = mysql_fetch_array($res3);
+     $count2 = $row3['total'];
+
+     $sql4 = "SELECT COUNT(*) as `total` FROM patches where server_name='$server_name' and package_name NOT IN($supressed_list) and package_name != '' and urgency='low';";
+     $res4 = mysql_query($sql4);
+     $row4 = mysql_fetch_array($res4);
+     $count3 = $row4['total'];
+
+     $sql5 = "SELECT COUNT(*) as `total` FROM patches where server_name='$server_name' and package_name NOT IN($supressed_list) and package_name != '' and urgency='high';";
+     $res5 = mysql_query($sql5);
+     $row5 = mysql_fetch_array($res5);
+     $count4 = $row5['total'];
+
+     $sql6 = "SELECT COUNT(*) as `total` FROM patches where server_name='$server_name' and package_name NOT IN($supressed_list) and package_name != '' and urgency='unknown';";
+     $res6 = mysql_query($sql6);
+     $row6 = mysql_fetch_array($res6);
+     $count5 = $row6['total'];
+
      $total_count = $total_count + $count;
      $table .= "                <tr>
                   <td><a href='{$base_path}patches/server/$server_name'><img src='$dist_img' height='32' width='32' border='0'>&nbsp;$server_alias</a></td>
-                  <td>$count</td>
+                  <td><span class='label label-default'>Total $count</span> | <span class='label label-danger'>High $count4</span> | <span class='label label-warning'>Medium $count2</span> | <span class='label label-info'>Low $count3</span> | <span class='label label-primary'>Unknown $count5</span></td>
                 </tr>
 ";
  }
@@ -50,7 +71,7 @@ if ($percent_good_to_go < 0){
     $percent_good_to_go = 0;
 }
 ?>
-        <div class="col-sm-9 col-md-9">
+        <div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Patch List</h1>
 	    <div class="chart">
                 <div class="percentage" data-percent="<?php echo $percent_good_to_go;?>"><span><?php echo $percent_good_to_go;?></span>%</div>

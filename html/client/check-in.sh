@@ -1,4 +1,5 @@
 #!/bin/bash
+PATH=/usr/bin:/bin:/usr/sbin:/sbin
 auth_key="__SERVER_AUTHKEY_SET_ME__"
 server_uri="__SERVER_URI_SET_ME__"
 check_in="${server_uri}client/check-in.php"

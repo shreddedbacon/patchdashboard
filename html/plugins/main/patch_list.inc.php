@@ -66,6 +66,7 @@ if (!isset($index_check) || $index_check != "active"){
                 $urgency = "<td>$urgency</td>";
      }
      $table .= "                <tr>
+                  <td><input type='checkbox' name='patch_id[]' value='".$row1['id']."'>
                   <td><a href='${base_path}search/exact/$package_name_orig' style='color:green'>$package_name</a></td>
                   <td>$current</td>
                   <td>$new</td>
@@ -80,13 +81,18 @@ else{
         $apt_cmd = "<code>$apt_cmd</code>";
 }
 ?>
+<div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">List Packages to Install</h1>
-          <h2 class="sub-header"><?php echo $server_alias;?>(<a href="<?php echo BASE_PATH;?>packages/server/<?php echo $server_name;?>">List all installed packages</a>)</h2><br /><p>(<a href="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php?id=<?php echo $id;?>" style="color:green;">Install all patches not suppressed</a> | <a href="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php?reboot=1&id=<?php echo $id;?>" style="color:red;">Install all patches not suppressed and reboot</a>)</p>
+          <h2 class="sub-header"><?php echo $server_alias;?>(<a href="<?php echo BASE_PATH;?>packages/server/<?php echo $server_name;?>">List all installed packages</a>)</h2>
+	  <br /><form action="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php" method="get"><input type="hidden" value="<?php echo $id;?>" name="id">
+          <p align="center">
+          <button type="submit" class="btn btn-primary" name="selected">Install selected patches</button> | <a class="btn btn-success" href="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php?id=<?php echo $id;?>">Install all patches not suppressed</a> | <a class="btn btn-danger" href="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php?reboot=1&id=<?php echo $id;?>">Install all patches not suppressed and reboot</a></p>
         <div class="container">
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
                 <tr>
+                  <th>Select</th>
                   <th>Package Name</th>
                   <th>Current Version</th>
                   <th>New Version</th>
@@ -97,7 +103,8 @@ else{
               <tbody>
 <?php echo $table;?>
               </tbody>
-            </table></div>
+            </table></div></form>
 <?php echo $apt_cmd;?>
           </div>
-        </div></div>
+        </div>
+</div>

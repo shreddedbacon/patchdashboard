@@ -9,7 +9,7 @@ $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 if (!isset($id) || empty($id) || !is_numeric($id)) {
     $_SESSION['error_message'] = "Invalid user ID";
     ?>
-    <div class="col-sm-9 col-md-9">
+    <div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h3 class="text-center login-title">INVALID SERVER</h3>
         <div class="account-wall">
             Please try again. <a href="javascript:history.back()">Back</a>
@@ -67,7 +67,7 @@ if (!isset($id) || empty($id) || !is_numeric($id)) {
         $last_check = $last_checkin;
     }
     ?>
-    <div class="col-sm-9 col-md-9">
+    <div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h3 class="text-center login-title">Edit Server (<?php echo $server_name; ?>)</h3>
         <div class="account-wall">
             <form id ="editUser" method="POST" action="<?php echo BASE_PATH; ?>plugins/admin/p_edit_server.inc.php"><input type="hidden" name="id" value="<?php print $id; ?>" />

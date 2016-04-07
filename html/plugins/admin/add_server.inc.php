@@ -16,7 +16,7 @@ else{
 include '../lib/db_config.php';
 $SERVER_URI = $protocol.$_SERVER['HTTP_HOST'].BASE_PATH;
 ?>
-        <div class="col-sm-9 col-md-9">
+        <div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <div class="error-template">
                 <h1>Adding a server</h1>
                 <h2>Howto:</h2>

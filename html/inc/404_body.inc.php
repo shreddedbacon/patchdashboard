@@ -1,4 +1,4 @@
-        <div class="col-sm-9 col-md-9">
+        <div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <div class="error-template">
                 <img src='<?php echo BASE_PATH;?>img/404.png' title="4 oh 4" alt="You messed up. Try again"/>
                 <h1>

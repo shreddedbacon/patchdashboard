@@ -12,6 +12,10 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true) {
         $servername_row = mysql_fetch_array($servername_res);
         $server_name = $servername_row['server_name'];
         mysql_query($sql);
+        $sql2 = "DELETE FROM `patches` WHERE `server_name`='".$server_name."';";
+        mysql_query($sql2);
+        $sql2 = "DELETE FROM `patch_allpackages` WHERE `server_name`='".$server_name."';";
+        mysql_query($sql2);
         mysql_close($link); 
         $_SESSION['good_notice'] = "$server_name DELETED!!! 1Gigawat of storage freed up.  I never learned how to calculate storage...";
             header('location:'.BASE_PATH.'manage_servers');

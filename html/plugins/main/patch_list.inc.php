@@ -54,16 +54,20 @@ if (!isset($index_check) || $index_check != "active"){
                 }
         }
      if (in_array($urgency,array('high','emergency'))){
-                $urgency = "<td style='color:red'><a href='http://www.ubuntuupdates.org/package/core/trusty/main/updates/$package_name_orig' style='color:red' target='_blank'>$urgency</a></td>";
+                //$urgency = "<td style='color:red'><a href='http://www.ubuntuupdates.org/package/core/trusty/main/updates/$package_name_orig' style='color:red' target='_blank'>$urgency</a></td>";
+                $urgency = '<td><span class="label label-danger">'.$urgency.'</span></td>';
      }
      elseif ($urgency == "medium"){
-                $urgency = "<td style='color:#FF8C00'><a href='http://www.ubuntuupdates.org/package/core/trusty/main/updates/$package_name_orig' style='color:#FF8C00' target='_blank'>medium</a></td>";
+                //$urgency = "<td style='color:#FF8C00'><a href='http://www.ubuntuupdates.org/package/core/trusty/main/updates/$package_name_orig' style='color:#FF8C00' target='_blank'>medium</a></td>";
+                $urgency = '<td><span class="label label-warning">'.$urgency.'</span></td>';
      }
      elseif ($urgency == "low") {
-                $urgency = "<td><a href='http://www.ubuntuupdates.org/package/core/trusty/main/updates/$package_name_orig' style='color:black' target='_blank'>$urgency</a></td>";
+                //$urgency = "<td><a href='http://www.ubuntuupdates.org/package/core/trusty/main/updates/$package_name_orig' style='color:black' target='_blank'>$urgency</a></td>";
+                $urgency = '<td><span class="label label-info">'.$urgency.'</span></td>';
      }
      else{
-                $urgency = "<td>$urgency</td>";
+                //$urgency = "<td>$urgency</td>";
+                $urgency = '<td><span class="label label-primary">'.$urgency.'</span></td>';
      }
      $table .= "                <tr>
                   <td><input type='checkbox' name='patch_id[]' value='".$row1['id']."'>

@@ -78,7 +78,7 @@ if ($package_count == 0){
         $apt_cmd = "";
 }
 else{
-        $apt_cmd = "<code>$apt_cmd</code>";
+        $apt_cmd = "<pre class='pre-scrollable'>".$apt_cmd."</pre>";
 }
 ?>
 <div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

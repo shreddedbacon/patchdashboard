@@ -27,7 +27,7 @@ if (!isset($id) || empty($id) || !is_numeric($id)) {
     $server_group = $row['server_group'];
     ?>
     <div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h3 class="text-center login-title">Edit Server (<?php echo $server_name; ?>)</h3>
+        <h3 class="text-center login-title">Edit Server (<?php echo $server_group; ?>)</h3>
         <div class="account-wall">
             <form id ="editUser" method="POST" action="<?php echo BASE_PATH; ?>plugins/admin/p_edit_server_group.inc.php"><input type="hidden" name="id" value="<?php print $id; ?>" />
                 <div class="form-group"><label class="col-sm-5 control-label">Server Group</label><div class="col-sm-5"><input value="<?php echo $server_group; ?>" type="text" name="server_group" class="form-control" placeholder="Server Group" ></div></div>

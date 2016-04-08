@@ -13,8 +13,15 @@ $table = "";
 while ($row = mysql_fetch_assoc($res)){
     $id = $row['id'];
     $server_group = $row['server_group'];
+
+    $sql2 = "SELECT count(*) as total_found FROM servers WHERE server_group='".$server_group."';";
+    $res2 = mysql_query($sql2);
+    $server_group_list = mysql_fetch_array($res2);
+    $server_group_count = $server_group_list['total_found'];
     $table .="                          <tr>
 					<td>$server_group</td>
+          <td>$server_group_count</td>
+          <td><a href='".BASE_PATH."edit_server_group?id=$id'>Edit</a> | $active_action | <a href='".BASE_PATH."plugins/admin/delete_server_group.inc.php?id=$id'>Delete</a></td>
           </tr>
 ";
 }
@@ -28,6 +35,8 @@ while ($row = mysql_fetch_assoc($res)){
               <thead>
                 <tr>
                   <th>Server Group</th>
+                  <th>Servers in Group</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>

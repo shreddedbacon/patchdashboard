@@ -16,11 +16,22 @@ $distro_map_res = mysql_query($distro_map_sql);
 while ($distro_map_row = mysql_fetch_assoc($distro_map_res)){
     $distro_array[$distro_map_row['distro_id']][$distro_map_row['version_id']] = str_replace("_"," ",$distro_map_row['distro_name']." ".$distro_map_row['version_num']);
 }
+
+$sg_sql = "SELECT * FROM server_group;";
+$sg_res = mysql_query($sg_sql);
+$sg_array = mysql_fetch_assoc($sg_res);
+
 while ($row = mysql_fetch_assoc($res)){
     $id = $row['id'];
     $server_name = $row['server_name'];
     $server_alias = $row['server_alias'];
     $server_group = $row['server_group'];
+    for ($sg=0;$sg<count($sg_array);$sg++) {
+      if ($server_group == $sg_array[$sg]['id']) {
+        $server_group = $sg_array[$sg]['server_group'];
+      }
+    }
+
     $distro_id = $row['distro_id'];
     $server_ip = $row['server_ip'];
     $distro_version = $row['distro_version'];
@@ -37,7 +48,7 @@ while ($row = mysql_fetch_assoc($res)){
     if ($last_seen == "0000-00-00 00:00:00"){
         $last_seen = "Never";
     }
-    
+
         if ($trusted == 1){
                 $active_action = "<a href='".BASE_PATH."plugins/admin/deactivate_server.inc.php?id=$id'>Deactivate/Distrust</a>";
         }

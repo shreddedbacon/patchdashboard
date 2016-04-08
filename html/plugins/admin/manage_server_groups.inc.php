@@ -18,10 +18,15 @@ while ($row = mysql_fetch_assoc($res)){
     $res2 = mysql_query($sql2);
     $server_group_list = mysql_fetch_array($res2);
     $server_group_count = $server_group_list['total_found'];
+
+    $delete="";
+    if ($server_group_count == 0) {
+      $delete=" | <a href='".BASE_PATH."plugins/admin/delete_server_group.inc.php?id=$id'>Delete</a>";
+    }
     $table .="                          <tr>
 					<td>$server_group</td>
           <td>$server_group_count</td>
-          <td><a href='".BASE_PATH."edit_server_group?id=$id'>Edit</a> | $active_action | <a href='".BASE_PATH."plugins/admin/delete_server_group.inc.php?id=$id'>Delete</a></td>
+          <td><a href='".BASE_PATH."edit_server_group?id=$id'>Edit</a>$delete</td>
           </tr>
 ";
 }

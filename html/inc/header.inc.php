@@ -21,6 +21,7 @@ if (!isset($index_check) || $index_check != "active") {
         <link href="<?php echo BASE_PATH; ?>css/dashboard.css" rel="stylesheet">
         <link href="<?php echo BASE_PATH; ?>css/bootstrap-switch.min.css" rel="stylesheet">
         <link href="<?php echo BASE_PATH; ?>css/bootstrapValidator.min.css" rel="stylesheet">
+        <link href="<?php echo BASE_PATH; ?>css/font-awesome.min.css" rel="stylesheet">
         <style>
             .alert {
                 width:100%;

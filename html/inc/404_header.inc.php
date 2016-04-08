@@ -18,6 +18,7 @@ if (!isset($index_check) || $index_check != "active"){
     <title>Patch Management Dashboard</title>
     <link href="<?php echo BASE_PATH;?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo BASE_PATH;?>css/dashboard.css" rel="stylesheet">
+    <link href="<?php echo BASE_PATH;?>css/font-awesome.min.css" rel="stylesheet">
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

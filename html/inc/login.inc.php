@@ -35,6 +35,7 @@ else{
 
     <!-- Custom styles for this template -->
     <link href="<?php echo BASE_PATH;?>css/dashboard.css" rel="stylesheet">
+    <link href="<?php echo BASE_PATH;?>css/font-awesome.min.css" rel="stylesheet">
   </head>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">

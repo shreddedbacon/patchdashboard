@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -19,6 +19,7 @@
     <link href="/patch_manager2/patchdashboard/html/css/bootstrap.min.css" rel="stylesheet">
     <link href="/patch_manager2/patchdashboard/html/css/jquery.easy-pie-chart.css" rel="stylesheet">
     <link href="/patch_manager2/patchdashboard/html/css/dashboard.css" rel="stylesheet">
+    <link href="<?php echo BASE_PATH;?>css/font-awesome.min.css" rel="stylesheet">
   </head>
   <body onload="initPieChart();">
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

@@ -178,3 +178,12 @@ INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navba
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('add_server','add_server.inc.php',2,1,'fa fa-plus-square');
 -- CREATE TABLE `wsus_data` (
 -- ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `server_group` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `server_group` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ix_server_group` (`server_group`),
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+INSERT IGNORE INTO server_group(id,server_group) VALUES(1,'Default');

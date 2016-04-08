@@ -23,13 +23,20 @@ if (!isset($id) || empty($id) || !is_numeric($id)) {
     $distro_map_res = mysql_query($distro_map_sql);
     $select_html = "<select class='form-control custom' name='distro_ver_id'>";
 
+    $server_group_map_sql = "SELECT * FROM server_group;";
+    $server_group_map_res = mysql_query($server_group_map_sql);
+
+    $select_html_sg = "<select class='form-control custom' name='server_group'>";
+
     $sql_edit_server = "SELECT * FROM `servers` WHERE id=$id limit 1;";
     $res_edit_server = mysql_query($sql_edit_server);
     $row = mysql_fetch_array($res_edit_server);
     $id = $row['id'];
     $server_name = $row['server_name'];
     $server_alias = $row['server_alias'];
+
     $server_group = $row['server_group'];
+
     $distro_id_main = $row['distro_id'];
     $server_ip = $row['server_ip'];
     $last_checkin = $row['last_checked'];
@@ -47,6 +54,18 @@ if (!isset($id) || empty($id) || !is_numeric($id)) {
         }
         $distro_array[$distro_map_row['distro_id']][$distro_map_row['version_id']] = $distro_ver_name;
     }
+
+    while ($server_group_map_row = mysql_fetch_assoc($server_group_map_res)) {
+        $server_group_id = $server_group_map_row['id'];
+        $server_group_name = $server_group_map_row['server_group'];
+        if ("$server_group_id" == "$server_group") {
+            $select_html_sg .= "\t\t\t\t\t<option value='$server_group_id' selected='selected'>$server_group_name</option>\n";
+        } else {
+            $select_html_sg .= "\t\t\t\t\t<option value='$server_group_id'>$server_group_name</option>\n";
+        }
+    }
+
+
     if ($trusted == 1) {
         $trusted_checked = "checked";
     } else {
@@ -75,7 +94,7 @@ if (!isset($id) || empty($id) || !is_numeric($id)) {
                 <div class="form-group"><label class="col-sm-5 control-label">Last Checked for updates</label><div class="col-sm-5"><input type="text" name="last_checkin" value="<?php echo $last_check; ?>" class="form-control" readonly /></div></div>
                 <div class="form-group"><label class="col-sm-5 control-label">Server Name</label><div class="col-sm-5"><input value="<?php echo $server_name; ?>" type="text" name="server_name" class="form-control" placeholder="Server Name" required autofocus ></div></div>
                 <div class="form-group"><label class="col-sm-5 control-label">Server Alias</label><div class="col-sm-5"><input value="<?php echo $server_alias; ?>" type="text" name="server_alias" class="form-control" placeholder="Server Alias" required autofocus ></div></div>
-                <div class="form-group"><label class="col-sm-5 control-label">Server Group</label><div class="col-sm-5"><input value="<?php echo $server_group; ?>" type="text" name="server_group" class="form-control" placeholder="Server Group" ></div></div>
+                <div class="form-group"><label class="col-sm-5 control-label">Server Group</label><div class="col-sm-5"><?php echo $select_html_sg;?></div></div>
                 <div class="form-group"><label class="col-sm-5 control-label">IP Address</label><div class="col-sm-5"><input type="text" name="server_ip" value="<?php echo $server_ip; ?>" class="form-control" placeholder="IP Address" /></div></div>
                 <div class="form-group"><label class="col-sm-5 control-label">Distro</label><div class="col-sm-5"><?php echo $select_html;?></div></div>
                 <div class="form-group"><label class="col-sm-5 control-label">Trusted?</label><div class="col-sm-5"><input type="checkbox" name="trusted" class="form-control" <?php echo $trusted_checked; ?>></div></div>

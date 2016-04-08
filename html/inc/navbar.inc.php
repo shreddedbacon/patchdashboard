@@ -20,7 +20,7 @@ foreach ($navbar_array as $key=>$val){
             $data .= "<div class='panel panel-default'>
                     <div class='panel-heading'>
                         <h4 class='panel-title'>
-                            <a data-toggle='collapse' data-parent='#accordion' href='#collapse$plugin2'><span class='glyphicon $plugin2_glyph'>
+                            <a data-toggle='collapse' data-parent='#accordion' href='#collapse$plugin2'><span class='$plugin2_glyph'>
                             &nbsp;&nbsp;</span>$plugin_name</a>
                         </h4>
                     </div>
@@ -32,7 +32,7 @@ foreach ($navbar_array as $key=>$val){
         $page_string = $tmp_array[0];
         $page_words = ucwords(str_replace("_"," ",$page_string));
         if (isset($tmp_array[1])){
-            $page_glyph = "<span class=\"glyphicon ".$tmp_array[1]." text-primary\"></span>&nbsp;&nbsp;";
+            $page_glyph = "<span class=\"".$tmp_array[1]." text-primary\"></span>&nbsp;&nbsp;";
         }
         else{
             $page_glyph = "";

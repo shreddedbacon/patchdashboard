@@ -184,6 +184,6 @@ CREATE TABLE `server_group` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `server_group` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `ix_server_group` (`server_group`),
+  KEY `ix_server_group` (`server_group`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 INSERT IGNORE INTO server_group(id,server_group) VALUES(1,'Default');

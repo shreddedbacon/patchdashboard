@@ -69,6 +69,7 @@ if (!isset($index_check) || $index_check != "active"){
      $sql_patch_avail = mysql_fetch_assoc($sql_patch_avail);
      
      $update_avail = "";
+     $update_checkbox = "";
      if (isset($updates_only)) {
        if ($updates_only == 'true') {
          $display_table = 'false';
@@ -80,11 +81,15 @@ if (!isset($index_check) || $index_check != "active"){
      }
      if (!empty($sql_patch_avail)) {
 	$update_avail = " | <span class='label label-primary'>Update available : ".$sql_patch_avail['new']."</span>";
+        $update_checkbox = "<input type='checkbox' name='patch_id[]' value='".$sql_patch_avail['id']."'>";
         $display_table = 'true';
+     } else {
+        $update_avail = " | <span class='label label-success'>Up to date :)</span>";
      }
      
      if ($display_table == 'true') {
      $table .= "                <tr>
+                  <td>".$update_checkbox."</td>
 		  <td><a href='${base_path}patches/server/$server_name' style='color:black'>$server_name</a></td>
                   <td><a href='${base_path}search/exact/$package_name' style='color:green'>$package_name</a>".$update_avail."</td>
 		  <td>$package_version</td>
@@ -102,6 +107,7 @@ if (!isset($index_check) || $index_check != "active"){
             <table class="table table-striped">
              <thead>
                 <tr>
+                  <th>Select</th>
                   <th>Server Name</th>
                   <th>Package Name</th>
                   <th>Package Version</th>

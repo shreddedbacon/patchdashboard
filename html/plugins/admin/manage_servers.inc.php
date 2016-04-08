@@ -19,16 +19,21 @@ while ($distro_map_row = mysql_fetch_assoc($distro_map_res)){
 
 $sg_sql = "SELECT * FROM server_group;";
 $sg_res = mysql_query($sg_sql);
-$sg_array = mysql_fetch_assoc($sg_res);
-print_r($sg_array);
+$sg_array = array();
+$sg_count = 0;
+while ($sg_row = mysql_fetch_assoc($sg_res)){
+  $sg_array[$sg_count]['id'] = $sg_row['id'];
+  $sg_array[$sg_count]['server_group'] = $sg_row['server_group'];
+  $sg_count++;
+}
 
 while ($row = mysql_fetch_assoc($res)){
     $id = $row['id'];
     $server_name = $row['server_name'];
     $server_alias = $row['server_alias'];
-    $server_group = $row['server_group'];
+    $server_group2 = $row['server_group'];
     for ($sg=0;$sg<=count($sg_array);$sg++) {
-      if ($server_group == $sg_array[$sg]['id']) {
+      if ($server_group2 == $sg_array[$sg]['id']) {
         $server_group = $sg_array[$sg]['server_group'];
       }
     }

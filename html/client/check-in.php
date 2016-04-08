@@ -37,6 +37,13 @@ check_patches='FALSE'";
     } else {
         $time_sql = "SELECT * FROM `servers` WHERE `last_checked` < NOW() - INTERVAL 2 HOUR AND `client_key`='$client_key' LIMIT 1;";
         $time_res = mysql_query($time_sql);
+
+        $time_sql2 = "SELECT * FROM `servers` WHERE `client_key`='$client_key' LIMIT 1;";
+        $time_res2 = mysql_query($time_sql2);
+	$server_name = mysql_fetch_assoc($time_res2);
+	$updated_packages = "SELECT * from `patches` WHERE `upgraded`=1 AND `server_name`='".$server_name['server_name']."'";
+        $updated_packages = mysql_query($updated_packages);
+
         if (mysql_num_rows($time_res) == 1) {
             $CHECK_PATCHES = "TRUE";
             mysql_query("UPDATE `servers` SET `last_checked` = NOW() WHERE `client_key` = '$client_key' LIMIT 1;");
@@ -44,6 +51,9 @@ check_patches='FALSE'";
         } else {
             $CHECK_PATCHES = "FALSE";
         }
+        if (mysql_num_rows($updated_packages) > 1) {
+	    $CHECK_PATCHES = "TRUE";
+	}
         $sql2 = "UPDATE `servers` SET `last_seen` = NOW() WHERE `client_key`='$client_key';";
         #echo $sql2;
         mysql_query($sql2);

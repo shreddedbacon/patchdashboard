@@ -27,9 +27,6 @@ if (!isset($index_check) || $index_check != "active"){
          break;
      }
    }
-//   $sql_server_group = "SELECT server_name from servers WHERE server_group IN '".$server_group."';";
-//   $sql_server_group = mysql_query($sql_server_group);
-//   $sql_patch_avail = mysql_fetch_assoc($sql_patch_avail);
  } 
 
  if (isset($server_group)) {
@@ -68,6 +65,10 @@ if (!isset($index_check) || $index_check != "active"){
      $sql_patch_avail = mysql_query($sql_patch);
      $sql_patch_avail = mysql_fetch_assoc($sql_patch_avail);
      
+     $sql_server_id = "SELECT id FROM servers WHERE server_name = '$server_name'";
+     $sql_server_id2= mysql_query($sql_server_id);
+     $sql_server_id2 = mysql_fetch_assoc($sql_server_id2);
+ 
      $update_avail = "";
      $update_checkbox = "";
      if (isset($updates_only)) {
@@ -81,7 +82,7 @@ if (!isset($index_check) || $index_check != "active"){
      }
      if (!empty($sql_patch_avail)) {
 	$update_avail = " | <span class='label label-primary'>Update available : ".$sql_patch_avail['new']."</span>";
-        $update_checkbox = "<input type='checkbox' name='patch_id[]' value='".$sql_patch_avail['id']."'>";
+        $update_checkbox = "<input type='checkbox' name='p_id[".$count."][patch_id]' value='".$sql_patch_avail['id']."'>";
         $display_table = 'true';
      } else {
         $update_avail = " | <span class='label label-success'>Up to date :)</span>";
@@ -89,7 +90,7 @@ if (!isset($index_check) || $index_check != "active"){
      
      if ($display_table == 'true') {
      $table .= "                <tr>
-                  <td>".$update_checkbox."</td>
+                  <td>".$update_checkbox."<input type='hidden' name='p_id[".$count."][server_id]' value='".$sql_server_id2['id']."'></td>
 		  <td><a href='${base_path}patches/server/$server_name' style='color:black'>$server_name</a></td>
                   <td><a href='${base_path}search/exact/$package_name' style='color:green'>$package_name</a>".$update_avail."</td>
 		  <td>$package_version</td>
@@ -104,7 +105,9 @@ if (!isset($index_check) || $index_check != "active"){
           <h3 class="sub-header">Results for search "<?php echo $package;?>" (<?php echo $count;?> found)</h3>
         <div class="container">
           <div class="table-responsive">
-            <table class="table table-striped">
+<form action="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php" method="get">     
+           <button type="submit" class="btn btn-primary" name="search">Install selected patches</button>
+           <table class="table table-striped">
              <thead>
                 <tr>
                   <th>Select</th>
@@ -119,4 +122,5 @@ if (!isset($index_check) || $index_check != "active"){
             </table>
           </div>
         </div>
+</form>
 </div>

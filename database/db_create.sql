@@ -178,7 +178,7 @@ INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navba
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('add_server','add_server.inc.php',2,1,'fa fa-plus-square');
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('manage_server_groups','manage_server_groups.inc.php',2,1,'fa fa-files-o');
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('edit_server_group','edit_server_group.inc.php',2);
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('add_server_group','add_server_group.inc.php',2,1,'fa fa-plus-square');
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('add_server_group','add_server_group.inc.php',2,1,'fa fa-plus-square');
 -- CREATE TABLE `wsus_data` (
 -- ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

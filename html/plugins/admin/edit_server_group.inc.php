@@ -20,7 +20,7 @@ if (!isset($id) || empty($id) || !is_numeric($id)) {
     $link_edit_user = mysql_connect(DB_HOST, DB_USER, DB_PASS);
     mysql_select_db(DB_NAME, $link_edit_user);
 
-    $sql_edit_server = "SELECT * FROM `servers_groups` WHERE id=$id limit 1;";
+    $sql_edit_server = "SELECT * FROM `server_group` WHERE id=$id limit 1;";
     $res_edit_server = mysql_query($sql_edit_server);
     $row = mysql_fetch_array($res_edit_server);
     $id = $row['id'];

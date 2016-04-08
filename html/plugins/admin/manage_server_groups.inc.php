@@ -14,7 +14,7 @@ while ($row = mysql_fetch_assoc($res)){
     $id = $row['id'];
     $server_group = $row['server_group'];
 
-    $sql2 = "SELECT count(*) as total_found FROM servers WHERE server_group='".$server_group."';";
+    $sql2 = "SELECT count(*) as total_found FROM servers WHERE server_group='".$id."';";
     $res2 = mysql_query($sql2);
     $server_group_list = mysql_fetch_array($res2);
     $server_group_count = $server_group_list['total_found'];

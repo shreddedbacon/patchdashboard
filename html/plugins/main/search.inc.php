@@ -30,10 +30,8 @@ if (!isset($index_check) || $index_check != "active"){
  }
 
  if (isset($server_group)) {
-   $sg_sql = "SELECT * FROM server_group WHERE server_group=$server_group LIMIT 1;";
+   $sg_sql = "SELECT * FROM server_group WHERE server_group='$server_group' LIMIT 1;";
    $sg_res = mysql_query($sg_sql);
-   $sg_array = array();
-   $sg_count = 0;
    $sg_row = mysql_fetch_assoc($sg_res);
    $server_group = $sg_row['id'];
 

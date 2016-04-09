@@ -101,7 +101,6 @@ foreach ($navbar_array as $key=>$val){
           <!-- sidebar menu -->
           <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
-            <?php include 'inc/404_body.inc.php'; ?>
             <div class="menu_section">
               <ul class="nav side-menu">
                 <?php echo $data;?>

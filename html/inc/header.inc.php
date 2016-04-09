@@ -135,7 +135,7 @@ foreach ($navbar_array as $key=>$val){
                 </ul>
               </li>
               <li role="presentation">
-                <div class="input-group">
+                <div class="input-group form-group pull-right top_search">
                 <input type="text" class="form-control" placeholder="Search for...">
                 <span class="input-group-btn">
                   <button class="btn btn-default" type="button">Go!</button>

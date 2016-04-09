@@ -54,10 +54,8 @@ foreach ($navbar_array as $key=>$val){
                                     </td>
                                 </tr>";
     }
-        $data .= "</table>
-                        </div>
-                    </div>
-                </div>";
+        $data .= "</ul>
+                </li>";
 }
 if (!isset($_SESSION['error_notice'])){
     $error_html = "";

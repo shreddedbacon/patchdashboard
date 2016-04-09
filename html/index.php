@@ -53,7 +53,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != true){
 }
 if (!in_array($requested_page, $allowed_pages)){
     include 'inc/404_header.inc.php';
-    include 'inc/navbar.inc.php';
     include 'inc/404_body.inc.php';
     include 'inc/404_footer.inc.php';
 }
@@ -62,7 +61,6 @@ else{
     $url_res = mysql_query($url_sql);
     if (mysql_num_rows($url_res) == 0){
         include 'inc/404_header.inc.php';
-        include 'inc/navbar.inc.php';
         include 'inc/404_body.inc.php';
         include 'inc/404_footer.inc.php';
     }
@@ -76,7 +74,6 @@ else{
         #$file = $url_row['plugin_file'];
         mysql_close($link);
         include 'inc/header.inc.php';
-        include 'inc/navbar.inc.php';
         include "plugins/${final_plugin}/$file";
         include 'inc/footer.inc.php';
     }

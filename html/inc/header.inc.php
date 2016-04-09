@@ -41,7 +41,7 @@ foreach ($navbar_array as $key=>$val){
         else{
             $badge_code = "";
         }
-        $data .= "                                <li><a href=\"".BASE_PATH."$page_string\">$page_glyph.$page_words.$badge_code</a>
+        $data .= "                                <li><a href=\"".BASE_PATH."$page_string\">$page_glyph$page_words$badge_code</a>
                                     </li>";
     }
         $data .= "</ul>
@@ -134,6 +134,12 @@ foreach ($navbar_array as $key=>$val){
                   </li>
                 </ul>
               </li>
+              <li role="presentation">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                          <button class="btn btn-default" type="button">Go!</button>
+                      </span>
+              <li>
             </ul>
           </nav>
         </div>

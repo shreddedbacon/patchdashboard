@@ -47,7 +47,7 @@ if (!isset($index_check) || $index_check != "active"){
  $count = 0;
  if (isset($_GET['exact']) && $_GET['exact'] == "true"){
      if (isset($server_names)) {
-	$sql1 = "SELECT * FROM patch_allpackages where package_name = '$package' and server_name IN (".$server_names.");";
+	      $sql1 = "SELECT * FROM patch_allpackages where package_name = '$package' and server_name IN (".$server_names.");";
      } else {
         $sql1 = "SELECT * FROM patch_allpackages where package_name = '$package';";
      }
@@ -56,14 +56,14 @@ if (!isset($index_check) || $index_check != "active"){
      if (isset($server_names)) {
         $sql1 = "SELECT * FROM patch_allpackages where package_name like '$package' and server_name IN (".$server_names.");";
      } else {
-	$sql1 = "select * from patch_allpackages where package_name like '%$package%';";
+	      $sql1 = "select * from patch_allpackages where package_name like '%$package%';";
      }
  }
  $res1 = mysql_query($sql1);
  $base_path = BASE_PATH;
  while ($row1 = mysql_fetch_assoc($res1)){
 
-     $package_name = $row1['package_name'];
+     $package_name = explode(":",$row1['package_name'])[0];
      $package_version = $row1['package_version'];
      $server_name = $row1['server_name'];
      $sql_patch = "SELECT * FROM patches WHERE package_name = '$package_name' AND server_name = '$server_name'";

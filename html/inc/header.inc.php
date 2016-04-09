@@ -136,10 +136,8 @@ foreach ($navbar_array as $key=>$val){
               </li>
               <li style="width: 250px; margin-top: 10px;">
                 <div class="input-group form-group pull-right top_search">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button">Go!</button>
-                </span>
+                <input type="text" class="form-control" placeholder="Search for..." onkeydown="if (event.keyCode == 13)
+                NewURL(this.value);">
                 </div>
               <li>
             </ul>

@@ -43,7 +43,12 @@ if (!isset($index_check) || $index_check != "active"){
 
 <!-- pace -->
 <script src="<?php echo BASE_PATH;?>js/pace/pace.min.js"></script>
-
+<script type="text/javascript">
+    function NewURL(val){
+            base = '<?php echo BASE_PATH;?>search/';
+            window.location.assign(base + val);
+    }
+</script>
 </body>
 
 </html>

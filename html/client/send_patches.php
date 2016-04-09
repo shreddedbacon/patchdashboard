@@ -1,13 +1,14 @@
 <?php
 include '../lib/db_config.php';
 $client_key = filter_input(INPUT_SERVER, 'HTTP_X_CLIENT_KEY');
-$client_check_sql = "SELECT `id`,`server_name` FROM `servers` WHERE `client_key` = '$client_key' AND `trusted`=1 LIMIT 1;";
+$client_check_sql = "SELECT `id`,`server_name`,`distro_id`,`distro_version` FROM `servers` WHERE `client_key` = '$client_key' AND `trusted`=1 LIMIT 1;";
 $link = mysql_connect(DB_HOST, DB_USER, DB_PASS);
 mysql_select_db(DB_NAME, $link);
 $client_check_res = mysql_query($client_check_sql);
 if (mysql_num_rows($client_check_res) == 1) {
     $row = mysql_fetch_array($client_check_res);
     $server_name = $row['server_name'];
+    $distro_version = $row['distro_version'];
     $data = file_get_contents("php://input");
     mysql_query("DELETE FROM `patches` WHERE `server_name`='$server_name';");
     $package_array = explode("\n", $data);
@@ -21,6 +22,10 @@ if (mysql_num_rows($client_check_res) == 1) {
             $suppression_array[] = $suppression_row['package_name'];
         }
     }
+    $client_check_distro_name = "SELECT `version_name` FROM `distro_version` WHERE `id` = $distro_version";
+    $client_check_distro_res = mysql_query($client_check_distro_name);
+    $distro_info = mysql_fetch_array($client_check_distro_res);
+    $distro_name = $distro_info['version_name'];
     foreach ($package_array as $val) {
         $tmp_array = explode(":::", $val);
         if (! isset($tmp_array[1])) continue;
@@ -31,7 +36,7 @@ if (mysql_num_rows($client_check_res) == 1) {
         $url = str_replace("<td><a href='", "", $bug_curl);
         $url_array = explode("'", $url);
         $the_url = $url_array[0];
-        $urgency_curl = shell_exec("bash -c \"curl http://www.ubuntuupdates.org/package/core/trusty/main/updates/$package_name 2>/dev/null|grep '$package_to'|grep 'urgency='\"");
+        $urgency_curl = shell_exec("bash -c \"curl http://www.ubuntuupdates.org/package/core/$distro_name/main/updates/$package_name 2>/dev/null|grep '$package_to'|grep 'urgency='\"");
         if (stristr($urgency_curl, "emergency")) {
             $urgency = "emergency";
         } elseif (stristr($urgency_curl, "high")) {

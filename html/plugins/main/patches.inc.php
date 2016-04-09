@@ -85,6 +85,7 @@ if ($percent_good_to_go < 0){
                 <div class="percentage" data-percent="<?php echo $percent_good_to_go;?>"><span><?php echo $percent_good_to_go;?></span>%</div>
                 <div class="label" style="color:#0000FF">Percent of servers not needing upgrades/patches</div>
             </div>
+            <canvas width="150" height="80" id="foo" class="" style="width: 160px; height: 100px;"></canvas>
             <div class="goal-wrapper">
                                   <span class="gauge-value pull-left">$</span>
                                   <span id="gauge-text" class="gauge-value pull-left">3,200</span>

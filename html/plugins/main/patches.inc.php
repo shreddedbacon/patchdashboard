@@ -104,5 +104,5 @@ if ($percent_good_to_go < 0){
             </table>
           </div>
         </div>
-        <script type="text/javascript" src="js/gauge/gauge.min.js"></script>
-        <script type="text/javascript" src="js/gauge/gauge_demo.js"></script>
+        <script type="text/javascript" src="<?php echo BASE_PATH; ?>js/gauge/gauge.min.js"></script>
+        <script type="text/javascript" src="<?php echo BASE_PATH; ?>js/gauge/gauge_demo.js"></script>

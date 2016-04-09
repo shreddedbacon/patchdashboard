@@ -62,7 +62,7 @@ if (!isset($index_check) || $index_check != "active"){
  $res1 = mysql_query($sql1);
  $base_path = BASE_PATH;
  while ($row1 = mysql_fetch_assoc($res1)){
-     $count++;
+
      $package_name = $row1['package_name'];
      $package_version = $row1['package_version'];
      $server_name = $row1['server_name'];
@@ -94,6 +94,7 @@ if (!isset($index_check) || $index_check != "active"){
      }
 
      if ($display_table == 'true') {
+     $count++;
      $table .= "                <tr>
                   <td>".$update_checkbox."<input type='hidden' name='p_id[".$count."][server_id]' value='".$sql_server_id2['id']."'></td>
 		  <td><a href='${base_path}patches/server/$server_name' style='color:black'>$server_name</a></td>

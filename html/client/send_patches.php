@@ -32,6 +32,7 @@ if (mysql_num_rows($client_check_res) == 1) {
         $package_name = $tmp_array[0];
         $package_from = $tmp_array[1];
         $package_to = $tmp_array[2];
+        // MOVE THIS TO EXTERNAL JOB TO MAKE FOR FASTER ERRATA CHECKING AT SOME STAGE
         $bug_curl = shell_exec("bash -c \"curl -s http://www.ubuntuupdates.org/bugs?package_name=$package_name 2>/dev/null|grep '<td>'|head -1\"");
         $url = str_replace("<td><a href='", "", $bug_curl);
         $url_array = explode("'", $url);

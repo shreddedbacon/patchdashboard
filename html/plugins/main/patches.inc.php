@@ -85,7 +85,11 @@ if ($percent_good_to_go < 0){
                 <div class="percentage" data-percent="<?php echo $percent_good_to_go;?>"><span><?php echo $percent_good_to_go;?></span>%</div>
                 <div class="label" style="color:#0000FF">Percent of servers not needing upgrades/patches</div>
             </div>
-
+            <div class="goal-wrapper">
+                                  <span class="gauge-value pull-left">$</span>
+                                  <span id="gauge-text" class="gauge-value pull-left">3,200</span>
+                                  <span id="goal-text" class="goal-value pull-right">$5,000</span>
+                                </div>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -100,3 +104,5 @@ if ($percent_good_to_go < 0){
             </table>
           </div>
         </div>
+        <script type="text/javascript" src="js/gauge/gauge.min.js"></script>
+        <script type="text/javascript" src="js/gauge/gauge_demo.js"></script>

@@ -1,5 +1,5 @@
 <?php
-include 'lib/db_config.php';
+
 if(isset($_SESSION['error'])){
     $error = $_SESSION['error'];
     $error_html="<div class='bs-example'>

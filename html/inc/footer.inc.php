@@ -6,52 +6,44 @@ if (!isset($index_check) || $index_check != "active"){
     exit();
 }
 ?>
-      </div>
-      <div id="footer" align="center">&copy; 2014 <?php echo YOUR_COMPANY;?> || Powered by <a href="http://patchdashboard.com" target="_blank">PatchDashboard</a> || Fork on <a href="https://github.com/jonsjava/patchdashboard" target="_blank">GitHub</a></div>
-    </div>
-    <script src="<?php echo BASE_PATH; ?>js/jquery.min.js"></script>
-    <script src="<?php echo BASE_PATH; ?>js/bootstrap.min.js"></script>
-    <script src="<?php echo BASE_PATH; ?>js/docs.min.js"></script>
-    <script src="<?php echo BASE_PATH; ?>js/jquery.easy-pie-chart.js"></script>
-    <script src="<?php echo BASE_PATH; ?>js/excanvas.js"></script>
-    <script src="<?php echo BASE_PATH; ?>js/jquery.tablesorter.js"></script>
-    <script src="<?php echo BASE_PATH; ?>js/jquery.metadata.js"></script>
+</div> <!--row-->
+</div>
+<!-- footer content -->
+<footer>
+  <div class="copyright-info">
+    <p class="pull-right">Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+    </p>
+  </div>
+  <div class="clearfix"></div>
+</footer>
+<!-- /footer content -->
 
-            <script type="text/javascript">
-		$(function() {
-            		$("table#server_list").tablesorter({ sortList: [[1,1]] });
-        	});
-                function NewURL(val){
-                        base = '<?php echo BASE_PATH;?>search/';
-                        window.location.assign(base + val);
-                }
-            var initPieChart = function() {
-                $('.percentage').easyPieChart({
-                    animate: 1000
-                });
-                $('.percentage-light').easyPieChart({
-                    barColor: function(percent) {
-                        percent /= 100;
-                        return "rgb(" + Math.round(255 * (1-percent)) + ", " + Math.round(255 * percent) + ", 0)";
-                    },
-                    trackColor: '#666',
-                    scaleColor: false,
-                    lineCap: 'butt',
-                    lineWidth: 15,
-                    animate: 1000
-                });
+</div>
+<!-- /page content -->
+</div>
 
-                $('.updateEasyPieChart').on('click', function(e) {
-                  e.preventDefault();
-                  $('.percentage, .percentage-light').each(function() {
-                    var newValue = Math.round(100*Math.random());
-                    $(this).data('easyPieChart').update(newValue);
-                    $('span', this).text(newValue);
-                  });
-                });
-            };
+</div>
 
+<div id="custom_notifications" class="custom-notifications dsp_none">
+<ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
+</ul>
+<div class="clearfix"></div>
+<div id="notif-group" class="tabbed_notifications"></div>
+</div>
 
-        </script>
-  </body>
+<script src="<?php echo BASE_PATH;?>js/bootstrap.min.js"></script>
+
+<!-- bootstrap progress js -->
+<script src="<?php echo BASE_PATH;?>js/progressbar/bootstrap-progressbar.min.js"></script>
+<script src="<?php echo BASE_PATH;?>js/nicescroll/jquery.nicescroll.min.js"></script>
+<!-- icheck -->
+<script src="<?php echo BASE_PATH;?>js/icheck/icheck.min.js"></script>
+
+<script src="<?php echo BASE_PATH;?>js/custom.js"></script>
+
+<!-- pace -->
+<script src="<?php echo BASE_PATH;?>js/pace/pace.min.js"></script>
+
+</body>
+
 </html>

@@ -5,3 +5,4 @@ $sql = "SELECT * FROM company;";
 $res = mysql_query($sql);
 $row = mysql_fetch_assoc($res);
 define('YOUR_COMPANY',$row['display_name']);
+mysql_close($link);

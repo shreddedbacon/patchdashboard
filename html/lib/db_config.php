@@ -12,3 +12,4 @@ define('OFFLINE','FALSE');
 
 //use database company name instead of what was previously defined here
 include('company_config.php');
+?>

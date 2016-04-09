@@ -47,9 +47,9 @@ if (!isset($index_check) || $index_check != "active"){
  $count = 0;
  if (isset($_GET['exact']) && $_GET['exact'] == "true"){
      if (isset($server_names)) {
-	      $sql1 = "SELECT * FROM patch_allpackages where package_name = '$package' and server_name IN (".$server_names.");";
+	      $sql1 = "SELECT * FROM patch_allpackages where (package_name = '$package' or package_name like '$package:%') and server_name IN (".$server_names.");";
      } else {
-        $sql1 = "SELECT * FROM patch_allpackages where package_name = '$package';";
+        $sql1 = "SELECT * FROM patch_allpackages where package_name = '$package' or package_name like '$package:%';";
      }
  }
  else{

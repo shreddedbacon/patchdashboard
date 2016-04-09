@@ -16,7 +16,7 @@
 ##                - Cleaned up and organized into functions
 ##            0.4 - Added crontab function rather than manual proc
 ##                - Lots of logic added to read the existing db users
-##                - Check connections to the provided db info 
+##                - Check connections to the provided db info
 ##                - Added virtualhost file to apache/httpd
 ##            0.5 - Fixed relative_path in rewrite check
 ##                - Added SQL fixes for existing table data
@@ -38,7 +38,7 @@
 ##
 #################################################################################
 
-install_opts="db_host db_root_id db_root_pass db_user db_pass db_name new_web_admin new_web_admin_email new_web_admin_passwd new_web_duser new_web_duser_email new_web_duser_passwd your_company installation_key relative_path new_web_dir web_user" 
+install_opts="db_host db_root_id db_root_pass db_user db_pass db_name new_web_admin new_web_admin_email new_web_admin_passwd new_web_duser new_web_duser_email new_web_duser_passwd your_company installation_key relative_path new_web_dir web_user"
 upgrade_opts="web_dir relative_path";
 
 function show_help {
@@ -52,7 +52,7 @@ Options:
                                 required options are:
 EOF
 	for var in $install_opts; do
-		echo "    --$(echo $var | sed 's,_,-,g')" 
+		echo "    --$(echo $var | sed 's,_,-,g')"
 	done
 	cat <<EOF
 
@@ -60,11 +60,11 @@ EOF
                                 required options are:
 EOF
 	for var in $upgrade_opts; do
-		echo "    --$(echo $var | sed 's,_,-,g')" 
+		echo "    --$(echo $var | sed 's,_,-,g')"
 	done
 	cat <<EOF
 
--g|--guided                     Interactive mode. 
+-g|--guided                     Interactive mode.
                                 Beware: interactive mode makes changes to your system, like installing packages and changing iptables. This is fine on a clean system, but on a multi-purpose system you might want to go the --unattended-install route.
 EOF
 }
@@ -414,7 +414,7 @@ function PackageCheck()
 	elif [[ "$os" = "CentOS" ]] || [[ "$os" = "Fedora" ]] || [[ "$os" = "Red Hat" ]] || [[ "$os" = "Red Hat Enterprise" ]]; then
 		ls /etc/yum/pluginconf.d/fastestmirror.conf > /dev/null 2>&1
 		if [[ "$?" = 0 ]]; then
-			if [[ $(grep "exclude=.at" /etc/yum/pluginconf.d/fastestmirror.conf) = "" ]]; then 
+			if [[ $(grep "exclude=.at" /etc/yum/pluginconf.d/fastestmirror.conf) = "" ]]; then
 				echo "exclude=.at" >> /etc/yum/pluginconf.d/fastestmirror.conf
 			fi
 		fi
@@ -469,7 +469,7 @@ function EnableSSL()
 		# set ssl key path
 		ssl_path="/etc/ssl"
 		# install SSL
-		a2enmod ssl 
+		a2enmod ssl
 		a2ensite default-ssl
 		echo
 
@@ -513,7 +513,7 @@ function EnableSSL()
 		        while [[ $orgu = "" ]]; do
 		                read -p "Orginizational Unit: " orgu
 		        done
-			# generate private key 
+			# generate private key
 			rm -rf $ssl_path/private/ca.key
 			openssl genrsa -out $ssl_path/private/ca.key 4096 > /dev/null 2>&1
 			# generate CSR
@@ -547,7 +547,7 @@ function EnableSSL()
                 while [[ $orgu = "" ]]; do
                 	read -p "Orginizational Unit: " orgu
                 done
-                # generate private key 
+                # generate private key
                 rm -rf $ssl_path/private/ca.key
                 openssl genrsa -out $ssl_path/private/ca.key 4096 > /dev/null 2>&1
                 # generate CSR
@@ -597,7 +597,7 @@ function EnableSSL()
 		echo -e "\e[32mSSL\e[0m: Adding SSL configuration to /etc/$web_service/conf.d/patch_manager.conf\n"
 
 cat <<EOA >> /etc/$web_service/conf.d/patch_manager.conf
-	
+
 NameVirtualHost *:443
 <VirtualHost *:443>
         SSLEngine on
@@ -626,7 +626,7 @@ exit 0
 }
 
 function phpversion()
-{ 
+{
 	echo "$@" | awk -F. '{ printf("%d.%d.%d\n", $1,$2,$3); }';
 }
 
@@ -745,7 +745,7 @@ function mysqlRootPwd()
 			mysqladmin password "$mysql_passwd_again"
 		fi
 	else
-		echo -e "\e[32mMySQL\e[0m: Root password already setup, skipping.\n" 
+		echo -e "\e[32mMySQL\e[0m: Root password already setup, skipping.\n"
 	fi
 }
 
@@ -879,7 +879,7 @@ function dbRootPasswd()
 	fi
 	db_root_connx=$(mysql --batch -u $db_root_id -h $db_host -p"$db_root_pass" -e ";" > /dev/null; echo "$?"; echo)
         while [[ "$db_root_connx" -eq 1 ]]; do
-                echo -e "\n\e[31mNotice\e[0m: Unable to connect to mysql, please try again." 
+                echo -e "\n\e[31mNotice\e[0m: Unable to connect to mysql, please try again."
 		echo -e "\n\e[36mNotice\e[0m: You may run /usr/bin/mysql_secure_installation to secure the MySQL installation and set the $db_root_id password.\n"
 		unset yn
 		read -p "Do you want to try again or exit? [yes to continue, no to exit] (y/n): " yn
@@ -1221,7 +1221,7 @@ if [[ "$comp_count" -gt 0 ]]; then
         comp_keynum=$(mysql -u $db_user -h $db_host -p"$db_pass" --skip-column-names -D $db_name -e "SELECT install_key from company LIMIT 1;")
 
 	echo -e "\e[32mNotice\e[0m: A Company Name already exists: \e[36m$comp_disp\e[0m or \e[36m$comp_name\e[0m with installation key: $comp_keynum\n"
-else 
+else
 	unset comp_name
 	comp_name=$(mysql -u $db_user -h $db_host -p"$db_pass" --skip-column-names -D $db_name -e "SELECT name from company where name='$comp_id';")
 	# check if company display name exist
@@ -1358,12 +1358,15 @@ define('DB_USER','$db_user');
 define('DB_PASS','$db_pass');
 define('DB_NAME','$db_name');
 define('BASE_PATH','$relative_path');
-define('YOUR_COMPANY','$your_company');
+//define('YOUR_COMPANY','$your_company');
 define('PW_SALT','$password_salt');
 /*
  * SET OFFLINE to TRUE if you want to disable the site.  All functionality will cease until you re-enable the site by setting OFFLINE back to FALSE
  */
 define('OFFLINE','FALSE');
+
+//use database company name instead of what was previously defined here
+include('company_config.php')
 ?>"
 
 # write shell script config
@@ -1427,7 +1430,7 @@ cat <<EOA > /etc/httpd/conf.d/patch_manager.conf
 Alias $patchmgr $targetdir
 CustomLog /var/log/httpd/patch_manager/${host_node}_access.log common
 ErrorLog /var/log/httpd/patch_manager/${host_node}_error.log
-        
+
 <Directory $targetdir>
         Options FollowSymLinks
         AllowOverride All
@@ -1447,7 +1450,7 @@ if [[ "$ModeType" = "Install" ]]; then
 	\cp -f html/.htaccess /opt/patch_manager/.htaccess
 	\cp -f html/lib/db_config.php /opt/patch_manager/db_config.php
 	echo "$rewrite_config" > /opt/patch_manager/.htaccess
-	echo "$php_config" > /opt/patch_manager/db_config.php 
+	echo "$php_config" > /opt/patch_manager/db_config.php
 	echo "$bash_config" > /opt/patch_manager/db.conf
 elif [[ "$ModeType" = "Update" ]]; then
 
@@ -1466,7 +1469,7 @@ if [[ -d $new_web_dir ]]; then
 	echo -e "\e[32mNotice\e[0m: $target_web_dir already exists.\n"
 	# get authkey,uri from existing files
 	ls ${new_web_dir}client/*sh > /dev/null 2>&1
-	if [[ "$?" = 0 ]]; then	
+	if [[ "$?" = 0 ]]; then
 		auth_key=$(grep auth_key=\" ${new_web_dir}client/*.sh|awk -F\" {'print $2'}|head -n 1)
 		server_uri=$(grep server_uri=\" ${new_web_dir}client/*.sh|awk -F\" {'print $2'}|head -n 1)
 	else
@@ -1492,7 +1495,7 @@ if [[ -d $new_web_dir ]]; then
 		if [[ ! -f /opt/patch_manager/db.conf ]]; then
 			echo "$bash_config" > /opt/patch_manager/db.conf
 		fi
-	
+
 		if [[ -f /opt/patch_manager/.htaccess ]]; then
 			\cp -f -R /opt/patch_manager/.htaccess $new_web_dir
 		else
@@ -1536,7 +1539,7 @@ else
 	# run authkey and uri check
         AuthKeyURI
 fi
-# change perms 
+# change perms
 find $new_web_dir -type d -print0|xargs -0 chmod 755
 find $new_web_dir -type f -print0|xargs -0 chmod 644
 chmod 640 /opt/patch_manager/db_config.php
@@ -1553,14 +1556,14 @@ fi
 echo -e "\n\e[32mNotice\e[0m: Basic Installation is now complete. You can now go to http(s)://${host_node}${relative_path} and begin working with this tool.  To add servers, use the following command:
 	/opt/patch_manager/add_server.sh -s server_name -ip ip_address
 	It will ask you some questions regarding the user, password, and some other things.  Just follow the prompts.
-	
+
 	To add a server without the script granting super user, you will need to do the following:
 	* Create ssh key (ssh-key-gen -t rsa) with no password on the key
 	* Add public key on each server in /root/.ssh/authorized_keys
 	* make sure /root/.ssh has 700 permissions on each node
 	* make sure /root/.ssh/authorized_keys has 600 permissions on each node
 	* go to the web UI, and click 'Manually add server'
-	* Tell the UI the server name, the IP, and the distro. The distro is not required, it will be detected by the client agent script.	
+	* Tell the UI the server name, the IP, and the distro. The distro is not required, it will be detected by the client agent script.
 	Have fun!\n"
 }
 
@@ -1825,12 +1828,12 @@ if [ "$UNATTENDED" = "YES" ]; then
 			for var in $install_opts; do
 				[[ -z "$(eval echo \$$var)" ]] && { echo "Parameter --$(echo $var | sed 's,_,-,g') was required but not set"; exit 1; }
 			done
-			
+
 			[ ! -f /root/.ssh/id_rsa ] &&  { echo "There needs to be an id_rsa key in /root/.ssh/id_rsa."; exit 1; }
-			
+
 			[ "${relative_path: -1}" != "/" ] && relative_path=$relative_path"/"
 			[ "${new_web_dir: -1}" != "/" ] && new_web_dir=$new_web_dir"/"
-			
+
 			OSCheckUnattended
 			dbConnTest root
 			[[ "$dbConnx" == "yes" ]] || { echo "Could not connect to the database."; exit 1; }
@@ -1924,7 +1927,7 @@ elif [ "$GUIDED" == "YES" ]; then
 	web_duser_passwd=$(genPasswd)
 	web_duser_email="no_user@email.com"
 	# export to global
-	export web_admin web_admin_email web_admin_passwd 
+	export web_admin web_admin_email web_admin_passwd
 	export web_user web_user_email web_user_passwd
 
 	# default target path for php files
@@ -1946,5 +1949,4 @@ else
 	show_help
 fi
 
-# vim: tabstop=8:softtabstop=8:shiftwidth=8:noexpandtab 
-
+# vim: tabstop=8:softtabstop=8:shiftwidth=8:noexpandtab

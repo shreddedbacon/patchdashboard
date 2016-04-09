@@ -79,14 +79,27 @@ if ($percent_good_to_go < 0){
     $percent_good_to_go = 0;
 }
 ?>
-        <div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Patch List</h1>
-            <canvas width="150" height="80" id="foo" class="" style="width: 160px; height: 100px;"></canvas>
-            <div class="goal-wrapper">
-                                  <span class="gauge-value pull-right">%</span>
-                                  <span id="gauge-text" class="gauge-value pull-left">0</span>
-                                  <span id="goal-text" class="goal-value pull-right">100</span>
-                                </div>
+
+<div class="col-md-2 col-sm-2 col-xs-12">
+  <div class="x_panel" style="height:600px;">
+    <div class="x_title">
+      <h2>Servers needing updates</h2>
+      <div class="clearfix"></div>
+    </div>
+      <canvas width="150" height="80" id="foo" class="" style="width: 160px; height: 100px;"></canvas>
+      <div class="goal-wrapper">
+          <span class="gauge-value pull-right">%</span>
+          <span id="gauge-text" class="gauge-value pull-left">0</span>
+          <span id="goal-text" class="goal-value pull-right">100%</span>
+      </div>
+  </div>
+</div>
+        <div class="col-sm-10 col-md-10 col-xs-12 main">
+          <div class="x_panel" style="height:600px;">
+            <div class="x_title">
+              <h2>Patch List</h2>
+              <div class="clearfix"></div>
+            </div>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -96,11 +109,12 @@ if ($percent_good_to_go < 0){
                 </tr>
               </thead>
               <tbody>
-                <?php echo $table;?>
+                <?php echo $table; ?>
               </tbody>
             </table>
           </div>
         </div>
+      </div>
         <script type="text/javascript" src="<?php echo BASE_PATH; ?>js/gauge/gauge.min.js"></script>
         <script type="text/javascript">
         var opts = {
@@ -120,8 +134,9 @@ if ($percent_good_to_go < 0){
         };
         var target = document.getElementById('foo'); // your canvas element
         var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-        gauge.maxValue = 6000; // set max gauge value
+        gauge.maxValue = 100; // set max gauge value
         gauge.animationSpeed = 32; // set animation speed (32 is default value)
-        gauge.set(<?php echo $percent_good_to_go;?>); // set actual value
+        gauge.set(1); // set pre value to fix 0 issue
+        gauge.set(<?php echo $percent_needing_upgrade;?>); // set actual value
         gauge.setTextField(document.getElementById("gauge-text"));
         </script>

@@ -85,10 +85,14 @@ else{
         $apt_cmd = "<pre class='pre-scrollable'>".$apt_cmd."</pre>";
 }
 ?>
-<div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">List Packages to Install</h1>
-          <h2 class="sub-header"><?php echo $server_alias;?>(<a href="<?php echo BASE_PATH;?>packages/server/<?php echo $server_name;?>">List all installed packages</a>)</h2>
-	  <br /><form action="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php" method="get"><input type="hidden" value="<?php echo $id;?>" name="id">
+<div class="col-sm-12 col-md-12 col-xs-12 main">
+  <div class="x_panel" style="height:600px;">
+    <div class="x_title">
+      <h2>List Packages to Install</h2>
+      <div class="clearfix"></div>
+    </div>
+    <h3><?php echo $server_alias;?>(<a href="<?php echo BASE_PATH;?>packages/server/<?php echo $server_name;?>">List all installed packages</a>)</h3>
+	  <form action="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php" method="get"><input type="hidden" value="<?php echo $id;?>" name="id">
           <p align="center">
           <button type="submit" class="btn btn-primary" name="selected">Install selected patches</button> | <a class="btn btn-success" href="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php?id=<?php echo $id;?>">Install all patches not suppressed</a> | <a class="btn btn-danger" href="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php?reboot=1&id=<?php echo $id;?>">Install all patches not suppressed and reboot</a></p>
         <div class="container">

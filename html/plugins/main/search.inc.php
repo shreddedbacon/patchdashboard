@@ -106,12 +106,15 @@ if (!isset($index_check) || $index_check != "active"){
 }
 
 ?>
-<div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Search</h1>
+<div class="col-sm-12 col-md-12 col-xs-12 main">
+  <div class="x_panel" style="height:600px;">
+    <div class="x_title">
+      <h2>Search</h2>
+      <div class="clearfix"></div>
+    </div>
           <h3 class="sub-header">Results for search "<?php echo $package;?>" (<?php echo $count;?> found)</h3>
-        <div class="container">
-          <div class="table-responsive">
 <form action="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php" method="get">
+          <div class="table-responsive">
            <button type="submit" class="btn btn-primary" name="search">Install selected patches</button>
            <table class="table table-striped">
              <thead>
@@ -127,6 +130,6 @@ if (!isset($index_check) || $index_check != "active"){
               </tbody>
             </table>
           </div>
-        </div>
 </form>
+</div>
 </div>

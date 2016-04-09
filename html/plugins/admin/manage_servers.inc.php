@@ -56,10 +56,10 @@ while ($row = mysql_fetch_assoc($res)){
     }
 
         if ($trusted == 1){
-                $active_action = "<a href='".BASE_PATH."plugins/admin/deactivate_server.inc.php?id=$id'>Deactivate/Distrust</a>";
+                $active_action = "<a class='btn btn-xs btn-warning' href='".BASE_PATH."plugins/admin/deactivate_server.inc.php?id=$id'>Deactivate/Distrust</a>";
         }
         else{
-                $active_action = "<a href='".BASE_PATH."plugins/admin/activate_server.inc.php?id=$id'>Reactivate/Trust</a>";
+                $active_action = "<a class='btn btn-xs btn-success' href='".BASE_PATH."plugins/admin/activate_server.inc.php?id=$id'>Reactivate/Trust</a>";
         }
     $table .="                          <tr>
 					<td><span title=$server_name>$server_alias</span></td>
@@ -68,14 +68,17 @@ while ($row = mysql_fetch_assoc($res)){
                                         <td>$server_ip</td>
                                         <td>$trust</td>
                                         <td>$last_seen</td>
-                                        <td><a href='".BASE_PATH."edit_server?id=$id'>Edit</a> | $active_action | <a href='".BASE_PATH."plugins/admin/delete_server.inc.php?id=$id'>Delete</a></td>
+                                        <td><a class='btn btn-xs btn-info' href='".BASE_PATH."edit_server?id=$id'>Edit</a> $active_action <a class='btn btn-xs btn-danger' href='".BASE_PATH."plugins/admin/delete_server.inc.php?id=$id'>Delete</a></td>
                                 </tr>
 ";
 }
 ?>
-
-<div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">All Servers</h1>
+<div class="col-sm-10 col-md-10 col-xs-12 main">
+  <div class="x_panel" style="height:600px;">
+    <div class="x_title">
+      <h2>All Servers</h2>
+      <div class="clearfix"></div>
+    </div>
         <div class="container">
           <div class="table-responsive">
             <table class="table table-striped">
@@ -96,4 +99,5 @@ while ($row = mysql_fetch_assoc($res)){
             </table>
           </div>
         </div>
+</div>
 </div>

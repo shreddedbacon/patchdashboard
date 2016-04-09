@@ -72,6 +72,7 @@ if (!isset($id) || empty($id) || !is_numeric($id)) {
         $trusted_checked = "";
     }
     $select_html .= "\t\t\t\t</select>";
+    $select_html_sg .= "\t\t\t\t</select>";
     $distro_name = $distro_array[$distro_id_main][$distro_version_main];
     $client_key = $row['client_key'];
     if ($seen == "0000-00-00 00:00:00") {
@@ -86,20 +87,25 @@ if (!isset($id) || empty($id) || !is_numeric($id)) {
         $last_check = $last_checkin;
     }
     ?>
-    <div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <h3 class="text-center login-title">Edit Server (<?php echo $server_name; ?>)</h3>
-        <div class="account-wall">
+    <div class="col-sm-12 col-md-5 col-xs-12 main">
+      <div class="x_panel" style="height:600px;">
+        <div class="x_title">
+          <h2>Edit Server (<?php echo $server_name; ?>)</h2>
+          <div class="clearfix"></div>
+        </div>
             <form id ="editUser" method="POST" action="<?php echo BASE_PATH; ?>plugins/admin/p_edit_server.inc.php"><input type="hidden" name="id" value="<?php print $id; ?>" />
-                <div class="form-group"><label class="col-sm-5 control-label">Last Seen</label><div class="col-sm-5"><input type="text" value="<?php echo $last_seen; ?>" class="form-control" readonly /></div></div>
-                <div class="form-group"><label class="col-sm-5 control-label">Last Checked for updates</label><div class="col-sm-5"><input type="text" name="last_checkin" value="<?php echo $last_check; ?>" class="form-control" readonly /></div></div>
-                <div class="form-group"><label class="col-sm-5 control-label">Server Name</label><div class="col-sm-5"><input value="<?php echo $server_name; ?>" type="text" name="server_name" class="form-control" placeholder="Server Name" required autofocus ></div></div>
-                <div class="form-group"><label class="col-sm-5 control-label">Server Alias</label><div class="col-sm-5"><input value="<?php echo $server_alias; ?>" type="text" name="server_alias" class="form-control" placeholder="Server Alias" required autofocus ></div></div>
-                <div class="form-group"><label class="col-sm-5 control-label">Server Group</label><div class="col-sm-5"><?php echo $select_html_sg;?></div></div>
-                <div class="form-group"><label class="col-sm-5 control-label">IP Address</label><div class="col-sm-5"><input type="text" name="server_ip" value="<?php echo $server_ip; ?>" class="form-control" placeholder="IP Address" /></div></div>
-                <div class="form-group"><label class="col-sm-5 control-label">Distro</label><div class="col-sm-5"><?php echo $select_html;?></div></div>
-                <div class="form-group"><label class="col-sm-5 control-label">Trusted?</label><div class="col-sm-5"><input type="checkbox" name="trusted" class="form-control" <?php echo $trusted_checked; ?>></div></div>
-                <div class="form-group"><label class="col-sm-5 control-label"></label><div class="col-sm-5"><button class="btn btn-lg btn-primary btn-block" type="submit">Edit Server</button></div></div>
-                <div class="form-group"><label class="col-sm-5 control-label"></label><div class="col-sm-5"><label class="checkbox pull-left"></label></div></div>
+                <div class="form-group col-sm-12"><label class="col-sm-6 control-label">Last Seen</label><div class="col-sm-6"><input type="text" value="<?php echo $last_seen; ?>" class="form-control" readonly /></div></div>
+                <div class="form-group col-sm-12"><label class="col-sm-6 control-label">Last Checked for updates</label><div class="col-sm-6"><input type="text" name="last_checkin" value="<?php echo $last_check; ?>" class="form-control" readonly /></div></div>
+                <div class="form-group col-sm-12"><label class="col-sm-6 control-label">Server Name</label><div class="col-sm-6"><input value="<?php echo $server_name; ?>" type="text" name="server_name" class="form-control" placeholder="Server Name" required autofocus ></div></div>
+                <div class="form-group col-sm-12"><label class="col-sm-6 control-label">Server Alias</label><div class="col-sm-6"><input value="<?php echo $server_alias; ?>" type="text" name="server_alias" class="form-control" placeholder="Server Alias" required autofocus ></div></div>
+                <div class="form-group col-sm-12"><label class="col-sm-6 control-label">Server Group</label><div class="col-sm-6"><?php echo $select_html_sg;?></div></div>
+                <div class="form-group col-sm-12"><label class="col-sm-6 control-label">IP Address</label><div class="col-sm-6"><input type="text" name="server_ip" value="<?php echo $server_ip; ?>" class="form-control" placeholder="IP Address" /></div></div>
+                <div class="form-group col-sm-12"><label class="col-sm-6 control-label">Distro</label><div class="col-sm-6"><?php echo $select_html;?></div></div>
+                <div class="form-group col-sm-12">
+                  <label class="col-sm-7 control-label">Trusted?</label>
+                    <input type="checkbox" name="trusted" class="checkbox flat" <?php echo $trusted_checked; ?>>
+                </div>
+                <div class="form-group col-sm-12"><div class="col-sm-6 col-sm-offset-3"><button class="btn btn-md btn-success btn-block" type="submit">Edit Server</button></div></div>
             </form>
         </div>
     </div>

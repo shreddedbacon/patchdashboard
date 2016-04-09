@@ -7,12 +7,31 @@ if (!isset($index_check) || $index_check != "active") {
 }
 
 $patch_list_sql = "SELECT count(*) as total_found FROM `patches` p LEFT JOIN servers s on s.server_name = p.server_name WHERE s.trusted = 1 and p.upgraded=0 and p.package_name !='';";
-$patch_list_link = mysql_connect(DB_HOST,DB_USER,DB_PASS);
-mysql_select_db(DB_NAME,$patch_list_link);
+$link = mysql_connect(DB_HOST,DB_USER,DB_PASS);
+mysql_select_db(DB_NAME,$link);
 $patch_list_res = mysql_query($patch_list_sql);
 $patch_list_row = mysql_fetch_array($patch_list_res);
 $patches_to_apply_count = $patch_list_row['total_found'];
-mysql_close($patch_list_link);
+
+/*
+//maybe another time
+$server_list_sql = "SELECT count(*) as total_found FROM `servers`;";
+$server_list_res = mysql_query($server_list_sql);
+$server_list_row = mysql_fetch_array($server_list_res);
+$server_total = $server_list_row['total_found'];
+
+$users_list_sql = "SELECT count(*) as total_found FROM `users`;";
+$users_list_res = mysql_query($users_list_sql);
+$users_list_row = mysql_fetch_array($users_list_res);
+$users_total = $users_list_row['total_found'];
+
+$sg_list_sql = "SELECT count(*) as total_found FROM `server_group`;";
+$sg_list_res = mysql_query($sg_list_sql);
+$sg_list_row = mysql_fetch_array($sg_list_res);
+$sg_total = $sg_list_row['total_found'];
+*/
+
+mysql_close($link);
 $data = "";
 foreach ($navbar_array as $key=>$val){
     $plugin2 = $key;
@@ -37,8 +56,7 @@ foreach ($navbar_array as $key=>$val){
          */
         if ($page_string == "patches"){
             $badge_code = "&nbsp;&nbsp;<span class=\"badge\">$patches_to_apply_count</span>";
-        }
-        else{
+        } else {
             $badge_code = "";
         }
         $data .= "                                <li><a href=\"".BASE_PATH."$page_string\">$page_glyph$page_words$badge_code</a>
@@ -59,7 +77,7 @@ foreach ($navbar_array as $key=>$val){
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="<?php echo BASE_PATH; ?>favicon.ico">
-  <title>Gentallela Alela! | </title>
+  <title>Patch Management Dashboard </title>
   <!-- Bootstrap core CSS -->
   <link href="<?php echo BASE_PATH;?>css/bootstrap.min.css" rel="stylesheet">
 
@@ -124,7 +142,7 @@ foreach ($navbar_array as $key=>$val){
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  John Doe
+                  <?php echo $_SESSION['display_name'];?>
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">

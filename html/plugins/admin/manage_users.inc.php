@@ -32,10 +32,10 @@ while ($row = mysql_fetch_assoc($res)){
         $alerts = "No";
     }
         if ($active == 1){
-                $active_action = "<a class='btn btn-xs btn-warning' href='".BASE_PATH."plugins/admin/deactivate_user.inc.php?id=$id'>Deactivate</a>";
+                $active_action = "<a class='btn btn-xs btn-warning' href='".BASE_PATH."plugins/admin/deactivate_user.inc.php?id=$id'><i class='fa fa-ban'></i> Deactivate </a>";
         }
         else{
-                $active_action = "<a class='btn btn-xs btn-success' href='".BASE_PATH."plugins/admin/activate_user.inc.php?id=$id'>Reactivate</a>";
+                $active_action = "<a class='btn btn-xs btn-success' href='".BASE_PATH."plugins/admin/activate_user.inc.php?id=$id'><i class='fa fa-check'></i> Reactivate </a>";
         }
     $table .="                          <tr>
                                         <td>$username</td>
@@ -43,13 +43,13 @@ while ($row = mysql_fetch_assoc($res)){
                                         <td>$group</td>
                                         <td>$last_seen</td>
                                         <td>$alerts</td>
-                                        <td><a class='btn btn-xs btn-info' href='".BASE_PATH."edit_user?id=$id'>Edit</a> | $active_action | <a class='btn btn-xs btn-danger' href='".BASE_PATH."plugins/admin/delete_user.inc.php?id=$id'>Delete</a></td>
+                                        <td><a class='btn btn-xs btn-info' href='".BASE_PATH."edit_user?id=$id'><i class='fa fa-pencil'></i> Edit </a> | $active_action | <a class='btn btn-xs btn-danger' href='".BASE_PATH."plugins/admin/delete_user.inc.php?id=$id'><i class='fa fa-trash-o'></i> Delete </a></td>
                                 </tr>
 ";
 }
 ?>
 <div class="col-sm-10 col-md-10 col-xs-12 main">
-  <div class="x_panel" style="height:600px;">
+  <div class="x_panel">
     <div class="x_title">
       <h2>List Users</h2>
       <div class="clearfix"></div>

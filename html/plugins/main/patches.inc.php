@@ -60,14 +60,18 @@ if (!isset($index_check) || $index_check != "active"){
      $total_count = $total_count + $count;
      if ($count == 0) {
      $table .= "                <tr>
-                  <td><img src='$dist_img' class='avatar'>&nbsp;<a href='{$base_path}patches/server/$server_name'>$server_alias</a></td>
-                  <td><span class='label label-success'>Up to date :)</span></td>
+                  <td width='40px'><img src='$dist_img' class='avatar'></td>
+                  <td><a href='{$base_path}patches/server/$server_name'>$server_alias</a></td>
+                  <td><span class='btn btn-success btn-xs'>Up to date :)</span></td></td>
+                  <td></td>
                 </tr>
 ";
      } else {
      $table .= "                <tr>
-                  <td><img src='$dist_img' class='avatar'>&nbsp;<a href='{$base_path}patches/server/$server_name'>$server_alias</a></td>
-                  <td><span class='label label-default'>Total $count</span> | <span class='label label-danger'>High $count4</span> | <span class='label label-warning'>Medium $count2</span> | <span class='label label-info'>Low $count3</span> | <span class='label label-primary'>Unknown $count5</span></td>
+                  <td width='40px'><img src='$dist_img' class='avatar'></td>
+                  <td><a href='{$base_path}patches/server/$server_name'>$server_alias</a></td>
+                  <td><a href='{$base_path}patches/server/$server_name' class='btn btn-default btn-xs'> $count</a></td>
+                  <td><span class='btn btn-danger btn-xs'>High $count4</span> | <span class='btn btn-warning btn-xs'>Medium $count2</span> | <span class='btn btn-info btn-xs'>Low $count3</span> | <span class='btn btn-primary btn-xs'>Unknown $count5</span></td>
                 </tr>
 ";
      }
@@ -81,7 +85,7 @@ if ($percent_good_to_go < 0){
 ?>
 
 <div class="col-md-2 col-sm-2 col-xs-12">
-  <div class="x_panel" style="height:600px;">
+  <div class="x_panel">
     <div class="x_title">
       <h2>Servers needing updates</h2>
       <div class="clearfix"></div>
@@ -95,7 +99,7 @@ if ($percent_good_to_go < 0){
   </div>
 </div>
         <div class="col-sm-10 col-md-10 col-xs-12 main">
-          <div class="x_panel" style="height:600px;">
+          <div class="x_panel">
             <div class="x_title">
               <h2>Patch List</h2>
               <div class="clearfix"></div>
@@ -104,8 +108,10 @@ if ($percent_good_to_go < 0){
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>Server Name (<?php echo $server_count;?> servers)</th>
-                  <th>Patch Count (<?php echo $total_count;?> total patches available)</th>
+                  <th width='40px'></th>
+                  <th>Server Name</th>
+                  <th>Patches</th>
+                  <th>Urgency Breakdown</th>
                 </tr>
               </thead>
               <tbody>

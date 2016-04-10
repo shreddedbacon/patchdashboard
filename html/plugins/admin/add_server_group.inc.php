@@ -7,7 +7,7 @@ if (!isset($index_check) || $index_check != "active"){
 }
 ?>
 <div class="col-sm-12 col-md-5 col-xs-12 main">
-  <div class="x_panel" style="height:600px;">
+  <div class="x_panel">
     <div class="x_title">
       <h2>Add Server Group</h2>
       <div class="clearfix"></div>

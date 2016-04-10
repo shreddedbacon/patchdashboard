@@ -17,7 +17,7 @@ include '../lib/db_config.php';
 $SERVER_URI = $protocol.$_SERVER['HTTP_HOST'].BASE_PATH;
 ?>
 <div class="col-sm-12 col-md-5 col-xs-12 main">
-  <div class="x_panel" style="height:600px;">
+  <div class="x_panel">
     <div class="x_title">
       <h2>Adding a server</h2>
       <div class="clearfix"></div>
@@ -29,9 +29,6 @@ $SERVER_URI = $protocol.$_SERVER['HTTP_HOST'].BASE_PATH;
                     <p>The Pull Method, if you are running this via HTTPS, or you implicitly trust all traffic on your network (from each guest machine/node):</p>
                     <pre>sudo -i
 <?php echo $curl_cmd;?> <?php echo "${SERVER_URI}client/client_installer.php";?> | bash</pre>
-                </div>
-                <div class="error-actions">
-                    <a href="<?php echo BASE_PATH;?>" class="btn btn-primary btn-md"><span class="fa fa-home"></span>Take Me Home</a>
                 </div>
             </div>
         </div>

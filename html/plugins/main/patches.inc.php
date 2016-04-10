@@ -60,13 +60,13 @@ if (!isset($index_check) || $index_check != "active"){
      $total_count = $total_count + $count;
      if ($count == 0) {
      $table .= "                <tr>
-                  <td><a href='{$base_path}patches/server/$server_name'><img src='$dist_img' height='32' width='32' border='0'>&nbsp;$server_alias</a></td>
+                  <td><img src='$dist_img' class='avatar'>&nbsp;<a href='{$base_path}patches/server/$server_name'>$server_alias</a></td>
                   <td><span class='label label-success'>Up to date :)</span></td>
                 </tr>
 ";
      } else {
      $table .= "                <tr>
-                  <td><a href='{$base_path}patches/server/$server_name'><img src='$dist_img' height='32' width='32' border='0'>&nbsp;$server_alias</a></td>
+                  <td><img src='$dist_img' class='avatar'>&nbsp;<a href='{$base_path}patches/server/$server_name'>$server_alias</a></td>
                   <td><span class='label label-default'>Total $count</span> | <span class='label label-danger'>High $count4</span> | <span class='label label-warning'>Medium $count2</span> | <span class='label label-info'>Low $count3</span> | <span class='label label-primary'>Unknown $count5</span></td>
                 </tr>
 ";

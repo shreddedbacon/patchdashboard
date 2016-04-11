@@ -87,7 +87,7 @@ if (!isset($index_check) || $index_check != "active"){
      }
      if (!empty($sql_patch_avail)) {
 	$update_avail = " | <span class='label label-primary'>Update available : ".$sql_patch_avail['new']."</span>";
-        $update_checkbox = "<input type='checkbox' name='p_id[".$count."][patch_id]' value='".$sql_patch_avail['id']."'>";
+        $update_checkbox = "<input type='checkbox' name='p_id[".$count."][patch_id]' value='".$sql_patch_avail['id']."' class='flat'>";
         $display_table = 'true';
      } else {
         $update_avail = " | <span class='label label-success'>Up to date :)</span>";
@@ -116,7 +116,7 @@ if (!isset($index_check) || $index_check != "active"){
 <form action="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php" method="get">
           <div class="table-responsive">
            <button type="submit" class="btn btn-primary" name="search">Install selected patches</button>
-           <table class="table table-striped">
+           <table class="table table-striped jambo_table">
              <thead>
                 <tr>
                   <th>Select</th>

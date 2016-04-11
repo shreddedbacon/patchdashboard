@@ -201,6 +201,7 @@ CREATE TABLE `plugins` (
 INSERT IGNORE INTO `plugins`(`id`,`name`,`disabled`,`installed`,`is_admin`,`glyph`) VALUES(1,'main',0,1,0,'fa fa-home');
 INSERT IGNORE INTO `plugins`(`id`,`name`,`disabled`,`installed`,`is_admin`,`glyph`) VALUES(2,'admin',0,1,1,'fa fa-wrench');
 INSERT IGNORE INTO `plugins`(`id`,`name`,`disabled`,`installed`,`is_admin`,`glyph`) VALUES(3,'servers',0,1,1,'fa fa-server');
+INSERT IGNORE INTO `plugins`(`id`,`name`,`disabled`,`installed`,`is_admin`,`glyph`) VALUES(3,'errata',0,1,1,'fa fa-exclamation-triangle');
 INSERT IGNORE INTO `plugins` SELECT * from plugins_old;
 DROP table plugins_old;
 
@@ -240,6 +241,7 @@ INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navba
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('manage_server_groups','manage_server_groups.inc.php',3,1,'fa fa-files-o');
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('edit_server_group','edit_server_group.inc.php',3);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('add_server_group','add_server_group.inc.php',3,1,'fa fa-plus-square');
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('errata','errata.php',4,1,'fa fa-exclamation-triangle');
 DROP table page_maps_old;
 
 -- DROP TABLE IF EXISTS wsus_data_old;

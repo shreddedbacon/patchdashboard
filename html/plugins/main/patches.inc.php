@@ -94,7 +94,7 @@ if ($percent_good_to_go < 0){
       <div class="goal-wrapper">
           <span class="gauge-value pull-right">%</span>
           <span id="gauge-text" class="gauge-value pull-left">0</span>
-          <span id="goal-text" class="goal-value pull-right">100%</span>
+          <span id="goal-text" class="goal-value pull-right">100</span>
       </div>
   </div>
 </div>

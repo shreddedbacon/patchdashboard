@@ -56,7 +56,7 @@ while ($row = mysql_fetch_assoc($res)){
     </div>
         <div class="container">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped jambo_table">
               <thead>
                 <tr>
                   <th>Username</th>

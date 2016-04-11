@@ -97,6 +97,7 @@ if ($percent_good_to_go < 0){
     </div>
   </div>
 </div>
+
         <div class="col-sm-10 col-md-10 col-xs-12 main">
           <div class="x_panel">
             <div class="x_title">
@@ -104,7 +105,7 @@ if ($percent_good_to_go < 0){
               <div class="clearfix"></div>
             </div>
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped jambo_table">
               <thead>
                 <tr>
                   <th width='40px'></th>

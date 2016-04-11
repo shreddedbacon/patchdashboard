@@ -201,7 +201,7 @@ CREATE TABLE `plugins` (
 INSERT IGNORE INTO `plugins`(`id`,`name`,`disabled`,`installed`,`is_admin`,`glyph`) VALUES(1,'main',0,1,0,'fa fa-home');
 INSERT IGNORE INTO `plugins`(`id`,`name`,`disabled`,`installed`,`is_admin`,`glyph`) VALUES(2,'admin',0,1,1,'fa fa-wrench');
 INSERT IGNORE INTO `plugins`(`id`,`name`,`disabled`,`installed`,`is_admin`,`glyph`) VALUES(3,'servers',0,1,1,'fa fa-server');
-INSERT IGNORE INTO `plugins`(`id`,`name`,`disabled`,`installed`,`is_admin`,`glyph`) VALUES(3,'errata',0,1,1,'fa fa-exclamation-triangle');
+INSERT IGNORE INTO `plugins`(`id`,`name`,`disabled`,`installed`,`is_admin`,`glyph`) VALUES(4,'errata',0,1,1,'fa fa-exclamation-triangle');
 INSERT IGNORE INTO `plugins` SELECT * from plugins_old;
 DROP table plugins_old;
 

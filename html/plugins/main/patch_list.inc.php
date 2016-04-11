@@ -70,7 +70,7 @@ if (!isset($index_check) || $index_check != "active"){
                 $urgency = '<td><span class="label label-primary">'.$urgency.'</span></td>';
      }
      $table .= "                <tr>
-                  <td><input type='checkbox' name='patch_id[]' value='".$row1['id']."'>
+                  <td><input type='checkbox' name='patch_id[]' value='".$row1['id']."' class='flat'>
                   <td><a href='${base_path}search/exact/$package_name_orig' style='color:green'>$package_name</a></td>
                   <td>$current</td>
                   <td>$new</td>
@@ -97,15 +97,18 @@ else{
           <button type="submit" class="btn btn-primary" name="selected">Install selected patches</button> | <a class="btn btn-success" href="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php?id=<?php echo $id;?>">Install all patches not suppressed</a> | <a class="btn btn-danger" href="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php?reboot=1&id=<?php echo $id;?>">Install all patches not suppressed and reboot</a></p>
         <div class="container">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped  responsive-utilities jambo_table bulk_action">
               <thead>
                 <tr>
-                  <th>Select</th>
-                  <th>Package Name</th>
-                  <th>Current Version</th>
-                  <th>New Version</th>
-                  <th>Urgency Level</th>
-                  <th>Bug Report Name/Page</th>
+                  <th><input type="checkbox" id="check-all" class="flat"></th>
+                  <th class="column-title">Package Name</th>
+                  <th class="column-title">Current Version</th>
+                  <th class="column-title">New Version</th>
+                  <th class="column-title">Urgency Level</th>
+                  <th class="column-title">Bug Report Name/Page</th>
+<th class="bulk-actions" colspan="7">
+                                                    <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                                            </th>
                 </tr>
               </thead>
               <tbody>

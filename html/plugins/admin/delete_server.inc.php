@@ -7,7 +7,7 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true) {
 	$sql = "DELETE FROM `servers` WHERE `id`=$id LIMIT 1;";
 	$link = mysql_connect(DB_HOST,DB_USER,DB_PASS);
 	mysql_select_db(DB_NAME,$link);
-        $servername_sql = "SELECT `server_name` FROM `users` WHERE `id`=$id LIMIT 1;";
+        $servername_sql = "SELECT `server_name` FROM `servers` WHERE `id`=$id LIMIT 1;";
         $servername_res = mysql_query($servername_sql);
         $servername_row = mysql_fetch_array($servername_res);
         $server_name = $servername_row['server_name'];

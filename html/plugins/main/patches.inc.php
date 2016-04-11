@@ -90,12 +90,11 @@ if ($percent_good_to_go < 0){
       <h2>Servers needing updates</h2>
       <div class="clearfix"></div>
     </div>
-      <canvas width="150" height="80" id="foo" class="" style="width: 160px; height: 100px;"></canvas>
-      <div class="goal-wrapper">
-          <span class="gauge-value pull-right">%</span>
-          <span id="gauge-text" class="gauge-value pull-left">0</span>
-          <span id="goal-text" class="goal-value pull-right">100</span>
-      </div>
+    <div class="progress">
+       <div class="progress-bar progress-bar-danger" data-transitiongoal="<?php echo $nsupressed_total;?>" aria-valuemax="<?php echo $server_count;?>">
+	<?php echo $nsupressed_total."/".$server_count;?>
+       </div>
+    </div>
   </div>
 </div>
         <div class="col-sm-10 col-md-10 col-xs-12 main">
@@ -121,28 +120,3 @@ if ($percent_good_to_go < 0){
           </div>
         </div>
       </div>
-        <script type="text/javascript" src="<?php echo BASE_PATH; ?>js/gauge/gauge.min.js"></script>
-        <script type="text/javascript">
-        var opts = {
-            lines: 12, // The number of lines to draw
-            angle: 0, // The length of each line
-            lineWidth: 0.4, // The line thickness
-            pointer: {
-                length: 0.75, // The radius of the inner circle
-                strokeWidth: 0.042, // The rotation offset
-                color: '#1D212A' // Fill color
-            },
-            limitMax: 'false', // If true, the pointer will not go past the end of the gauge
-            colorStart: '#1ABC9C', // Colors
-            colorStop: '#1ABC9C', // just experiment with them
-            strokeColor: '#F0F3F3', // to see which ones work best for you
-            generateGradient: true
-        };
-        var target = document.getElementById('foo'); // your canvas element
-        var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-        gauge.maxValue = 100; // set max gauge value
-        gauge.animationSpeed = 32; // set animation speed (32 is default value)
-        gauge.set(1); // set pre value to fix 0 issue
-        gauge.set(<?php echo $percent_needing_upgrade;?>); // set actual value
-        gauge.setTextField(document.getElementById("gauge-text"));
-        </script>

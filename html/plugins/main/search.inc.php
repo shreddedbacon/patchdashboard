@@ -169,7 +169,18 @@ if (!isset($index_check) || $index_check != "active"){
 }
 
 ?>
-<div class="col-sm-12 col-md-12 col-xs-12 main">
+<div class="col-sm-2 col-md-2 col-xs-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Advanced</h2>
+      <div class="clearfix"></div>
+    </div>
+    <form>
+
+    </form>
+</div>
+</div>
+<div class="col-sm-10 col-md-10 col-xs-12 main">
   <div class="x_panel">
     <div class="x_title">
       <h2>Search</h2>

@@ -223,7 +223,7 @@ CREATE TABLE `page_maps` (
   KEY `ix_page_name` (`page_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 INSERT IGNORE INTO `page_maps` SELECT * from page_maps_old;
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('patches','patches.inc.php',1,0,'fa fa-warning');
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('patches','patches.inc.php',1,1,'fa fa-warning');
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('patch_list','patch_list.inc.php',1);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('packages','packages.inc.php',1);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('search','search.inc.php',1,1,'fa fa-search');

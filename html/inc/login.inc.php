@@ -71,10 +71,6 @@ else{
             <div class="clearfix"></div>
             <div class="separator">
               <div class="clearfix"></div>
-              <br />
-              <div>
-                <p>©2016 <?php echo YOUR_COMPANY;?></p>
-              </div>
             </div>
           </form>
           <!-- form -->

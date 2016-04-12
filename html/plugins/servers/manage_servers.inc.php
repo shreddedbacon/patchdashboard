@@ -47,10 +47,10 @@ while ($row = mysql_fetch_assoc($res)){
     $client_key = $row['client_key'];
     $trusted = $row['trusted'];
     if ($trusted == 0){
-        $trust = "NO";
+        $trust = "<span class='label label-danger'> <i class='fa fa-times'></i> </span>";
     }
     else{
-        $trust = "YES";
+        $trust = "<span class='label label-success'> <i class='fa fa-check'></i> </span>";
     }
     $last_seen = $row['last_seen'];
     if ($last_seen == "0000-00-00 00:00:00"){

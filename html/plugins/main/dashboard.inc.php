@@ -106,11 +106,10 @@ if ($percent_good_to_go < 0){
     $percent_good_to_go = 0;
 }
 ?>
-<div class="col-md-2 col-sm-2 col-xs-12">
-  <div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="col-md-2 col-sm-2 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2>Require Updates</h2>
+        <h2><i class='fa fa-exclamation-triangle'></i> Requiring Updates</h2>
         <div class="clearfix"></div>
       </div>
       <div class="progress">
@@ -121,10 +120,10 @@ if ($percent_good_to_go < 0){
     </div>
   </div>
 
-  <div class="col-md-12 col-sm-12 col-xs-12">
+  <div class="col-md-2 col-sm-2 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2>Operating Systems</h2>
+        <h2><i class='fa fa-linux'></i> Operating Systems</h2>
         <div class="clearfix"></div>
       </div>
       <table class="table table-striped jambo_table">
@@ -140,12 +139,12 @@ if ($percent_good_to_go < 0){
       </table>
     </div>
   </div>
-</div>
+
 <div class="col-md-2 col-sm-2 col-xs-12">
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
-        <h2>Server Groups</h2>
+        <h2><i class='fa fa-files-o'></i> Server Groups</h2>
         <div class="clearfix"></div>
       </div>
       <table class="table table-striped jambo_table">

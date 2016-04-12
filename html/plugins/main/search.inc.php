@@ -17,6 +17,16 @@ if (!isset($index_check) || $index_check != "active"){
  } else {
    $group_var = '';
  }
+ $exact_checked = "";
+ if (isset($_GET['exact'])) {
+   if ($_GET['exact'] == 'on') {
+     $_GET['exact'] = true;
+     $exact_checked = "checked";
+   } else if ($_GET['exact'] == true) {
+     $exact_checked = "checked";
+   }
+ }
+ $update_checked = "";
  if (isset($_GET['update'])) {
    $update_var = filter_var($_GET['update'],FILTER_SANITIZE_MAGIC_QUOTES);
    if ($update_var == 'on') {
@@ -26,26 +36,9 @@ if (!isset($index_check) || $index_check != "active"){
  } else {
    $update_var = false;
  }
-// $filter_array = explode(" ",$package_var);
  $package = $package_var;
  $package_list = '';
 
-/* if (count($filter_array) > 0) {
-   for ($i=0; $i<=count($filter_array); $i++) {
-     $filter_type=explode("=",$filter_array[$i])[0];
-     switch ($filter_type) {
-       case "package":
-         $package_group = explode("=",$filter_array[$i])[1];
-         break;
-       case "group":
-         $server_group = explode("=",$filter_array[$i])[1];
-         break;
-       case "update":
-         $updates_only = explode("=",$filter_array[$i])[1];
-         break;
-     }
-   }
- }*/
 
  if (!empty($group_var)) {
  $sg_var = '';
@@ -212,7 +205,7 @@ if (!empty($package_var)) {
       <h2>Advanced Search</h2>
       <div class="clearfix"></div>
     </div>
-    <form>
+    <form action="<?php echo BASE_PATH;?>search">
       <div class="form-group col-sm-12">
         <label class="col-sm-12 control-label">Package(s):</label>
         <div class="col-sm-12">
@@ -223,6 +216,10 @@ if (!empty($package_var)) {
       <div class="form-group col-sm-12">
         <label class="col-sm-7 control-label">Updates only:</label>
         <input type="checkbox" name="update" class="checkbox flat" <?php echo $update_checked; ?>>
+      </div>
+      <div class="form-group col-sm-12">
+        <label class="col-sm-7 control-label">Exact match:</label>
+        <input type="checkbox" name="exact" class="checkbox flat" <?php echo $exact_checked; ?>>
       </div>
       <div class="form-group col-sm-12"><div class="col-sm-6 col-sm-offset-3"><button class="btn btn-md btn-success btn-block" type="submit">Search</button></div></div>
     </form>

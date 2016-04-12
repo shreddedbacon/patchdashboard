@@ -45,7 +45,7 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true){
 }
 $requested_page = filter_input(INPUT_GET,'page',FILTER_SANITIZE_STRING);
 if (!isset($requested_page) || is_null($requested_page) || empty($requested_page)){
-    $requested_page = "patches";
+    $requested_page = "dashboard";
 }
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != true){
     include 'inc/login.inc.php';

@@ -223,7 +223,7 @@ CREATE TABLE `page_maps` (
   KEY `ix_page_name` (`page_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 INSERT IGNORE INTO `page_maps` SELECT * from page_maps_old;
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('patches','patches.inc.php',1,1,'fa fa-warning');
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('patches','patches.inc.php',1,0,'fa fa-warning');
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('patch_list','patch_list.inc.php',1);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('packages','packages.inc.php',1);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('search','search.inc.php',1,1,'fa fa-search');
@@ -242,6 +242,7 @@ INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navba
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('edit_server_group','edit_server_group.inc.php',3);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('add_server_group','add_server_group.inc.php',3,1,'fa fa-plus-square');
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('errata','errata.php',4,1,'fa fa-exclamation-triangle');
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('dashboard','dashboard.inc.php',1,1,'fa fa-dashboard');
 DROP table page_maps_old;
 
 -- DROP TABLE IF EXISTS wsus_data_old;

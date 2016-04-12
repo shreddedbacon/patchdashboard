@@ -5,48 +5,39 @@
 if (!isset($index_check) || $index_check != "active"){
     exit();
 }
- $link = mysql_connect(DB_HOST,DB_USER,DB_PASS);
- mysql_select_db(DB_NAME,$link);
- 
- if (isset($_GET['server_group'])) {
-   $server_group_id = filter_var_array($_GET['server_group'],FILTER_SANITIZE_MAGIC_QUOTES);
-   $sg_var ='';
-   for ($i=0;$i<count($server_group_id);$i++) {
-     $sg_var .= " '".$server_group_id[$i]."'";
-   }
-   $server_group = str_replace("' '",",",$sg_var);
-   $server_group = str_replace("'","",$server_group);
-   $server_group = str_replace(" ","",$server_group);
-   $sql1 = "SELECT * FROM servers WHERE trusted = 1 AND server_group IN (".$server_group.");";
-
-   $sg_sql = "SELECT * FROM server_group WHERE id IN (".$server_group.");";
-   $sg_res = mysql_query($sg_sql);
-   $sg_name = "";
-
-   while ($sg_row = mysql_fetch_assoc($sg_res)) {
-	    $sg_name .= " '".$sg_row['server_group']."'";
-   }
-   $sg_name = str_replace("' '",", ",$sg_name);
-   $sg_name = str_replace("'","",$sg_name);
-
-   $page_title='Patch List for Server Group: '.$sg_name;
- } else {
-   $sql1 = "SELECT * FROM servers WHERE trusted = 1;";
-   $page_title='Patch List - All Servers';
- }
-
  $supressed = array("nadda");
  $supressed_list = "";
  foreach($supressed as $val){
 	$supressed_list .= " '$val'";
  }
 	$supressed_list = str_replace("' '","', '",$supressed_list);
-
+ $link = mysql_connect(DB_HOST,DB_USER,DB_PASS);
+ mysql_select_db(DB_NAME,$link);
  $nsupressed_sql = "SELECT COUNT(DISTINCT(`server_name`)) AS total_needing_patched FROM `patches` WHERE `package_name` NOT IN (SELECT `package_name` FROM `supressed`) AND package_name !='';";
  $nsupressed_res = mysql_query($nsupressed_sql);
  $nsupressed_row = mysql_fetch_array($nsupressed_res);
  $nsupressed_total = $nsupressed_row['total_needing_patched'];
 
+ $os_counts_sql = "SELECT count(distro_version.version_num) as count, distro_version.version_num from servers inner join distro_version on servers.distro_version=distro_version.id group by distro_version.version_num;";
+ $os_counts_res = mysql_query($os_counts_sql);
+ $os_table = '';
+ while ($os_counts_row = mysql_fetch_assoc($os_counts_res)) {
+   $os_table .= "                <tr>
+                <td>".$os_counts_row['version_num']."</td>
+                <td>".$os_counts_row['count']."</td>
+              </tr>";
+ }
+
+  $sg_counts_sql = "SELECT server_group.server_group, server_group.id, count(servers.server_group) as count FROM servers JOIN server_group WHERE servers.server_group=server_group.id GROUP BY server_group.server_group;";
+  $sg_counts_res = mysql_query($sg_counts_sql);
+  $sg_table = '';
+  while ($sg_counts_row = mysql_fetch_assoc($sg_counts_res)) {
+    $sg_table .= "                <tr>
+                 <td><a href='{$base_path}patches?server_group[]=".$sg_counts_row['id']."'>".$sg_counts_row['server_group']."</td>
+                 <td>".$sg_counts_row['count']."</td>
+               </tr>";
+  }
+ $sql1 = "select * from servers where trusted = 1;";
  $res1 = mysql_query($sql1);
  $table = "";
  $total_count = 0;
@@ -109,28 +100,65 @@ if (!isset($index_check) || $index_check != "active"){
      }
  }
  mysql_close($link);
-
+$percent_needing_upgrade = round((($nsupressed_total / $server_count)*100));
+$percent_good_to_go = 100 - $percent_needing_upgrade;
+if ($percent_good_to_go < 0){
+    $percent_good_to_go = 0;
+}
 ?>
-        <div class="col-sm-12 col-md-12 col-xs-12 main">
-          <div class="x_panel">
-            <div class="x_title">
-              <h2><?php echo $page_title; ?></h2>
-              <div class="clearfix"></div>
-            </div>
-          <div class="table-responsive">
-            <table class="table table-striped jambo_table">
-              <thead>
-                <tr>
-                  <th width='40px'></th>
-                  <th>Server Name</th>
-                  <th>Patches</th>
-                  <th>Urgency Breakdown</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php echo $table; ?>
-              </tbody>
-            </table>
-          </div>
-        </div>
+<div class="col-md-2 col-sm-2 col-xs-12">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Require Updates</h2>
+        <div class="clearfix"></div>
       </div>
+      <div class="progress">
+         <div class="progress-bar progress-bar-danger" data-transitiongoal="<?php echo $nsupressed_total;?>" aria-valuemax="<?php echo $server_count;?>">
+  	<?php echo $nsupressed_total."/".$server_count;?>
+         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Operating Systems</h2>
+        <div class="clearfix"></div>
+      </div>
+      <table class="table table-striped jambo_table">
+        <thead>
+          <tr>
+            <th>OS</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php echo $os_table; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="col-md-2 col-sm-2 col-xs-12">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Server Groups</h2>
+        <div class="clearfix"></div>
+      </div>
+      <table class="table table-striped jambo_table">
+        <thead>
+          <tr>
+            <th>Server Group</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php echo $sg_table; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

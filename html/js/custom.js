@@ -272,12 +272,12 @@ $('.bulk_action input#check-all').on('ifUnchecked', function () {
 
 function countChecked() {
     if (check_state == 'check_all') {
-        $(".bulk_action input[name='patch_id[]']").iCheck('check');
+        $(".bulk_action input[id='check_box']").iCheck('check');
     }
     if (check_state == 'uncheck_all') {
-        $(".bulk_action input[name='patch_id[]']").iCheck('uncheck');
+        $(".bulk_action input[id='check_box']").iCheck('uncheck');
     }
-    var n = $(".bulk_action input[name='patch_id[]']:checked").length;
+    var n = $(".bulk_action input[id='check_box']:checked").length;
     if (n > 0) {
         $('.column-title').hide();
         $('.bulk-actions').show();

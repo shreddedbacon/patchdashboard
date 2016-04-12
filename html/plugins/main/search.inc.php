@@ -10,13 +10,22 @@ if (!isset($index_check) || $index_check != "active"){
  mysql_select_db(DB_NAME,$link);
 
  $table=''; //SET VARIABLE
-
  $package_var = filter_var($_GET['package'],FILTER_SANITIZE_MAGIC_QUOTES);
- $filter_array = explode(" ",$package_var);
- $package = $filter_array[0];
+ if (isset($_GET['group'])) {
+   $group_var = filter_var($_GET['group'],FILTER_SANITIZE_MAGIC_QUOTES);
+ } else {
+   $group_var = '';
+ }
+ if (isset($_GET['update'])) {
+   $update_var = filter_var($_GET['update'],FILTER_SANITIZE_MAGIC_QUOTES);
+ } else {
+   $update_var = false;
+ }
+// $filter_array = explode(" ",$package_var);
+ $package = $package_var;
  $package_list = '';
 
- if (count($filter_array) > 0) {
+/* if (count($filter_array) > 0) {
    for ($i=0; $i<=count($filter_array); $i++) {
      $filter_type=explode("=",$filter_array[$i])[0];
      switch ($filter_type) {
@@ -31,13 +40,21 @@ if (!isset($index_check) || $index_check != "active"){
          break;
      }
    }
+ }*/
+ if (!empty($group_var)) {
+ $server_group = $group_var;
  }
+ $updates_only = $update_var;
+ $package_group = $package_var;
 
  $package_count = 0;
  if (isset($package_group)) {
    //allow multiple packages
    $package_list = explode(",",$package_group);
    $package_group = '';
+   $package_group_regex = '';
+   $package_group_regex_exact = '';
+   $package_group_exact = '';
    for ($i=0;$i<count($package_list);$i++) {
      $package_group .= " '".$package_list[$i]."'";
      $package_group_regex .= " '(.*)".$package_list[$i]."(.*)'";
@@ -104,7 +121,7 @@ if (!isset($index_check) || $index_check != "active"){
         $sql1 = "select * from patch_allpackages where package_name like '%$package%';";
      }
  }
- 
+
  $res1 = mysql_query($sql1);
  $base_path = BASE_PATH;
  while ($row1 = mysql_fetch_assoc($res1)){

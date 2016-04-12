@@ -77,7 +77,7 @@ foreach ($navbar_array as $key=>$val){
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="<?php echo BASE_PATH; ?>favicon.png">
-  <title>Patch Management Dashboard </title>
+  <title>Patch Dashboard </title>
   <!-- Bootstrap core CSS -->
   <link href="<?php echo BASE_PATH;?>css/bootstrap.min.css" rel="stylesheet">
 
@@ -113,7 +113,7 @@ foreach ($navbar_array as $key=>$val){
         <div class="left_col scroll-view">
 
           <div class="navbar nav_title" style="border: 0;">
-            <a href="<?php echo BASE_PATH; ?>" class="site_title"><span>Patch MD</span></a>
+            <a href="<?php echo BASE_PATH; ?>" class="site_title"><span>Patch Dashboard</span></a>
           </div>
           <div class="clearfix"></div>
           <!-- sidebar menu -->

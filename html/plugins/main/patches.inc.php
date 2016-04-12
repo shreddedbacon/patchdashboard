@@ -17,6 +17,26 @@ if (!isset($index_check) || $index_check != "active"){
  $nsupressed_res = mysql_query($nsupressed_sql);
  $nsupressed_row = mysql_fetch_array($nsupressed_res);
  $nsupressed_total = $nsupressed_row['total_needing_patched'];
+
+ $os_counts_sql = "SELECT count(distro_version.version_num) as count, distro_version.version_num from servers inner join distro_version on servers.distro_version=distro_version.id group by distro_version.version_num;";
+ $os_counts_res = mysql_query($os_counts_sql);
+ $os_table = '';
+ while ($os_counts_row = mysql_fetch_assoc($os_counts_res)) {
+   $os_table .= "                <tr>
+                <td>".$os_counts_row['version_num']."</td>
+                <td>".$os_counts_row['count']."</td>
+              </tr>";
+ }
+
+  $sg_counts_sql = "SELECT server_group.server_group, count(servers.server_group) as count FROM servers JOIN server_group WHERE servers.server_group=server_group.id GROUP BY server_group.server_group;";
+  $sg_counts_res = mysql_query($sg_counts_sql);
+  $sg_table = '';
+  while ($sg_counts_row = mysql_fetch_assoc($sg_counts_res)) {
+    $sg_table .= "                <tr>
+                 <td>".$sg_counts_row['server_group']."</td>
+                 <td>".$sg_counts_row['count']."</td>
+               </tr>";
+  }
  $sql1 = "select * from servers where trusted = 1;";
  $res1 = mysql_query($sql1);
  $table = "";
@@ -62,7 +82,7 @@ if (!isset($index_check) || $index_check != "active"){
      $table .= "                <tr>
                   <td width='40px'><img src='$dist_img' class='avatar'></td>
                   <td><a href='{$base_path}patches/server/$server_name'>$server_alias</a></td>
-                  <td><span class='btn btn-success btn-xs'>Up to date :)</span></td></td>
+                  <td><span class='btn btn-success btn-xs'>Up to date :)</span></td>
                   <td></td>
                 </tr>
 ";
@@ -71,7 +91,10 @@ if (!isset($index_check) || $index_check != "active"){
                   <td width='40px'><img src='$dist_img' class='avatar'></td>
                   <td><a href='{$base_path}patches/server/$server_name'>$server_alias</a></td>
                   <td><a href='{$base_path}patches/server/$server_name' class='btn btn-default btn-xs'> $count</a></td>
-                  <td><span class='btn btn-danger btn-xs'>High $count4</span> | <span class='btn btn-warning btn-xs'>Medium $count2</span> | <span class='btn btn-info btn-xs'>Low $count3</span> | <span class='btn btn-primary btn-xs'>Unknown $count5</span></td>
+                  <td><span class='btn btn-danger btn-xs'> $count4 <i class='fa fa-exclamation-triangle'></i> </span>
+                  <span class='btn btn-warning btn-xs'> $count2 <i class='fa fa-exclamation-triangle'></i> </span>
+                  <span class='btn btn-info btn-xs'> $count3 <i class='fa fa-exclamation-triangle'></i> </span>
+                  <span class='btn btn-primary btn-xs'> $count5 <i class='fa fa-question-circle'></i> </span></td>
                 </tr>
 ";
      }
@@ -83,22 +106,63 @@ if ($percent_good_to_go < 0){
     $percent_good_to_go = 0;
 }
 ?>
-
 <div class="col-md-2 col-sm-2 col-xs-12">
-  <div class="x_panel">
-    <div class="x_title">
-      <h2>Servers needing updates</h2>
-      <div class="clearfix"></div>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Require Updates</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="progress">
+         <div class="progress-bar progress-bar-danger" data-transitiongoal="<?php echo $nsupressed_total;?>" aria-valuemax="<?php echo $server_count;?>">
+  	<?php echo $nsupressed_total."/".$server_count;?>
+         </div>
+      </div>
     </div>
-    <div class="progress">
-       <div class="progress-bar progress-bar-danger" data-transitiongoal="<?php echo $nsupressed_total;?>" aria-valuemax="<?php echo $server_count;?>">
-	<?php echo $nsupressed_total."/".$server_count;?>
-       </div>
+  </div>
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Operating Systems</h2>
+        <div class="clearfix"></div>
+      </div>
+      <table class="table table-striped jambo_table">
+        <thead>
+          <tr>
+            <th>OS</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php echo $os_table; ?>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
-
-        <div class="col-sm-10 col-md-10 col-xs-12 main">
+<div class="col-md-2 col-sm-2 col-xs-12">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Server Groups</h2>
+        <div class="clearfix"></div>
+      </div>
+      <table class="table table-striped jambo_table">
+        <thead>
+          <tr>
+            <th>Server Group</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php echo $sg_table; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+        <div class="col-sm-8 col-md-8 col-xs-12 main">
           <div class="x_panel">
             <div class="x_title">
               <h2>Patch List</h2>

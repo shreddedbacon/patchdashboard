@@ -58,7 +58,7 @@ else{
       <div id="login" class="animate form">
         <section class="login_content">
           <form method="POST" action="<?php echo BASE_PATH;?>inc/p_login.inc.php">
-            <h1>Login Form</h1>
+            <h1>Patch Dashboard</h1>
             <div>
               <input type="text" name="username" class="form-control" placeholder="Username" required="" />
             </div>
@@ -66,7 +66,7 @@ else{
               <input type="password" name="pass" class="form-control" placeholder="Password" required="" />
             </div>
             <div>
-              <button class="btn btn-default submit" type="submit">Sign in</button>
+              <button class="btn btn-success submit" type="submit">Sign in</button>
             </div>
             <div class="clearfix"></div>
             <div class="separator">

@@ -11,13 +11,18 @@ if (!isset($index_check) || $index_check != "active"){
 
  $table=''; //SET VARIABLE
  $package_var = filter_var($_GET['package'],FILTER_SANITIZE_MAGIC_QUOTES);
+
  if (isset($_GET['group'])) {
-   $group_var = filter_var($_GET['group'],FILTER_SANITIZE_MAGIC_QUOTES);
+   $group_var = filter_var_array($_GET['group'],FILTER_SANITIZE_MAGIC_QUOTES);
  } else {
    $group_var = '';
  }
  if (isset($_GET['update'])) {
    $update_var = filter_var($_GET['update'],FILTER_SANITIZE_MAGIC_QUOTES);
+   if ($update_var == 'on') {
+     $update_var = true;
+     $update_checked = "checked";
+   }
  } else {
    $update_var = false;
  }
@@ -41,8 +46,15 @@ if (!isset($index_check) || $index_check != "active"){
      }
    }
  }*/
+
  if (!empty($group_var)) {
- $server_group = $group_var;
+ $sg_var = '';
+ for ($i=0;$i<count($group_var);$i++) {
+   $sg_var .= " '".$group_var[$i]."'";
+ }
+ $server_group = str_replace("' '",",",$sg_var);
+ $server_group = str_replace("'","",$server_group);
+ $server_group = str_replace(" ","",$server_group);
  }
  $updates_only = $update_var;
  $package_group = $package_var;
@@ -79,6 +91,27 @@ if (!isset($index_check) || $index_check != "active"){
      $package = str_replace("'","", $package);
    }
  }
+
+$server_group_map_sql = "SELECT * FROM server_group;";
+$server_group_map_res = mysql_query($server_group_map_sql);
+$select_html_sg = "<select class='form-control custom' name='group[]' multiple>";
+
+
+$sg_array = explode(",",$server_group);
+
+while ($server_group_map_row = mysql_fetch_assoc($server_group_map_res)) {
+  $server_group_id = $server_group_map_row['id'];
+  $server_group_name = $server_group_map_row['server_group'];
+  $select_html_sg_2 = "<option value='".$server_group_name."'>".$server_group_name."</option>";
+  for ($i=0;$i<count($sg_array);$i++) {
+    if ($server_group_name == $sg_array[$i]) {
+      $select_html_sg_2 = "<option value='".$server_group_name."' selected='selected'>".$server_group_name."</option>";
+    }
+  }
+  $select_html_sg .= $select_html_sg_2;
+}
+$select_html_sg .= "\t\t\t\t</select>";
+
  if (isset($server_group)) {
    //allow multiple groups
    $server_group = "'".str_replace(",","', '",$server_group)."'";
@@ -117,6 +150,8 @@ if (!isset($index_check) || $index_check != "active"){
         $sql1 = "SELECT * FROM patch_allpackages where package_name REGEXP '$package_group_regex' and server_name IN (".$server_names.");";
      } else if (isset($server_names)) {
         $sql1 = "SELECT * FROM patch_allpackages where package_name like '%$package%' and server_name IN (".$server_names.");";
+     } else if($package_count > 1) {
+        $sql1 = "SELECT * FROM patch_allpackages where package_name REGEXP '$package_group_regex';";
      } else {
         $sql1 = "select * from patch_allpackages where package_name like '%$package%';";
      }
@@ -124,6 +159,7 @@ if (!isset($index_check) || $index_check != "active"){
 
  $res1 = mysql_query($sql1);
  $base_path = BASE_PATH;
+if (!empty($package_var)) {
  while ($row1 = mysql_fetch_assoc($res1)){
 
      $package_name = explode(":",$row1['package_name'])[0];
@@ -166,17 +202,29 @@ if (!isset($index_check) || $index_check != "active"){
                 </tr>";
      }
 
+ }
 }
 
 ?>
 <div class="col-sm-2 col-md-2 col-xs-12">
   <div class="x_panel">
     <div class="x_title">
-      <h2>Advanced</h2>
+      <h2>Advanced Search</h2>
       <div class="clearfix"></div>
     </div>
     <form>
-
+      <div class="form-group col-sm-12">
+        <label class="col-sm-12 control-label">Package(s):</label>
+        <div class="col-sm-12">
+          <input type="text" name="package" class="form-control" required  value='<?php echo $package;?>'>
+        </div>
+      </div>
+      <div class="form-group col-sm-12"><label class="col-sm-12 control-label">Server Group:</label><div class="col-sm-12"><?php echo $select_html_sg;?></div></div>
+      <div class="form-group col-sm-12">
+        <label class="col-sm-7 control-label">Updates only:</label>
+        <input type="checkbox" name="update" class="checkbox flat" <?php echo $update_checked; ?>>
+      </div>
+      <div class="form-group col-sm-12"><div class="col-sm-6 col-sm-offset-3"><button class="btn btn-md btn-success btn-block" type="submit">Search</button></div></div>
     </form>
 </div>
 </div>

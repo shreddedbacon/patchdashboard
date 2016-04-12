@@ -226,7 +226,7 @@ INSERT IGNORE INTO `page_maps` SELECT * from page_maps_old;
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('patches','patches.inc.php',1,1,'fa fa-warning');
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('patch_list','patch_list.inc.php',1);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('packages','packages.inc.php',1);
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('search','search.inc.php',1);
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('search','search.inc.php',1,1,'fa fa-search');
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('deactivate_server','deactivate_server.inc.php',3);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('deactivate_user','deactivate_user.inc.php',2);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('delete_server','delete_server.inc.php',3);

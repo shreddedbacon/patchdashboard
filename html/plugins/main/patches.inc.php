@@ -7,7 +7,7 @@ if (!isset($index_check) || $index_check != "active"){
 }
  $link = mysql_connect(DB_HOST,DB_USER,DB_PASS);
  mysql_select_db(DB_NAME,$link);
- 
+
  if (isset($_GET['server_group'])) {
    $server_group_id = filter_var_array($_GET['server_group'],FILTER_SANITIZE_MAGIC_QUOTES);
    $sg_var ='';
@@ -100,10 +100,10 @@ if (!isset($index_check) || $index_check != "active"){
                   <td width='40px'><img src='$dist_img' class='avatar'></td>
                   <td><a href='{$base_path}patches/server/$server_name'>$server_alias</a></td>
                   <td><a href='{$base_path}patches/server/$server_name' class='btn btn-default btn-xs'> $count</a></td>
-                  <td><span class='btn btn-danger btn-xs'> $count4 <i class='fa fa-exclamation-triangle'></i> </span>
-                  <span class='btn btn-warning btn-xs'> $count2 <i class='fa fa-exclamation-triangle'></i> </span>
-                  <span class='btn btn-info btn-xs'> $count3 <i class='fa fa-exclamation-triangle'></i> </span>
-                  <span class='btn btn-primary btn-xs'> $count5 <i class='fa fa-question-circle'></i> </span></td>
+                  <td><span class='btn btn-default btn-xs'> $count4 <i class='fa fa-exclamation-triangle text-danger'></i> </span>
+                  <span class='btn btn-default btn-xs'> $count2 <i class='fa fa-exclamation-triangle text-warning'></i> </span>
+                  <span class='btn btn-default btn-xs'> $count3 <i class='fa fa-exclamation-triangle text-info'></i> </span>
+                  <span class='btn btn-default btn-xs'> $count5 <i class='fa fa-question-circle text-primary'></i> </span></td>
                 </tr>
 ";
      }

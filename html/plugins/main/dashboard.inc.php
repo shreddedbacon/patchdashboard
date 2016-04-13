@@ -35,6 +35,34 @@ if (!isset($index_check) || $index_check != "active"){
               </tr>";
  }
 
+ $total_servers = 0;
+ $trusted_servers = 0;
+ $deactivated_servers = 0;
+ $last_seen_servers = 0;
+ $last_seen_servers_dead = 0;
+
+ $total_counts_sql = "SELECT count(server_name) AS count FROM servers;";
+ $total_counts_res = mysql_query($total_counts_sql);
+ $total_counts_row = mysql_fetch_assoc($total_counts_res);
+ $total_servers = $total_counts_row['count'];
+
+ $trusted_counts_sql = "SELECT count(server_name) AS count FROM servers WHERE trusted=1;";
+ $trusted_counts_res = mysql_query($trusted_counts_sql);
+ $trusted_counts_row = mysql_fetch_assoc($trusted_counts_res);
+ $trusted_servers = $trusted_counts_row['count'];
+
+ $deactivated_counts_sql = "SELECT count(server_name) AS count FROM servers WHERE trusted=0;";
+ $deactivated_counts_res = mysql_query($deactivated_counts_sql);
+ $deactivated_counts_row = mysql_fetch_assoc($deactivated_counts_res);
+ $deactivated_servers = $deactivated_counts_row['count'];
+
+ $lastseen_counts_sql = "SELECT count(server_name) AS count FROM servers WHERE  trusted=1 AND last_seen > NOW() - INTERVAL 15 MINUTE;";
+ $lastseen_counts_res = mysql_query($lastseen_counts_sql);
+ $lastseen_counts_row = mysql_fetch_assoc($lastseen_counts_res);
+ $last_seen_servers = $lastseen_counts_row['count'];
+ $last_seen_servers_dead = $trusted_servers - $last_seen_servers;
+
+
   $sg_counts_sql = "SELECT server_group.server_group, server_group.id, count(servers.server_group) as count FROM servers JOIN server_group WHERE servers.server_group=server_group.id GROUP BY server_group.server_group;";
   $sg_counts_res = mysql_query($sg_counts_sql);
   $sg_table = '';
@@ -125,21 +153,41 @@ if ($percent_good_to_go < 0){
     $percent_good_to_go = 0;
 }
 ?>
-  <div class="col-md-2 col-sm-2 col-xs-12">
+<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
         <h2><i class='fa fa-exclamation-triangle'></i> Requiring Updates</h2>
         <div class="clearfix"></div>
       </div>
       <div class="progress">
-         <div class="progress-bar progress-bar-danger" data-transitiongoal="<?php echo $nsupressed_total;?>" aria-valuemax="<?php echo $server_count;?>">
-  	<?php echo $nsupressed_total."/".$server_count;?>
+         <div class="progress-bar progress-bar-warning" data-transitiongoal="<?php echo $nsupressed_total;?>" aria-valuemax="<?php echo $total_servers;?>">
+  	<?php echo $nsupressed_total."/".$total_servers;?>
+         </div>
+      </div>
+      <div class="x_title">
+        <h2><i class='fa fa-check'></i> Activated Servers</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="progress">
+         <div class="progress-bar progress-bar-success" data-transitiongoal="<?php echo $trusted_servers;?>" aria-valuemax="<?php echo $total_servers;?>">
+  	<?php echo $trusted_servers."/".$total_servers;?>
+         </div>
+      </div>
+      <div class="x_title">
+        <h2><i class='fa fa-ban'></i> Deactivated Servers</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="progress">
+         <div class="progress-bar progress-bar-danger" data-transitiongoal="<?php echo $deactivated_servers;?>" aria-valuemax="<?php echo $total_servers;?>">
+  	<?php echo $deactivated_servers."/".$total_servers;?>
          </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="col-md-2 col-sm-2 col-xs-12">
+  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
         <h2><i class='fa fa-linux'></i> Operating Systems</h2>
@@ -160,8 +208,7 @@ if ($percent_good_to_go < 0){
     </div>
   </div>
 
-<div class="col-md-3 col-sm-3 col-xs-12">
-  <div class="col-md-12 col-sm-12 col-xs-12">
+<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
         <h2><i class='fa fa-files-o'></i> Server Groups</h2>

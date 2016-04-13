@@ -27,10 +27,14 @@ include 'inc/supressed_patches.inc.php';
 ";
 }
 ?>
-<div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Full Package List</h1>
-          <h3 class="sub-header"><?php echo $server_alias;?></h3>
-        <div class="container">
+
+          <div class="col-sm-12 col-md-12 col-xs-12 main">
+            <div class="x_panel">
+              <div class="x_title">
+                <h2>Full Package List</h2>
+                <div class="clearfix"></div>
+              </div>
+              <h3>Server: <?php echo $server_alias;?></h3>
           <div class="table-responsive">
             <table class="table table-striped">
              <thead>

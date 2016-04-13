@@ -44,13 +44,19 @@ if (!isset($index_check) || $index_check != "active"){
     $patch_list_res = mysql_query($patch_list_sql);
     $patch_list_row = mysql_fetch_array($patch_list_res);
     $patches_to_apply_count = $patch_list_row['total_found'];
-
+    $btnclass = '';
+    if ($patches_to_apply_count == 0) {
+       $btnclass='btn-success';
+    } else {
+       $btnclass='btn-warning';
+    }
     $sg_table .= "                <tr>
                  <td><a href='{$base_path}patches?server_group[]=".$sg_counts_row['id']."'>".$sg_counts_row['server_group']."</td>
                  <td>".$sg_counts_row['count']."</td>
-                 <td><a href='{$base_path}patches?server_group[]=".$sg_counts_row['id']."' class='btn btn-xs btn-default'> $patches_to_apply_count </a></td>
+                 <td><a href='{$base_path}patches?server_group[]=".$sg_counts_row['id']."' class='btn btn-xs $btnclass'> $patches_to_apply_count </a></td>
                </tr>";
   }
+
  $sql1 = "select * from servers where trusted = 1;";
  $res1 = mysql_query($sql1);
  $table = "";

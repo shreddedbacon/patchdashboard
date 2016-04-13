@@ -42,7 +42,7 @@ if (!isset($index_check) || $index_check != "active"){
     $sg_table .= "                <tr>
                  <td><a href='{$base_path}patches?server_group[]=".$sg_counts_row['id']."'>".$sg_counts_row['server_group']."</td>
                  <td>".$sg_counts_row['count']."</td>
-                 <td><a href='{$base_path}search?package=&group[]=".$sg_counts_row['server_group']."&update=on' class='btn btn-xs btn-default'> $patches_to_apply_count </a></td>
+                 <td><a href='{$base_path}patches?server_group[]=".$sg_counts_row['id']."' class='btn btn-xs btn-default'> $patches_to_apply_count </a></td>
                </tr>";
   }
  $sql1 = "select * from servers where trusted = 1;";

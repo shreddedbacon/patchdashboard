@@ -10,7 +10,11 @@ if (!isset($index_check) || $index_check != "active"){
  mysql_select_db(DB_NAME,$link);
 
  $table=''; //SET VARIABLE
- $package_var = filter_var($_GET['package'],FILTER_SANITIZE_MAGIC_QUOTES);
+ if (isset($_GET['package'])) {
+   $package_var = filter_var($_GET['package'],FILTER_SANITIZE_MAGIC_QUOTES);
+ } else {
+   $package_var = "";
+ }
 
  if (isset($_GET['group'])) {
    $group_var = filter_var_array($_GET['group'],FILTER_SANITIZE_MAGIC_QUOTES);
@@ -105,7 +109,7 @@ while ($server_group_map_row = mysql_fetch_assoc($server_group_map_res)) {
 }
 $select_html_sg .= "\t\t\t\t</select>";
 
- if (isset($server_group)) {
+ if (!empty($server_group)) {
    //allow multiple groups
    $server_group = "'".str_replace(",","', '",$server_group)."'";
    $sg_sql = "SELECT * FROM server_group WHERE server_group IN (".$server_group.");";
@@ -132,6 +136,7 @@ $select_html_sg .= "\t\t\t\t</select>";
        if (isset($server_names)) {
           $sql1 = "SELECT package_name, package_version, server_name FROM patch_allpackages where server_name IN (".$server_names.");";
           $allpackages=true;
+          $res1 = mysql_query($sql1);
        }
  } else {
    if (isset($_GET['exact']) && $_GET['exact'] == "true"){
@@ -155,9 +160,10 @@ $select_html_sg .= "\t\t\t\t</select>";
           $sql1 = "select * from patch_allpackages where package_name like '%$package%';";
        }
    }
+   $res1 = mysql_query($sql1);
  }
 
- $res1 = mysql_query($sql1);
+// $res1 = mysql_query($sql1);
  $base_path = BASE_PATH;
 if (!empty($package_var) || $allpackages == true) {
 
@@ -264,7 +270,7 @@ mysql_close($link);
       <div class="form-group col-sm-12">
         <label class="col-sm-12 control-label">Package(s):</label>
         <div class="col-sm-12">
-          <input type="text" name="package" class="form-control"  value='<?php echo $package;?>'>
+          <input type="text" name="package" class="form-control" required value='<?php echo $package;?>'>
         </div>
       </div>
       <div class="form-group col-sm-12"><label class="col-sm-12 control-label">Server Group:</label><div class="col-sm-12"><?php echo $select_html_sg;?></div></div>

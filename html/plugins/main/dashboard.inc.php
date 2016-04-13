@@ -19,11 +19,17 @@ if (!isset($index_check) || $index_check != "active"){
  $nsupressed_row = mysql_fetch_array($nsupressed_res);
  $nsupressed_total = $nsupressed_row['total_needing_patched'];
 
- $os_counts_sql = "SELECT count(distro_version.version_num) as count, distro_version.version_num from servers inner join distro_version on servers.distro_version=distro_version.id group by distro_version.version_num;";
+ $os_counts_sql = "SELECT count(distro_version.version_num) as count, distro_version.version_num, distro_version.distro_id from servers inner join distro_version on servers.distro_version=distro_version.id group by distro_version.version_num;";
  $os_counts_res = mysql_query($os_counts_sql);
  $os_table = '';
  while ($os_counts_row = mysql_fetch_assoc($os_counts_res)) {
+   $distro_id = $os_counts_row['distro_id'];
+   $dist_sql = "SELECT icon_path FROM distro WHERE id='$distro_id';";
+   $dist_res = mysql_query($dist_sql);
+   $dist_row = mysql_fetch_array($dist_res);
+   $dist_img = BASE_PATH.$dist_row['icon_path'];
    $os_table .= "                <tr>
+                <td width='40px'><img src='$dist_img' class='avatar'></td>
                 <td>".$os_counts_row['version_num']."</td>
                 <td>".$os_counts_row['count']."</td>
               </tr>";
@@ -136,6 +142,7 @@ if ($percent_good_to_go < 0){
       <table class="table table-striped jambo_table">
         <thead>
           <tr>
+            <th width='40px'></th>
             <th>OS</th>
             <th>Count</th>
           </tr>

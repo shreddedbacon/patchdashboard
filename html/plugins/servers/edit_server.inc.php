@@ -19,6 +19,7 @@ if (!isset($id) || empty($id) || !is_numeric($id)) {
 } else {
     $link_edit_user = mysql_connect(DB_HOST, DB_USER, DB_PASS);
     mysql_select_db(DB_NAME, $link_edit_user);
+
     $distro_map_sql = "SELECT d.distro_name as distro_name,dv.version_num as version_num, dv.id as version_id,d.id as distro_id FROM distro_version dv LEFT JOIN distro d on d.id=dv.distro_id;";
     $distro_map_res = mysql_query($distro_map_sql);
     $select_html = "<select class='form-control custom' name='distro_ver_id'>";
@@ -42,6 +43,7 @@ if (!isset($id) || empty($id) || !is_numeric($id)) {
     $last_checkin = $row['last_checked'];
     $seen = $row['last_seen'];
     $trusted = $row['trusted'];
+    $check_interval = $row['check_interval'];
     $distro_version_main = $row['distro_version'];
     while ($distro_map_row = mysql_fetch_assoc($distro_map_res)) {
         $distro_id = $distro_map_row['distro_id'];
@@ -100,6 +102,7 @@ if (!isset($id) || empty($id) || !is_numeric($id)) {
                 <div class="form-group col-sm-12"><label class="col-sm-6 control-label">Server Alias</label><div class="col-sm-6"><input value="<?php echo $server_alias; ?>" type="text" name="server_alias" class="form-control" placeholder="Server Alias" required autofocus ></div></div>
                 <div class="form-group col-sm-12"><label class="col-sm-6 control-label">Server Group</label><div class="col-sm-6"><?php echo $select_html_sg;?></div></div>
                 <div class="form-group col-sm-12"><label class="col-sm-6 control-label">IP Address</label><div class="col-sm-6"><input type="text" name="server_ip" value="<?php echo $server_ip; ?>" class="form-control" placeholder="IP Address" /></div></div>
+                <div class="form-group col-sm-12"><label class="col-sm-6 control-label">Check Interval (Hours)</label><div class="col-sm-6"><input value="<?php echo $check_interval; ?>" type="text" name="check_interval" class="form-control" placeholder="2" required autofocus ></div></div>
                 <div class="form-group col-sm-12"><label class="col-sm-6 control-label">Distro</label><div class="col-sm-6"><?php echo $select_html;?></div></div>
                 <div class="form-group col-sm-12">
                   <label class="col-sm-7 control-label">Trusted?</label>

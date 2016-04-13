@@ -12,6 +12,7 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true) {
         $server_group = filter_input(INPUT_POST, 'server_group', FILTER_SANITIZE_SPECIAL_CHARS);
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
         $trusted = filter_input(INPUT_POST, 'trusted', FILTER_SANITIZE_SPECIAL_CHARS);
+        $check_interval = filter_input(INPUT_POST, 'check_interval', FILTER_SANITIZE_NUMBER_INT);
         $sql_array = array();
         if (isset($server_name) && !empty($server_name) && isset($id) && !empty($id) && is_numeric($id)){
             $sql_array[] = "`server_name`='$server_name'";
@@ -28,10 +29,12 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true) {
             if (isset($server_ip) && !empty($server_ip)){
                 $sql_array = "`server_ip`='$server_ip'";
             }
+            if (isset($check_interval) && !empty($check_interval)){
+                $sql_array[] = "`check_interval`=$check_interval";
+            }
             if (isset($trusted) && !empty($trusted)){
                 $sql_array[] = "`trusted`=1";
-            }
-            else{
+            } else{
                 $sql_array[] = "`trusted`=0";
             }
             $replacement_parts = implode(", ", $sql_array);

@@ -5,6 +5,7 @@
 if (!isset($index_check) || $index_check != "active"){
     exit();
 }
+ $base_path=BASE_PATH;
  $supressed = array("nadda");
  $supressed_list = "";
  foreach($supressed as $val){
@@ -32,9 +33,16 @@ if (!isset($index_check) || $index_check != "active"){
   $sg_counts_res = mysql_query($sg_counts_sql);
   $sg_table = '';
   while ($sg_counts_row = mysql_fetch_assoc($sg_counts_res)) {
+
+    $patch_list_sql = "SELECT count(*) as total_found FROM `patches` p LEFT JOIN servers s on s.server_name = p.server_name WHERE s.trusted = 1 and p.upgraded=0 and p.package_name !='' and s.server_group=".$sg_counts_row['id'].";";
+    $patch_list_res = mysql_query($patch_list_sql);
+    $patch_list_row = mysql_fetch_array($patch_list_res);
+    $patches_to_apply_count = $patch_list_row['total_found'];
+
     $sg_table .= "                <tr>
                  <td><a href='{$base_path}patches?server_group[]=".$sg_counts_row['id']."'>".$sg_counts_row['server_group']."</td>
                  <td>".$sg_counts_row['count']."</td>
+                 <td><a href='{$base_path}search?package=&group[]=".$sg_counts_row['server_group']."&update=on' class='btn btn-xs btn-default'> $patches_to_apply_count </a></td>
                </tr>";
   }
  $sql1 = "select * from servers where trusted = 1;";
@@ -42,7 +50,6 @@ if (!isset($index_check) || $index_check != "active"){
  $table = "";
  $total_count = 0;
  $server_count = 0;
- $base_path=BASE_PATH;
  while ($row1 = mysql_fetch_assoc($res1)){
      $server_count++;
      $server_name = $row1['server_name'];
@@ -140,7 +147,7 @@ if ($percent_good_to_go < 0){
     </div>
   </div>
 
-<div class="col-md-2 col-sm-2 col-xs-12">
+<div class="col-md-3 col-sm-3 col-xs-12">
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
@@ -152,6 +159,7 @@ if ($percent_good_to_go < 0){
           <tr>
             <th>Server Group</th>
             <th>Count</th>
+            <th>Patches</th>
           </tr>
         </thead>
         <tbody>

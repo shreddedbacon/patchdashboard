@@ -84,6 +84,7 @@ if ($package_count == 0){
 else{
         $apt_cmd = "<pre class='pre-scrollable'>".$apt_cmd."</pre>";
 }
+mysql_close($link);
 ?>
 <div class="col-sm-12 col-md-12 col-xs-12 main">
   <div class="x_panel">

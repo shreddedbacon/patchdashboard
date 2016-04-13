@@ -12,12 +12,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == "true") {
 
 
     if (isset($search) && isset($_GET['p_id'])) {
-      for ($i=1;$i<=count($_GET['p_id']);$i++) {
+//      for ($i=1;$i<=count($_GET['p_id']);$i++) {
+      foreach ($_GET['p_id'] as $value) {
       //  echo $i.count($_GET['p_id'][$i]).PHP_EOL;
-        if (count($_GET['p_id'][$i]) > 1) {
+//        if (count($_GET['p_id'][$i]) < 1) {
     //  echo $i." - ".$_GET['p_id'][$i]['patch_id']." - ".$_GET['p_id'][$i]['server_id'];
-          $srv_id = $_GET['p_id'][$i]['server_id'];
-          $patch_id = $_GET['p_id'][$i]['patch_id'];
+          $srv_id = explode(":",$value)[1];
+          $patch_id = explode(":",$value)[0];
   //      echo $srv_id." - ".$patch_id;
 
           $sql = "SELECT * FROM `servers` WHERE `id`=$srv_id LIMIT 1;";
@@ -45,7 +46,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == "true") {
 //echo $sql." - ".$sql3;
           mysql_query($sql3);
 
-        }
+//        }
       }
     $_SESSION['good_notice'] = "All non-suppressed packages set to upgrade on selected machines. $message_injection Bionic machine closer than I thought.";
     header('location:' . BASE_PATH . "patches");

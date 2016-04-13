@@ -40,6 +40,7 @@ CREATE TABLE `servers` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 INSERT IGNORE INTO servers SELECT * from servers_old;
 DROP table servers_old;
+ALTER TABLE `servers` ADD `check_interval` smallint(1) NOT NULL DEFAULT 2;
 
 DROP TABLE IF EXISTS supressed_old;
 CREATE TABLE supressed_old LIKE supressed;

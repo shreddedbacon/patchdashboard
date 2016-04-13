@@ -28,6 +28,7 @@ CREATE TABLE `servers` (
   KEY `ix_server_ip` (`server_ip`),
   KEY `ix_client_key` (`client_key`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ALTER TABLE `servers` ADD `check_interval` smallint(1) NOT NULL DEFAULT 2;
 
 CREATE TABLE IF NOT EXISTS `supressed` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,

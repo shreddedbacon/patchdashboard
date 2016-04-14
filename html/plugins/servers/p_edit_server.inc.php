@@ -10,6 +10,7 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true) {
         $server_name = filter_input(INPUT_POST, 'server_name', FILTER_SANITIZE_SPECIAL_CHARS);
         $server_alias = filter_input(INPUT_POST, 'server_alias', FILTER_SANITIZE_SPECIAL_CHARS);
         $server_group = filter_input(INPUT_POST, 'server_group', FILTER_SANITIZE_SPECIAL_CHARS);
+        $server_ip = filter_input(INPUT_POST, 'server_ip', FILTER_SANITIZE_SPECIAL_CHARS);
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
         $trusted = filter_input(INPUT_POST, 'trusted', FILTER_SANITIZE_SPECIAL_CHARS);
         $check_interval = filter_input(INPUT_POST, 'check_interval', FILTER_SANITIZE_NUMBER_INT);
@@ -27,7 +28,7 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true) {
                 $sql_array[] = "`server_group`='$server_group'";
             }
             if (isset($server_ip) && !empty($server_ip)){
-                $sql_array = "`server_ip`='$server_ip'";
+                $sql_array[] = "`server_ip`='$server_ip'";
             }
             if (isset($check_interval) && !empty($check_interval)){
                 $sql_array[] = "`check_interval`=$check_interval";

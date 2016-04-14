@@ -5,6 +5,7 @@ $client_key = filter_input(INPUT_SERVER, 'HTTP_X_CLIENT_KEY');
 $client_host = filter_input(INPUT_SERVER, 'HTTP_X_CLIENT_HOST');
 $client_os = filter_input(INPUT_SERVER, 'HTTP_X_CLIENT_OS');
 $client_os_ver = filter_input(INPUT_SERVER, 'HTTP_X_CLIENT_OS_VER');
+$client_ip = filter_input(INPUT_SERVER, 'HTTP_X_CLIENT_IP');
 if (isset($client_key) && !empty($client_key)) {
     $sql = "SELECT * FROM `servers` WHERE `client_key`='$client_key' and `trusted`= 1;";
     $link = mysql_connect(DB_HOST, DB_USER, DB_PASS);
@@ -20,7 +21,11 @@ if (isset($client_key) && !empty($client_key)) {
         $sql_check = "SELECT * FROM `servers` WHERE `client_key`='$client_key';";
         $check_res = mysql_query($sql_check);
         if (mysql_num_rows($check_res) == 0) {
-            $server_ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
+            if (empty($client_ip)) {
+              $server_ip = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
+            } else {
+              $server_ip = $client_ip;
+            }
             $os_versql = "SELECT `id` FROM `distro` WHERE `distro_name` LIKE '$client_os' LIMIT 1;";
             $os_version = mysql_query($os_versql); $os_version = mysql_result($os_version, 0);
             $os_dissql = "SELECT `id` FROM `distro_version` WHERE `distro_id`='$os_version' AND `version_num` LIKE '$client_os_ver%' LIMIT 1;";

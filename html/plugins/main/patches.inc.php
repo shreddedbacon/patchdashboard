@@ -56,6 +56,7 @@ if (!isset($index_check) || $index_check != "active"){
      $server_count++;
      $server_name = $row1['server_name'];
      $server_alias = $row1['server_alias'];
+     $server_checked = $row1['last_checked'];
 	 $distro_id = $row1['distro_id'];
 	 $dist_sql = "SELECT * FROM distro WHERE id='$distro_id';";
 	 $dist_res = mysql_query($dist_sql);
@@ -92,6 +93,7 @@ if (!isset($index_check) || $index_check != "active"){
                   <td width='40px'><img src='$dist_img' class='avatar'></td>
                   <td><a href='{$base_path}patches/server/$server_name'>$server_alias</a></td>
                   <td><span class='btn btn-success btn-xs'>Up to date :)</span></td>
+                  <td>$server_checked</td>
                   <td></td>
                 </tr>
 ";
@@ -100,6 +102,7 @@ if (!isset($index_check) || $index_check != "active"){
                   <td width='40px'><img src='$dist_img' class='avatar'></td>
                   <td><a href='{$base_path}patches/server/$server_name'>$server_alias</a></td>
                   <td><a href='{$base_path}patches/server/$server_name' class='btn btn-default btn-xs'> $count</a></td>
+                  <td>$server_checked</td>
                   <td><span class='btn btn-default btn-xs'> $count4 <i class='fa fa-exclamation-triangle text-danger'></i> </span>
                   <span class='btn btn-default btn-xs'> $count2 <i class='fa fa-exclamation-triangle text-warning'></i> </span>
                   <span class='btn btn-default btn-xs'> $count3 <i class='fa fa-exclamation-triangle text-info'></i> </span>
@@ -124,6 +127,7 @@ if (!isset($index_check) || $index_check != "active"){
                   <th width='40px'></th>
                   <th>Server Name</th>
                   <th>Patches</th>
+                  <th>Last Patch Check</th>
                   <th>Urgency Breakdown</th>
                 </tr>
               </thead>

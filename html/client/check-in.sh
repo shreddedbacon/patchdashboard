@@ -8,6 +8,8 @@ client_host=$(hostname -f)
 if [[ $(echo $client_host|grep '[^a-zA-Z0-9]') = "" ]]; then
         client_host=$(hostname -a)
 fi
+# get client ip
+client_ip=$(hostname -I)
 # get OS info and version
 if [[ -f /etc/lsb-release && -f /etc/debian_version ]]; then
         export client_os=$(lsb_release -s -d|head -1|awk {'print $1'})
@@ -55,7 +57,7 @@ fi
 . ${client_path}.patchrc
 # remove any special characters
 client_os=$(echo $client_os|sed -e 's/[^a-zA-Z0-9]//g')
-curl -k -s -H "X-CLIENT-KEY: $client_key" -H "X-CLIENT-HOST: $client_host" -H "X-CLIENT-OS: $client_os" -H "X-CLIENT-OS-VER: $client_os_ver" $check_in > /tmp/check-in_$client_key
+curl -k -s -H "X-CLIENT-KEY: $client_key" -H "X-CLIENT-HOST: $client_host" -H "X-CLIENT-OS: $client_os" -H "X-CLIENT-OS-VER: $client_os_ver" -H "X-CLIENT-IP: $client_ip" $check_in > /tmp/check-in_$client_key
 cmds_line_count=$(cat /tmp/check-in_$client_key|wc -l)
 if [ "$cmds_line_count" -gt "1" ]; then
         . /tmp/check-in_$client_key

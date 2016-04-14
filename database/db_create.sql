@@ -159,32 +159,33 @@ CREATE TABLE `page_maps` (
   `plugin_parent` tinyint(4) NOT NULL,
   `on_navbar` tinyint(1) NOT NULL DEFAULT 0,
   `glyph` char(30) DEFAULT '',
+  `sort_order` smallint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE INDEX (`page_name`),
   KEY `ix_on_navbar` (`on_navbar`),
   KEY `ix_glyph` (`glyph`),
   KEY `ix_page_name` (`page_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('patches','patches.inc.php',1,1,'fa fa-warning');
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('patches','patches.inc.php',1,1,'fa fa-warning',2);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('patch_list','patch_list.inc.php',1);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('packages','packages.inc.php',1);
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('search','search.inc.php',1,1,'fa fa-search');
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('search','search.inc.php',1,1,'fa fa-search',3);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('deactivate_server','deactivate_server.inc.php',3);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('deactivate_user','deactivate_user.inc.php',2);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('delete_server','delete_server.inc.php',3);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('delete_user','delete_user.inc.php',2);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('edit_server','edit_server.inc.php',3);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('edit_user','edit_user.inc.php',2);
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('manage_users','manage_users.inc.php',2,1,'fa fa-users');
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('manage_servers','manage_servers.inc.php',3,1,'fa fa-server');
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('add_user','add_user.inc.php',2,1,'fa fa-user-plus');
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('manage_suppressions','manage_suppressions.inc.php',2,1,'fa fa-ban');
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('add_server','add_server.inc.php',3,1,'fa fa-plus-square');
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('manage_server_groups','manage_server_groups.inc.php',3,1,'fa fa-files-o');
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('manage_users','manage_users.inc.php',2,1,'fa fa-users',1);
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('manage_servers','manage_servers.inc.php',3,1,'fa fa-server',1);
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('add_user','add_user.inc.php',2,1,'fa fa-user-plus',2);
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('manage_suppressions','manage_suppressions.inc.php',2,1,'fa fa-ban',3);
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('add_server','add_server.inc.php',3,1,'fa fa-plus-square',2);
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('manage_server_groups','manage_server_groups.inc.php',3,1,'fa fa-files-o',3);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('edit_server_group','edit_server_group.inc.php',3);
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('add_server_group','add_server_group.inc.php',3,1,'fa fa-plus-square');
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('errata','errata.php',4,1,'fa fa-exclamation-triangle');
-INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`) VALUES('dashboard','dashboard.inc.php',1,1,'fa fa-dashboard');
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('add_server_group','add_server_group.inc.php',3,1,'fa fa-plus-square',3);
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('errata','errata.php',4,1,'fa fa-exclamation-triangle',1);
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('dashboard','dashboard.inc.php',1,1,'fa fa-dashboard',1);
 -- CREATE TABLE `wsus_data` (
 -- ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

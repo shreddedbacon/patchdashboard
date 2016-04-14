@@ -15,7 +15,7 @@ include 'lib/db_config.php';
 $plugin_dir = ltrim(BASE_PATH."plugins",'/');
 $link = mysql_connect(DB_HOST,DB_USER,DB_PASS);
 mysql_select_db(DB_NAME,$link);
-$plugin_installed_sql = "SELECT pm.page_name as name, p.name as plugin_name,p.glyph as plugin_glyph,pm.glyph as page_glyph,pm.on_navbar as on_navbar FROM page_maps pm LEFT JOIN plugins p ON pm.plugin_parent = p.id where p.installed = 1 and p.disabled = 0 and p.is_admin=0";
+$plugin_installed_sql = "SELECT pm.page_name as name, p.name as plugin_name,p.glyph as plugin_glyph,pm.glyph as page_glyph,pm.on_navbar as on_navbar FROM page_maps pm LEFT JOIN plugins p ON pm.plugin_parent = p.id where p.installed = 1 and p.disabled = 0 and p.is_admin=0 ORDER BY sort_order";
 $plugin_installed_sql_res = mysql_query($plugin_installed_sql);
 $allowed_pages = array();
 $navbar_array = array();
@@ -31,7 +31,7 @@ while ($plugin_row = mysql_fetch_assoc($plugin_installed_sql_res)){
 }
 if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true){
 #    $allowed_pages[] = "admin";
-    $admin_plugins_sql = "SELECT pm.page_name as name, p.name as plugin_name,p.glyph as plugin_glyph,pm.glyph as page_glyph,pm.on_navbar as on_navbar FROM page_maps pm LEFT JOIN plugins p ON pm.plugin_parent = p.id where p.installed = 1 and p.disabled = 0 and p.is_admin=1";
+    $admin_plugins_sql = "SELECT pm.page_name as name, p.name as plugin_name,p.glyph as plugin_glyph,pm.glyph as page_glyph,pm.on_navbar as on_navbar FROM page_maps pm LEFT JOIN plugins p ON pm.plugin_parent = p.id where p.installed = 1 and p.disabled = 0 and p.is_admin=1 ORDER BY sort_order";
     $admin_plugins_res = mysql_query($admin_plugins_sql);
     while ($admin_plugins_row = mysql_fetch_assoc($admin_plugins_res)){
         $plugin_name = $admin_plugins_row['plugin_name'];

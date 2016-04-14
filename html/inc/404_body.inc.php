@@ -1,15 +1,14 @@
-        <div class="col-sm-9 col-md-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <div class="error-template">
-                <img src='<?php echo BASE_PATH;?>img/404.png' title="4 oh 4" alt="You messed up. Try again"/>
-                <h1>
-                    Oops!</h1>
-                <h2>
-                    404 Not Found</h2>
-                <div class="error-details">
-                    Sorry, an error has occurred, The page you requested was not found!
-                </div>
-                <div class="error-actions">
-                    <a href="<?php echo BASE_PATH;?>" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>Take Me Home </a>
-                </div>
-            </div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 main">
+  <div class="x_panel">
+    <div class="col-md-12">
+      <div class="col-middle">
+        <div class="text-center text-center">
+          <h1 class="error-number">404</h1>
+          <h2>Sorry but we couldnt find this page</h2>
+          <p>This page you are looking for does not exsist</p>
+          <br/><br/><br/><br/><br/>
         </div>
+      </div>
+    </div>
+  </div>
+</div>

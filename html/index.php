@@ -52,19 +52,19 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] != true){
     exit();
 }
 if (!in_array($requested_page, $allowed_pages)){
-    include 'inc/404_header.inc.php';
+    include 'inc/header.inc.php';
     include 'inc/404_body.inc.php';
     include 'inc/navbar.inc.php';
-    include 'inc/404_footer.inc.php';
+    include 'inc/footer.inc.php';
 }
 else{
     $url_sql = "SELECT p.name as plugin_name,pm.real_file as plugin_file FROM page_maps pm LEFT JOIN plugins p ON p.id = pm.plugin_parent WHERE pm.page_name = '$requested_page' LIMIT 1;";
     $url_res = mysql_query($url_sql);
     if (mysql_num_rows($url_res) == 0){
-        include 'inc/404_header.inc.php';
+        include 'inc/header.inc.php';
         include 'inc/404_body.inc.php';
         include 'inc/navbar.inc.php';
-        include 'inc/404_footer.inc.php';
+        include 'inc/footer.inc.php';
     }
     else{
         while ($url_row = mysql_fetch_assoc($url_res)){

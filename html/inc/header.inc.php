@@ -66,6 +66,13 @@ foreach ($navbar_array as $key=>$val){
                 </li>";
 }
 
+
+if (isset($_SESSION['display_name'])) {
+$profile_name = $_SESSION['display_name'];
+} else {
+$profile_name = $_SESSION['user_id'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -142,11 +149,11 @@ foreach ($navbar_array as $key=>$val){
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <?php echo $_SESSION['display_name'];?>
+                  <?php echo $profile_name;?>
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                  <li><a href="javascript:;">  Profile</a>
+                  <li><a href="javascript:;"><i class="fa fa-user pull-right"></i> Profile</a>
                   </li>
                   <li><a href="<?php echo BASE_PATH; ?>inc/logout.inc.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
                   </li>

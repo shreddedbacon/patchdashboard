@@ -132,129 +132,96 @@ if (!empty($server_group)) {
 
 $count = 0;
 $allpackages=false;
+
+// if updates only selected, then do a normal join to return only fields with a new package, otherwise do a left join to grab all fields
+$sql_join = 'left ';
+if (isset($updates_only)) {
+  if ($updates_only == 'true') {
+    $sql_join = '';
+  }
+}
+
 if (empty($package)) {
   if (isset($server_names)) {
-    $sql1 = "SELECT package_name, package_version, server_name FROM patch_allpackages where server_name IN (".$server_names.");";
+    $sql1 = "select pa.server_name, pa.package_name, pa.package_version, p.id, p.new from patch_allpackages as pa ".$sql_join."join patches as p ON p.package_name = pa.package_name and p.server_name = pa.server_name where pa.server_name IN (".$server_names.") order by pa.server_name, pa.package_name;";
     $allpackages=true;
-    $res1 = mysql_query($sql1);
   }
 } else {
   if (isset($_GET['exact']) && $_GET['exact'] == "true"){
     if($package_count > 1 && isset($server_names)) {
-      $sql1 = "SELECT * FROM patch_allpackages where (package_name IN ($package_group_exact) or package_name REGEXP '$package_group_regex_exact') and server_name IN (".$server_names.");";
+      $sql1 = "select pa.server_name, pa.package_name, pa.package_version, p.id, p.new from patch_allpackages as pa ".$sql_join."join patches as p ON p.package_name = pa.package_name and p.server_name = pa.server_name where (pa.package_name IN ($package_group_exact) or pa.package_name REGEXP '$package_group_exact_regex') and pa.server_name IN (".$server_names.") order by pa.server_name, pa.package_name;";
     } else if (isset($server_names)) {
-      $sql1 = "SELECT * FROM patch_allpackages where (package_name = '$package' or package_name like '$package:%') and server_name IN (".$server_names.");";
+      $sql1 = "select pa.server_name, pa.package_name, pa.package_version, p.id, p.new from patch_allpackages as pa ".$sql_join."join patches as p ON p.package_name = pa.package_name and p.server_name = pa.server_name where (pa.package_name = '$package' or pa.package_name like '$package:%') and pa.server_name IN (".$server_names.") order by pa.server_name, pa.package_name;";
     } else if($package_count > 1) {
-      $sql1 = "SELECT * FROM patch_allpackages where package_name IN ($package_group_exact) or package_name REGEXP '$package_group_regex_exact';";
+      $sql1 = "select pa.server_name, pa.package_name, pa.package_version, p.id, p.new from patch_allpackages as pa ".$sql_join."join patches as p ON p.package_name = pa.package_name and p.server_name = pa.server_name where pa.package_name IN ($package_group_exact) or pa.package_name REGEXP '$package_group_regex_exact';";
     } else {
-      $sql1 = "SELECT * FROM patch_allpackages where package_name = '$package' or package_name like '$package:%';";
+      $sql1 = "select pa.server_name, pa.package_name, pa.package_version, p.id, p.new from patch_allpackages as pa ".$sql_join."join patches as p ON p.package_name = pa.package_name and p.server_name = pa.server_name where pa.package_name = '$package' or pa.package_name like '$package:%';";
     }
   } else {
     if($package_count > 1 && isset($server_names)) {
-      $sql1 = "SELECT * FROM patch_allpackages where package_name REGEXP '$package_group_regex' and server_name IN (".$server_names.");";
+        $sql1 = "select pa.server_name, pa.package_name, pa.package_version, p.id, p.new from patch_allpackages as pa ".$sql_join."join patches as p ON p.package_name = pa.package_name and p.server_name = pa.server_name where pa.package_name REGEXP '$package_group_regex' and pa.server_name IN (".$server_names.") order by pa.server_name, pa.package_name;";
     } else if (isset($server_names)) {
-      $sql1 = "SELECT * FROM patch_allpackages where package_name like '%$package%' and server_name IN (".$server_names.");";
+        $sql1 = "select pa.server_name, pa.package_name, pa.package_version, p.id, p.new from patch_allpackages as pa ".$sql_join."join patches as p ON p.package_name = pa.package_name and p.server_name = pa.server_name where pa.package_name like '%$package%' and pa.server_name IN (".$server_names.");";
     } else if($package_count > 1) {
-      $sql1 = "SELECT * FROM patch_allpackages where package_name REGEXP '$package_group_regex';";
+        $sql1 = "select pa.server_name, pa.package_name, pa.package_version, p.id, p.new from patch_allpackages as pa ".$sql_join."join patches as p ON p.package_name = pa.package_name and p.server_name = pa.server_name where pa.package_name REGEXP '$package_group_regex';";
     } else {
-      $sql1 = "select * from patch_allpackages where package_name like '%$package%';";
+        $sql1 = "select pa.server_name, pa.package_name, pa.package_version, p.id, p.new from patch_allpackages as pa ".$sql_join."join patches as p ON p.package_name = pa.package_name and p.server_name = pa.server_name where pa.package_name like '%$package%';";
     }
   }
-  $res1 = mysql_query($sql1);
 }
 
-// $res1 = mysql_query($sql1);
 $base_path = BASE_PATH;
+
 if (!empty($package_var) || $allpackages == true) {
 
-  $sql_patch = "SELECT new,id,package_name,server_name FROM patches;";
-  $sql_patch_avail = mysql_query($sql_patch);
-  $patch_arr=0;
-  while ($sql_patch_avail2 = mysql_fetch_assoc($sql_patch_avail)) {
-    $sql_patch_array[$patch_arr] = $sql_patch_avail2;
-    $patch_arr++;
-  }
-
-
-  function multidimensional_search($parents, $searched) {
-    if (empty($searched) || empty($parents)) {
-      return false;
-    }
-
-    foreach ($parents as $key => $value) {
-      $exists = true;
-      foreach ($searched as $skey => $svalue) {
-        $exists = ($exists && IsSet($parents[$key][$skey]) && $parents[$key][$skey] == $svalue);
-      }
-      if($exists){ return $key; }
-    }
-
-    return false;
-  }
-
+  $res1 = mysql_query($sql1);
   while ($row1 = mysql_fetch_assoc($res1)){
 
     $package_name = explode(":",$row1['package_name'])[0];
     $package_version = $row1['package_version'];
     $server_name = $row1['server_name'];
-    /*     $sql_patch = "SELECT new,id FROM patches WHERE package_name = '$package_name' AND server_name = '$server_name';";
-    $sql_patch_avail = mysql_query($sql_patch);
-    $sql_patch_avail = mysql_fetch_assoc($sql_patch_avail);
-    */
     $sql_patch_new = '';
-    /*     for ($i=0;$i<count($sql_patch_array);$i++) {
-    if ($sql_patch_array[$i]['package_name'] == $package_name && $sql_patch_array[$i]['server_name'] == $server_name) {
-    $sql_patch_new = $sql_patch_array[$i]['new'];
-    $sql_patch_id = $sql_patch_array[$i]['id'];
+    if (!is_null($row1['new'])) {
+      $sql_patch_new = $row1['new'];
+      $sql_patch_id = $row1['id'];
+    }
+
+    $patch_array_key = "";
+    $sql_server_id = "SELECT id FROM servers WHERE server_name = '$server_name' LIMIT 1;";
+    $sql_server_id2= mysql_query($sql_server_id);
+    $sql_server_id2 = mysql_fetch_assoc($sql_server_id2);
+
+    $update_avail = "";
+    $update_checkbox = "";
+    if (isset($updates_only)) {
+      if ($updates_only == 'true') {
+        $display_table = 'false';
+      } else {
+        $display_table = 'true';
+      }
+    } else {
+      $display_table = 'true';
+    }
+
+    if (!empty($sql_patch_new)) {
+      $update_avail = " | <span class='label label-primary'>Update available : ".$sql_patch_new."</span>";
+      $update_checkbox = "<input type='checkbox' name='p_id[".$count."]' value='".$sql_patch_id.":".$sql_server_id2['id']."' class='flat' id='check_box'>";
+      $display_table = 'true';
+    } else {
+      $update_avail = " | <span class='label label-success'>Up to date :)</span>";
+    }
+
+    if ($display_table == 'true') {
+      $count++;
+      $table .= "                <tr>
+      <td>".$update_checkbox."<!--input type='hidden' name='p_id[".$count."][server_id]' value='".$sql_server_id2['id']."'--></td>
+      <td><a href='${base_path}patches/server/$server_name' style='color:black'>$server_name</a></td>
+      <td><a href='${base_path}search/exact/$package_name' style='color:green'>$package_name</a>".$update_avail."</td>
+      <td>$package_version</td>
+      </tr>";
+    }
+
   }
-}
-*/
-
-//     $patch_array_key = array_search($server_name, array_column($sql_patch_array, 'server_name'));
-$patch_array_key = multidimensional_search($sql_patch_array, array('server_name' => $server_name, 'package_name' => $package_name));
-if (!empty($patch_array_key)) {
-  $sql_patch_new = $sql_patch_array[$patch_array_key]['new'];
-  $sql_patch_id = $sql_patch_array[$patch_array_key]['id'];
-}
-
-//     print_r($patch_array_key);
-//     echo "<br>";
-$patch_array_key = "";
-$sql_server_id = "SELECT id FROM servers WHERE server_name = '$server_name';";
-$sql_server_id2= mysql_query($sql_server_id);
-$sql_server_id2 = mysql_fetch_assoc($sql_server_id2);
-
-$update_avail = "";
-$update_checkbox = "";
-if (isset($updates_only)) {
-  if ($updates_only == 'true') {
-    $display_table = 'false';
-  } else {
-    $display_table = 'true';
-  }
-} else {
-  $display_table = 'true';
-}
-//     if (!empty($sql_patch_avail)) {
-if (!empty($sql_patch_new)) {
-  $update_avail = " | <span class='label label-primary'>Update available : ".$sql_patch_new."</span>";
-  $update_checkbox = "<input type='checkbox' name='p_id[".$count."]' value='".$sql_patch_id.":".$sql_server_id2['id']."' class='flat' id='check_box'>";
-  $display_table = 'true';
-} else {
-  $update_avail = " | <span class='label label-success'>Up to date :)</span>";
-}
-
-if ($display_table == 'true') {
-  $count++;
-  $table .= "                <tr>
-  <td>".$update_checkbox."<!--input type='hidden' name='p_id[".$count."][server_id]' value='".$sql_server_id2['id']."'--></td>
-  <td><a href='${base_path}patches/server/$server_name' style='color:black'>$server_name</a></td>
-  <td><a href='${base_path}search/exact/$package_name' style='color:green'>$package_name</a>".$update_avail."</td>
-  <td>$package_version</td>
-  </tr>";
-}
-
-}
 }
 
 mysql_close($link);
@@ -322,10 +289,11 @@ mysql_close($link);
             </tr>
           </thead>
           <tbody>
-            <?php echo $table;?>
+            <?php echo $table; ?>
           </tbody>
         </table>
       </div>
     </form>
   </div>
 </div>
+

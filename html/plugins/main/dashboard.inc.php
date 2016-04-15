@@ -153,63 +153,59 @@ if ($percent_good_to_go < 0){
   $percent_good_to_go = 0;
 }
 ?>
-<div class="row">
-  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2><i class='fa fa-exclamation-triangle'></i> Requiring Updates</h2>
-        <div class="clearfix"></div>
-      </div>
-      <div class="progress">
-        <div class="progress-bar progress-bar-warning" data-transitiongoal="<?php echo $nsupressed_total;?>" aria-valuemax="<?php echo $total_servers;?>">
-          <?php echo $nsupressed_total."/".$total_servers;?>
-        </div>
-      </div>
-    </div>
-  </div>
+                <!-- top tiles -->
+                <div class="row tile_count">
+                    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-server"></i> Total Servers</span>
+                            <div class="count"><?php echo $total_servers; ?></div>
+                            <span class="count_bottom">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-exclamation-triangle"></i> Requiring Updates </span>
+                            <div class="count"><?php echo $nsupressed_total; ?></div>
+                            <span class="count_bottom">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-check"></i> Activated Servers</span>
+                            <div class="count green"><?php echo $trusted_servers; ?></div>
+                            <span class="count_bottom">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-ban"></i> Deactivated Servers</span>
+                            <div class="count red"><?php echo $deactivated_servers; ?></div>
+                            <span class="count_bottom">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-eye"></i> Checked In</span>
+                            <div class="count green"><?php echo $last_seen_servers; ?></div>
+                            <span class="count_bottom">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top"><i class="fa fa-eye-slash"></i> Not Checked In</span>
+                            <div class="count red"><?php echo $last_seen_servers_dead; ?></div>
+                            <span class="count_bottom">&nbsp;</span>
+                        </div>
+                    </div>
 
-  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2><i class='fa fa-check'></i> Activated Servers</h2>
-        <div class="clearfix"></div>
-      </div>
-      <div class="progress">
-        <div class="progress-bar progress-bar-success" data-transitiongoal="<?php echo $trusted_servers;?>" aria-valuemax="<?php echo $total_servers;?>">
-          <?php echo $trusted_servers."/".$total_servers;?>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2><i class='fa fa-ban'></i> Deactivated Servers</h2>
-        <div class="clearfix"></div>
-      </div>
-      <div class="progress">
-        <div class="progress-bar progress-bar-danger" data-transitiongoal="<?php echo $deactivated_servers;?>" aria-valuemax="<?php echo $total_servers;?>">
-          <?php echo $deactivated_servers."/".$total_servers;?>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2><i class='fa fa-eye-slash'></i> Not Checked In</h2>
-        <div class="clearfix"></div>
-      </div>
-      <div class="progress">
-        <div class="progress-bar progress-bar-danger" data-transitiongoal="<?php echo $last_seen_servers_dead;?>" aria-valuemax="<?php echo $total_servers;?>">
-          <?php echo $last_seen_servers_dead."/".$total_servers;?>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+                </div>
+                <!-- /top tiles -->
 
 <div class="row">
   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">

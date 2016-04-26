@@ -11,6 +11,7 @@ if (isset($_POST) && !empty($_POST['username']) && !empty($_POST['pass'])){
     if (mysql_num_rows($res) > 0){
         while ($row = mysql_fetch_assoc($res)){
             $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['user_id_num'] = $row['id'];
             $_SESSION['is_admin'] = $row['admin'];
             $_SESSION['display_name'] = $row['display_name'];
             if ($row['active'] == 0){

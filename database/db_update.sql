@@ -268,3 +268,32 @@ CREATE TABLE `server_group` (
 INSERT IGNORE INTO server_group SELECT * from server_group_old;
 INSERT IGNORE INTO server_group(id,server_group) VALUES(1,'Default');
 DROP table server_group_old;
+
+
+DROP TABLE IF EXISTS log_old;
+CREATE TABLE log_old LIKE log;
+INSERT INTO log_old SELECT * FROM log;
+DROP TABLE log;
+CREATE TABLE `log` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(40) NOT NULL,
+  `user_id` mediumint(8) unsigned NOT NULL,
+  `server_id` mediumint(8) unsigned NOT NULL,
+  `created` datetime NOT NULL DEFAULT '2001-01-01 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+INSERT IGNORE INTO log SELECT * from log_old;
+DROP TABLE log_old;
+
+
+DROP TABLE IF EXISTS log_old;
+CREATE TABLE log_body_old LIKE log_body;
+INSERT INTO log_body_old SELECT * FROM log_body;
+DROP TABLE log_body;
+CREATE TABLE `log_body` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `log_body` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+INSERT IGNORE INTO log_body SELECT * from log_body_old;
+DROP TABLE log_body_old;

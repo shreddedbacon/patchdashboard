@@ -68,6 +68,7 @@ check_patches='FALSE'";
         }
         if (mysql_num_rows($updated_packages) >= 1) {
 	    $CHECK_PATCHES = "TRUE";
+      mysql_query("UPDATE `servers` SET `last_checked` = NOW() WHERE `client_key` = '$client_key' LIMIT 1;");
 	}
         $sql2 = "UPDATE `servers` SET `last_seen` = NOW() WHERE `client_key`='$client_key';";
         #echo $sql2;

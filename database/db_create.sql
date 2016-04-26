@@ -197,3 +197,20 @@ CREATE TABLE `server_group` (
   KEY `ix_server_group` (`server_group`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 INSERT IGNORE INTO server_group(id,server_group) VALUES(1,'Default');
+
+
+CREATE TABLE IF NOT EXISTS `log` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(40) NOT NULL,
+  `user_id` mediumint(8) unsigned NOT NULL,
+  `server_id` mediumint(8) unsigned NOT NULL,
+  `created` datetime NOT NULL DEFAULT '2001-01-01 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `log_body` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `log_body` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

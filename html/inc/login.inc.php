@@ -2,12 +2,16 @@
 
 if(isset($_SESSION['error'])){
     $error = $_SESSION['error'];
-    $error_html="<div class='bs-example'>
-    <div class='alert alert-danger alert-error'>
-        <a href='#' class='close' data-dismiss='alert'>&times;</a>
-        <strong>Error!</strong> $error
-    </div>
-</div>";
+    $error_html="<script type='text/javascript'>
+        var permanotice, tooltip, _alert;
+        $(function () {
+          new PNotify({
+          title: 'Error!',
+          text: '".$error."',
+          type: 'error'
+          });
+        });
+    </script>";
     unset($_SESSION['error']);
     unset($error);
 }
@@ -37,6 +41,12 @@ else{
   <link href="<?php echo BASE_PATH;?>css/icheck/flat/green.css" rel="stylesheet">
 
   <script src="<?php echo BASE_PATH;?>js/jquery.min.js"></script>
+
+  <!-- PNotify -->
+  <script type="text/javascript" src="<?php echo BASE_PATH;?>js/notify/pnotify.core.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_PATH;?>js/notify/pnotify.buttons.js"></script>
+  <script type="text/javascript" src="<?php echo BASE_PATH;?>js/notify/pnotify.nonblock.js"></script>
+
 
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>

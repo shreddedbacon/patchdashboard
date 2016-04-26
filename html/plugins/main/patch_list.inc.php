@@ -18,6 +18,7 @@ $distro_sql1 = "SELECT * from servers where server_name='$server_name';";
 $distro_res1 = mysql_query($distro_sql1);
 $distro_row1 = mysql_fetch_array($distro_res1);
 $server_alias = $distro_row1['server_alias'];
+$server_id = $distro_row1['id'];
 $distro_id = $distro_row1['distro_id'];
 $id = $distro_row1['id'];
 $distro_sql2 = "SELECT * from distro where id=$distro_id limit 1;";
@@ -70,7 +71,7 @@ while ($row1 = mysql_fetch_assoc($res1)){
     $urgency = '<td><span class="label label-primary">'.$urgency.'</span></td>';
   }
   $table .= "                <tr>
-  <td><input type='checkbox' name='patch_id[]' value='".$row1['id']."' class='flat' id='check_box'>
+  <td><input type='checkbox' name='patch_id[]' value='".$row1['id']."' class='flat' id='check_box'></td>
   <td><a href='${base_path}search/exact/$package_name_orig' style='color:green'>$package_name</a></td>
   <td>$current</td>
   <td>$new</td>
@@ -80,43 +81,125 @@ while ($row1 = mysql_fetch_assoc($res1)){
 }
 if ($package_count == 0){
   $apt_cmd = "";
+  $table .= "                <tr>
+  <td colspan='6'><center>No Packages to Update</center></td>
+  </tr>
+  ";
 }
 else{
   $apt_cmd = "<pre class='pre-scrollable'>".$apt_cmd."</pre>";
 }
+
+$log_sql = "SELECT * FROM `log` AS l LEFT JOIN `log_body` AS lb ON l.id=lb.id WHERE `server_id`=$server_id ORDER BY l.created DESC LIMIT 10;";
+$log_res = mysql_query($log_sql);
+$logs = "";
+while ($row1 = mysql_fetch_assoc($log_res)){
+  $user_id = $row1['user_id'];
+  $user_sql = "SELECT user_id, display_name FROM `users` WHERE `id`=$user_id LIMIT 1;";
+  $user_res = mysql_query($user_sql);
+  $user_info = mysql_fetch_assoc($user_res);
+  if (is_null($user_info['display_name']) || empty($user_info['display_name'])) {
+    $user_name = $user_info['user_id'];
+  } else {
+    $user_name = $user_info['display_name'];
+  }
+  $log_type = $row1['type'];
+  $log_created = $row1['created'];
+  $log_body = $row1['log_body'];
+  $logs .= "<tr>
+  <td>$log_type</td>
+  <td>$log_created</td>
+  <td>$user_name</td>
+  <td>$log_body</td>
+  </tr>";
+}
+
+if (empty($logs)) {
+  $logs = "<tr>
+  <td colspan='4'><center>No logs to display</center></td>
+  </tr>";
+}
+
 mysql_close($link);
 ?>
 <div class="col-sm-12 col-md-12 col-xs-12 main">
   <div class="x_panel">
-    <div class="x_title">
-      <h2>List Packages to Install</h2>
-      <div class="clearfix"></div>
-    </div>
-    <h3><?php echo $server_alias;?>(<a href="<?php echo BASE_PATH;?>packages/server/<?php echo $server_name;?>">List all installed packages</a>)</h3>
-    <form action="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php" method="get"><input type="hidden" value="<?php echo $id;?>" name="id">
-      <p align="center">
-        <button type="submit" class="btn btn-primary" name="selected">Install selected patches</button> | <a class="btn btn-success" href="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php?id=<?php echo $id;?>">Install all patches not suppressed</a> | <a class="btn btn-danger" href="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php?reboot=1&id=<?php echo $id;?>">Install all patches not suppressed and reboot</a></p>
-        <div class="container">
-          <div class="table-responsive">
-            <table class="table table-striped responsive-utilities jambo_table bulk_action">
-              <thead>
-                <tr>
-                  <th><input type="checkbox" id="check-all" class="flat"></th>
-                  <th class="column-title">Package Name</th>
-                  <th class="column-title">Current Version</th>
-                  <th class="column-title">New Version</th>
-                  <th class="column-title">Urgency Level</th>
-                  <th class="column-title">Bug Report Name/Page</th>
-                  <th class="bulk-actions" colspan="5">
-                    <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php echo $table;?>
-              </tbody>
-            </table></div></form>
-            <?php echo $apt_cmd;?>
+    <div class="" role="tabpanel" data-example-id="togglable-tabs">
+      <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#tab_content1" id="patch-tab" role="tab" data-toggle="tab" aria-expanded="true">Patches</a>
+        </li>
+        <li role="presentation" class=""><a href="#tab_content2" role="tab" id="log-tab" data-toggle="tab"  aria-expanded="false">Logs</a>
+        </li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="patch-tab">
+          <!--tab-->
+
+
+          <div class="x_title">
+            <h2>List Packages to Install</h2>
+            <div class="clearfix"></div>
+          </div>
+          <h3><?php echo $server_alias;?>(<a href="<?php echo BASE_PATH;?>packages/server/<?php echo $server_name;?>">List all installed packages</a>)</h3>
+          <form action="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php" method="get"><input type="hidden" value="<?php echo $id;?>" name="id">
+            <p align="center">
+              <?php if ($package_count != 0) { ?>
+              <button type="submit" class="btn btn-primary" name="selected">Install selected patches</button> | <a class="btn btn-success" href="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php?id=<?php echo $id;?>">Install all patches not suppressed</a> | <a class="btn btn-danger" href="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php?reboot=1&id=<?php echo $id;?>">Install all patches not suppressed and reboot</a>
+              <?php } ?>
+              </p>
+              <div class="container">
+                <div class="table-responsive">
+                  <table class="table table-striped responsive-utilities jambo_table bulk_action">
+                    <thead>
+                      <tr>
+                        <th><input type="checkbox" id="check-all" class="flat"></th>
+                        <th class="column-title">Package Name</th>
+                        <th class="column-title">Current Version</th>
+                        <th class="column-title">New Version</th>
+                        <th class="column-title">Urgency Level</th>
+                        <th class="column-title">Bug Report Name/Page</th>
+                        <th class="bulk-actions" colspan="5">
+                          <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php echo $table;?>
+                    </tbody>
+                  </table></div></form>
+                  <?php echo $apt_cmd;?>
+                </div>
+                <!--tab-->
+              </div>
+
+
+              <div role="tabpanel" class="tab-pane fade in" id="tab_content2" aria-labelledby="log-tab">
+                <!--tab-->
+                <div class="x_title">
+                  <h2>Last 10 Log Entries</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="container">
+                  <div class="table-responsive">
+                    <table class="table table-striped jambo_table">
+                      <thead>
+                        <tr>
+                          <th class="column-title" width="10%">Type</th>
+                          <th class="column-title" width="10%">Created</th>
+                          <th class="column-title" width="10%">User</th>
+                          <th class="column-title" width="70%">Log</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php echo $logs;?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!--tab-->
+              </div>
+            </div>
           </div>
         </div>
       </div>
+

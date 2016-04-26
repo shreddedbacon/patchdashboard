@@ -175,6 +175,7 @@ $base_path = BASE_PATH;
 if (!empty($package_var) || $allpackages == true) {
 
   $res1 = mysql_query($sql1);
+  $show_submit_button = false;
   while ($row1 = mysql_fetch_assoc($res1)){
 
     $package_name = explode(":",$row1['package_name'])[0];
@@ -202,11 +203,11 @@ if (!empty($package_var) || $allpackages == true) {
     } else {
       $display_table = 'true';
     }
-
     if (!empty($sql_patch_new)) {
       $update_avail = " | <span class='label label-primary'>Update available : ".$sql_patch_new."</span>";
       $update_checkbox = "<input type='checkbox' name='p_id[".$count."]' value='".$sql_patch_id.":".$sql_server_id2['id']."' class='flat' id='check_box'>";
       $display_table = 'true';
+      $show_submit_button = true;
     } else {
       $update_avail = " | <span class='label label-success'>Up to date :)</span>";
     }
@@ -222,6 +223,13 @@ if (!empty($package_var) || $allpackages == true) {
     }
 
   }
+}
+
+if ($count == 0) {
+  $table .= "                <tr>
+  <td colspan='5'><center>No Packages Found</center></td>
+  </tr>
+  ";
 }
 
 mysql_close($link);
@@ -275,7 +283,9 @@ mysql_close($link);
     <h3 class="sub-header">Results for search "<?php echo $package;?>" (<?php echo $count;?> found)</h3>
     <form action="<?php echo BASE_PATH;?>plugins/main/install_all.inc.php" method="get">
       <div class="table-responsive">
+        <?php if ($show_submit_button == true) { ?>
         <button type="submit" class="btn btn-primary" name="search">Install selected patches</button>
+        <?php } ?>
         <table class="table table-striped jambo_table bulk_action">
           <thead>
             <tr>

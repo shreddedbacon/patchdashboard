@@ -52,14 +52,14 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true) {
             mysql_close($link);
             $_SESSION['good_notice'] = "$server_name modified! I got no joke for this one. Sad day.";
             sleep(1);
-            header('location:'.BASE_PATH."edit_server?id=$id");
+            header('location:'.BASE_PATH."manage_servers");
         }
         else{
             $_SESSION['error_notice'] = "A required field was not filled in";
         }
     }
     else{
-        header('location:'.BASE_PATH."edit_user?id=$id");
+        header('location:'.BASE_PATH."manage_servers");
         exit();
     }
 }

@@ -122,19 +122,21 @@ if (empty($logs)) {
 
 
 //$services_sql = "SELECT * FROM `services` WHERE `server_id`=$server_id;";
-$services_sql = "SELECT * FROM `services` AS s JOIN `service_list` AS sl ON s.service_id=sl.id WHERE s.server_id=$server_id;";
+$services_sql = "SELECT sl.service_name, sl.service_cmd, s.id FROM `services` AS s JOIN `service_list` AS sl ON s.service_id=sl.id WHERE s.server_id=$server_id;";
 
 $services_res = mysql_query($services_sql);
 $services = "";
+$service_count = 0;
 while ($row1 = mysql_fetch_assoc($services_res)){
   $service_name = $row1['service_name'];
   $service_cmd = $row1['service_cmd'];
-  $service_id = $row1['service_id'];
+  $service_id = $row1['id'];
   $services .= "<tr>
-  <td>check$service_id</td>
+  <td><input type='checkbox' name='service_id[]' value='$service_id' class='flat' id='check_box'></td>
   <td>$service_name</td>
   <td>$service_cmd</td>
   </tr>";
+  $service_count++;
 }
 
 if (empty($services)) {
@@ -203,12 +205,18 @@ mysql_close($link);
                   <h2>Services</h2>
                   <div class="clearfix"></div>
                 </div>
+                <form action="<?php echo BASE_PATH;?>plugins/main/service_restart.inc.php" method="post"><input type="hidden" value="<?php echo $id;?>" name="server_id">
+                <p align="center">
+                <?php if ($service_count != 0) { ?>
+                <button type="submit" class="btn btn-primary" name="selected">Restart selected services</button>
+                <?php } ?>
+                </p>
                 <div class="container">
                   <div class="table-responsive">
                     <table class="table table-striped jambo_table">
                       <thead>
                         <tr>
-                          <th class="column-title">Select</th>
+                          <th><input type="checkbox" id="check-all" class="flat"></th>
                           <th class="column-title">Service Name</th>
                           <th class="column-title">Service Cmd</th>
                         </tr>
@@ -251,4 +259,3 @@ mysql_close($link);
           </div>
         </div>
       </div>
-

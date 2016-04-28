@@ -14,10 +14,14 @@ while ($row = mysql_fetch_assoc($res)){
   $s_id = $row['id'];
   $s_name = $row['service_name'];
   $s_cmd = $row['service_cmd'];
+  $servcount_sql = "SELECT count(server_id) AS total FROM services WHERE service_id=$s_id;";
+  $servcount_res = mysql_query($servcount_sql);
+  $servcount_row = mysql_fetch_assoc($servcount_res);
+  $serv_count = $servcount_row['total'];
   $table .="                          <tr>
-  <td>$s_id</td>
   <td>$s_name</td>
   <td>$s_cmd</td>
+  <td>$serv_count</td>
   <td><a class='btn btn-xs btn-info' href='".BASE_PATH."edit_services?id=$s_id'><i class='fa fa-pencil'></i> Edit </a></td>
   </tr>";
 }
@@ -33,9 +37,9 @@ while ($row = mysql_fetch_assoc($res)){
         <table class="table table-striped jambo_table">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Service Name</th>
               <th>Service CMD</th>
+              <th>Server Count</th>
               <th>Actions</th>
             </tr>
           </thead>

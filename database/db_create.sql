@@ -190,6 +190,7 @@ INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navba
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('dashboard','dashboard.inc.php',1,1,'fa fa-dashboard',1);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('manage_services','manage_services.inc.php',2,1,'fa fa-files-o',4);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) values('edit_services','edit_services.inc.php',2);
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('add_service','add_services.inc.php',2,1,'fa fa-plus-square',5);
 -- CREATE TABLE `wsus_data` (
 -- ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 

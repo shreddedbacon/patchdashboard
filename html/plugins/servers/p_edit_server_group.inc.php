@@ -16,14 +16,14 @@ if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == true) {
             mysql_close($link);
             $_SESSION['good_notice'] = "$server_group modified! I got no joke for this one. Sad day.";
             sleep(1);
-            header('location:'.BASE_PATH."edit_server_group?id=$id");
+            header('location:'.BASE_PATH."manage_server_groups");
         }
         else{
             $_SESSION['error_notice'] = "A required field was not filled in";
         }
     }
     else{
-        header('location:'.BASE_PATH."edit_user?id=$id");
+        header('location:'.BASE_PATH."manage_server_groups");
         exit();
     }
 }

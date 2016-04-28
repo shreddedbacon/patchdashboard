@@ -70,3 +70,4 @@ $all_messages_to_send = "${warning_html}${good_html}${error_html}";
 ?>
 
 <?php echo $all_messages_to_send;unset($all_messages_to_send);?>
+<!-- P_NOTIFY -->

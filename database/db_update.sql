@@ -302,7 +302,7 @@ INSERT IGNORE INTO log_body SELECT * from log_body_old;
 DROP TABLE log_body_old;
 
 
-DROP TABLE IF EXISTS services;
+DROP TABLE IF EXISTS services_old;
 CREATE TABLE services_old LIKE services;
 INSERT INTO services_old SELECT * FROM services;
 DROP TABLE services;
@@ -317,7 +317,7 @@ CREATE TABLE `services` (
 INSERT IGNORE INTO services SELECT * from services_old;
 DROP TABLE services_old;
 
-DROP TABLE IF EXISTS service_list;
+DROP TABLE IF EXISTS service_list_old;
 CREATE TABLE service_list_old LIKE service_list;
 INSERT INTO service_list_old SELECT * FROM service_list;
 DROP TABLE service_list;

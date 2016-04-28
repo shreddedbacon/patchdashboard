@@ -28,6 +28,7 @@ if (isset($client_key) && !empty($client_key)) {
         $server_name = $row1['server_name'];
         $id = $row1['id'];
         $to_reboot = $row1['reboot_cmd_sent'];
+        $services_restart = $row1['services_restart'];
         $sql2 = "UPDATE `servers` SET `last_seen` = NOW() WHERE `client_key`='$client_key';";
         mysql_query($sql2);
         $sql3 = "SELECT `package_name` FROM `patches` WHERE `to_upgrade`=1 and `upgraded`=0 AND `server_name`='$server_name';";
@@ -67,13 +68,23 @@ if (isset($client_key) && !empty($client_key)) {
         $cmd_row = mysql_fetch_array($cmd_res);
         $cmd = $cmd_row['cmd'];
         // If it needs to be rebooted, lets add it on to the end of the rest of the cmd.
-        if ($to_reboot == 1){
+		$add_after = "";
+        if ($to_reboot == 1 && $services_restart == 0){
             $reboot_cmd_sent_sql = "UPDATE `servers` SET `reboot_cmd_sent`=0 WHERE `id`=$id LIMIT 1;";
             mysql_query($reboot_cmd_sent_sql);
             $add_after = "/sbin/reboot";
         }
-        else{
-            $add_after = "";
+		if ($to_reboot == 0 && $services_restart == 1 ){
+			$services_sql = "SELECT * FROM `services` WHERE `server_id`=$id AND `service_run`=1;";
+			$services_res = mysql_query($services_sql);
+			while ($row1 = mysql_fetch_assoc($services_res)){
+				$add_after .= $row1['service_cmd'].";";
+				$service_id = $row1['id'];
+				$service_run_cmd_sent_sql = "UPDATE `services` SET `service_run`=0 WHERE `id`=$service_id LIMIT 1;";
+				mysql_query($service_run_cmd_sent_sql);
+			}
+            $service_restart_cmd_sent_sql = "UPDATE `servers` SET `services_restart`=0 WHERE `id`=$id LIMIT 1;";
+            mysql_query($service_restart_cmd_sent_sql);
         }
         if (isset($package_string)) {
             echo "key_to_check='$key_to_check'

@@ -120,6 +120,26 @@ if (empty($logs)) {
   </tr>";
 }
 
+
+$services_sql = "SELECT * FROM `services` WHERE `server_id`=$server_id;";
+$services_res = mysql_query($services_sql);
+$services = "";
+while ($row1 = mysql_fetch_assoc($services_res)){
+  $service_name = $row1['service_name'];
+  $service_cmd = $row1['service_cmd'];
+  $services .= "<tr>
+  <td>check</td>
+  <td>$service_name</td>
+  <td>$service_cmd</td>
+  </tr>";
+}
+
+if (empty($services)) {
+  $services = "<tr>
+  <td colspan='3'><center>No services configured</center></td>
+  </tr>";
+}
+
 mysql_close($link);
 ?>
 <div class="col-sm-12 col-md-12 col-xs-12 main">
@@ -128,7 +148,9 @@ mysql_close($link);
       <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
         <li role="presentation" class="active"><a href="#tab_content1" id="patch-tab" role="tab" data-toggle="tab" aria-expanded="true">Patches</a>
         </li>
-        <li role="presentation" class=""><a href="#tab_content2" role="tab" id="log-tab" data-toggle="tab"  aria-expanded="false">Logs</a>
+        <li role="presentation" class=""><a href="#tab_content2" role="tab" id="services-tab" data-toggle="tab"  aria-expanded="false">Services</a>
+        </li>
+        <li role="presentation" class=""><a href="#tab_content3" role="tab" id="log-tab" data-toggle="tab"  aria-expanded="false">Logs</a>
         </li>
       </ul>
       <div id="myTabContent" class="tab-content">
@@ -172,8 +194,32 @@ mysql_close($link);
                 <!--tab-->
               </div>
 
+			  <div role="tabpanel" class="tab-pane fade in" id="tab_content2" aria-labelledby="services-tab">
+                <!--tab-->
+                <div class="x_title">
+                  <h2>Services</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="container">
+                  <div class="table-responsive">
+                    <table class="table table-striped jambo_table">
+                      <thead>
+                        <tr>
+                          <th class="column-title">Select</th>
+                          <th class="column-title">Service Name</th>
+                          <th class="column-title">Service Cmd</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php echo $services;?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!--tab-->
+              </div>
 
-              <div role="tabpanel" class="tab-pane fade in" id="tab_content2" aria-labelledby="log-tab">
+              <div role="tabpanel" class="tab-pane fade in" id="tab_content3" aria-labelledby="log-tab">
                 <!--tab-->
                 <div class="x_title">
                   <h2>Last 10 Log Entries</h2>

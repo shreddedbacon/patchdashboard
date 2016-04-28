@@ -309,6 +309,7 @@ CREATE TABLE `services` (
   `server_id` mediumint(8) NOT NULL,
   `service_name` varchar(512) NOT NULL,
   `service_cmd` varchar(512) DEFAULT NULL,
+  `service_run` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `ix_service_name` (`service_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

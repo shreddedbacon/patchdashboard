@@ -298,3 +298,20 @@ CREATE TABLE `log_body` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 INSERT IGNORE INTO log_body SELECT * from log_body_old;
 DROP TABLE log_body_old;
+
+
+DROP TABLE IF EXISTS services;
+CREATE TABLE services_old LIKE services;
+INSERT INTO services_old SELECT * FROM services;
+DROP TABLE services;
+CREATE TABLE `services` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `server_id` mediumint(8) NOT NULL,
+  `service_name` varchar(512) NOT NULL,
+  `service_cmd` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ix_service_name` (`service_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+INSERT IGNORE INTO services SELECT * from services_old;
+DROP TABLE services_old;
+

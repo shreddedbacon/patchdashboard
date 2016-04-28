@@ -21,6 +21,8 @@ CREATE TABLE `servers` (
   `last_seen` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `last_checked` datetime NOT NULL DEFAULT '2001-01-01 00:00:00',
   `reboot_cmd_sent` tinyint(1) NOT NULL DEFAULT 0,
+  `check_interval` smallint(1) NOT NULL DEFAULT 24,
+  `services_restart` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE INDEX (`client_key`),
   KEY `ix_server_name` (`server_name`),

@@ -6,6 +6,7 @@ if (!isset($index_check) || $index_check != "active") {
   exit();
 }
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
 if (!isset($id) || empty($id) || !is_numeric($id)) {
   $_SESSION['error_message'] = "Invalid Service ID";
   ?>
@@ -47,12 +48,12 @@ if (!isset($id) || empty($id) || !is_numeric($id)) {
 	}
 	$server_list .="
 	<tr>
-	<td><input type='checkbox' class='checkbox flat' name='server_id' id='check_box' value='$server_id' $exists></td>
+	<td><input type='checkbox' class='checkbox flat' name='server_id[]' id='check_box' value='$server_id' $exists></td>
 	<td>$server_name</td>	
 	</tr>";
   }
   ?>
-  <form id ="editServices" method="POST" action="<?php echo BASE_PATH; ?>plugins/admin/p_edit_services.inc.php">
+  <form id ="editServices" method="POST" action="<?php echo BASE_PATH; ?>plugins/admin/p_edit_services.inc.php?id=<?php echo $id; ?>">
   <div class="col-sm-12 col-md-5 col-xs-12 main">
     <div class="x_panel">
       <div class="x_title">

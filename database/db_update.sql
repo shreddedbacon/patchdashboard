@@ -247,6 +247,7 @@ INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navba
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('errata','errata.php',4,1,'fa fa-exclamation-triangle',1);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('dashboard','dashboard.inc.php',1,1,'fa fa-dashboard',1);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('manage_services','manage_services.inc.php',2,1,'fa fa-files-o',4);
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) values('edit_services','edit_services.inc.php',2);
 DROP table page_maps_old;
 
 -- DROP TABLE IF EXISTS wsus_data_old;

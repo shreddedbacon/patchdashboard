@@ -1,4 +1,4 @@
-<?php
+<?php
 /*
 * Fail-safe check. Ensures that they go through the main page (and are authenticated to use this page
 */
@@ -18,7 +18,7 @@ while ($row = mysql_fetch_assoc($res)){
   <td>$s_id</td>
   <td>$s_name</td>
   <td>$s_cmd</td>
-  <td><a class='btn btn-xs btn-info' href='".BASE_PATH."edit_service?id=$s_id'><i class='fa fa-pencil'></i> Edit </a></td>
+  <td><a class='btn btn-xs btn-info' href='".BASE_PATH."edit_services?id=$s_id'><i class='fa fa-pencil'></i> Edit </a></td>
   </tr>";
 }
 ?>

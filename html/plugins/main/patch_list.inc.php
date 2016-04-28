@@ -121,14 +121,17 @@ if (empty($logs)) {
 }
 
 
-$services_sql = "SELECT * FROM `services` WHERE `server_id`=$server_id;";
+//$services_sql = "SELECT * FROM `services` WHERE `server_id`=$server_id;";
+$services_sql = "SELECT * FROM `services` AS s JOIN `service_list` AS sl ON s.service_id=sl.id WHERE s.server_id=$server_id;";
+
 $services_res = mysql_query($services_sql);
 $services = "";
 while ($row1 = mysql_fetch_assoc($services_res)){
   $service_name = $row1['service_name'];
   $service_cmd = $row1['service_cmd'];
+  $service_id = $row1['service_id'];
   $services .= "<tr>
-  <td>check</td>
+  <td>check$service_id</td>
   <td>$service_name</td>
   <td>$service_cmd</td>
   </tr>";

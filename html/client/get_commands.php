@@ -75,7 +75,8 @@ if (isset($client_key) && !empty($client_key)) {
             $add_after = "/sbin/reboot";
         }
 		if ($to_reboot == 0 && $services_restart == 1 ){
-			$services_sql = "SELECT * FROM `services` WHERE `server_id`=$id AND `service_run`=1;";
+			//$services_sql = "SELECT * FROM `services` WHERE `server_id`=$id AND `service_run`=1;";
+			$services_sql = "SELECT * FROM `services` AS s JOIN `service_list` AS sl ON s.service_id=sl.id WHERE s.server_id=$id and s.service_run=1;";
 			$services_res = mysql_query($services_sql);
 			while ($row1 = mysql_fetch_assoc($services_res)){
 				$add_after .= $row1['service_cmd'].";";

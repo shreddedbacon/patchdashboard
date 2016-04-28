@@ -307,12 +307,24 @@ DROP TABLE services;
 CREATE TABLE `services` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `server_id` mediumint(8) NOT NULL,
-  `service_name` varchar(512) NOT NULL,
-  `service_cmd` varchar(512) DEFAULT NULL,
+  `service_id` mediumint(8) NOT NULL,
   `service_run` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  KEY `ix_service_name` (`service_name`)
+  KEY `ix_service_id` (`service_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 INSERT IGNORE INTO services SELECT * from services_old;
 DROP TABLE services_old;
 
+DROP TABLE IF EXISTS service_list;
+CREATE TABLE service_list_old LIKE service_list;
+INSERT INTO service_list_old SELECT * FROM service_list;
+DROP TABLE service_list;
+CREATE TABLE `service_list` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `service_name` varchar(512) NOT NULL,
+  `service_cmd` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ix_service_name` (`service_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+INSERT IGNORE INTO service_list SELECT * from service_list_old;
+DROP TABLE service_list_old;

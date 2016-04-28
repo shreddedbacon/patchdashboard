@@ -188,6 +188,7 @@ INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`) VALUES('
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('add_server_group','add_server_group.inc.php',3,1,'fa fa-plus-square',3);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('errata','errata.php',4,1,'fa fa-exclamation-triangle',1);
 INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('dashboard','dashboard.inc.php',1,1,'fa fa-dashboard',1);
+INSERT IGNORE INTO `page_maps`(`page_name`,`real_file`,`plugin_parent`,`on_navbar`,`glyph`,`sort_order`) VALUES('manage_services','manage_services.inc.php',2,1,'fa fa-files-o',4);
 -- CREATE TABLE `wsus_data` (
 -- ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
